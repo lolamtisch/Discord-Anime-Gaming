@@ -20,8 +20,11 @@ function main(){
     con.log('Video Iframe');
     setInterval(function(){
         var timeLeft = getTimeleft();
-        GM_setValue('timeLeft', timeLeft);
         con.log('[IFRAME]', timeLeft);
+        if(timeLeft != '' && timeLeft){
+          con.log('[IFRAME] Set', timeLeft);
+          GM_setValue('timeLeft', timeLeft);
+        }
     }, interval);
   }
 }
