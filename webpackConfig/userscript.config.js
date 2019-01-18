@@ -13,6 +13,18 @@ const generateMatchExcludes = () => {
     if(typeof el.match !== "undefined") match = match.concat(el.match);
     if(typeof el.exclude !== "undefined") exclude = exclude.concat(el.exclude);
   }
+  match = match.concat([
+    '*://*.mp4upload.com/*',
+    '*://*.streamango.com/*',
+    '*://*.youtube.googleapis.com/embed/*',
+    '*://*.estream.to/*',
+    '*://*.mycloud.to/*',
+    '*://*.openload.co/*',
+    '*://*.yourupload.com/*',
+    '*://*.mcloud.to/*',
+    '*://*.rapidvideo.com/*',
+    '*://static.crunchyroll.com/vilos/*'
+  ]);
   return {match: match, exclude: exclude}
 }
 

@@ -13,11 +13,16 @@ var interval = 10000;
 main();
 function main(){
   var page = getPage(window.location.href);
-  if(page){
+  if(page && !(window.location.href.indexOf( 'static.crunchyroll.com' ) > -1)){
     con.log('Page found', page.name);
     handlePage(page);
   }else{
     con.log('Video Iframe');
+    setInterval(function(){
+        var timeLeft = getTimeleft();
+        GM_setValue('timeLeft', timeLeft);
+        con.log('[IFRAME]', timeLeft);
+    }, interval);
   }
 }
 
