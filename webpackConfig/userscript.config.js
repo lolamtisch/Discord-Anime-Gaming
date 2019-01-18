@@ -23,7 +23,9 @@ const generateMatchExcludes = () => {
     '*://*.yourupload.com/*',
     '*://*.mcloud.to/*',
     '*://*.rapidvideo.com/*',
-    '*://static.crunchyroll.com/vilos/*'
+    '*://static.crunchyroll.com/vilos/*',
+    '*://*.vidstreaming.io/*',
+    '*://*.oload.tv/*'
   ]);
   return {match: match, exclude: exclude}
 }
