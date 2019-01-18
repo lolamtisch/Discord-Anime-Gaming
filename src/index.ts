@@ -95,6 +95,10 @@ function login(page){
   });
 
   function setgame() {
+    var gameType = 3;
+    if(page.type !== 'anime'){
+      gameType = 1;
+    }
     var timeLeft = getTimeleft();
 
     if( timeLeft == '' && GM_getValue('timeLeft', '') != ''){
@@ -106,14 +110,18 @@ function login(page){
     if(episode == null || episode == 0 || isNaN(episode)){
         episode = '';
     }else{
+      if(page.type === 'anime'){
         episode = 'Ep. '+ episode;
+      }else{
+        episode = 'Chapter '+ episode;
+      }
     }
     var title = page.sync.getTitle(window.location.href).replace('&amp;', '&').trim();
     var message = title +" "+ episode +" "+ timeLeft;
     client.setPresence({
         game:{
             name: message,
-            type: 3
+            type: gameType
         }
     });
     con.log('Set Game', message)
