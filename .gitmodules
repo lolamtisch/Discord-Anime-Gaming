@@ -1,0 +1,3 @@
+[submodule "src/MALSync"]
+	path = src/MALSync
+	url = https://github.com/lolamtisch/MALSync.git
