@@ -9,7 +9,7 @@ api.storage.addStyle = function(){};
 var css = "font-size: 40px; padding-bottom: 3px; color: white; text-shadow: -1px -1px #2e51a2, 1px -1px #2e51a2, -1px 1px #2e51a2, 1px 1px #2e51a2, 2px 2px #2e51a2, 3px 3px #2e51a2;";
 console.log("%cDiscord-Anime-Gaming", css, "Version: "+ api.storage.version());
 
-var interval = 10000;
+var interval = 5000;
 main();
 function main(){
   var page = getPage(window.location.href);
@@ -147,12 +147,19 @@ function getTimeleft(){
     //@ts-ignore
     paused = $('video').get(0).paused;
     //@ts-ignore
-    timeLeft =  Math.ceil((duration - current) / 60);
+    var time:number = Math.ceil( (duration - current) ) ;
+
+    var minutes = Math.floor(time / 60);
+    var seconds = time - minutes * 60;
     //@ts-ignore
-    if(timeLeft == null || timeLeft == 0 || isNaN(timeLeft)){
+    if(seconds < 10) seconds = '0'+seconds;
+
+
+    //@ts-ignore
+    if(time == null || time == 0 || isNaN(time)){
       timeLeft = '';
     }else{
-      timeLeft = "( -"+timeLeft+" min )";
+      timeLeft = " ("+minutes+":"+seconds+" Left)";
     }
     if(paused === true){
       timeLeft = "(PAUSED)"
