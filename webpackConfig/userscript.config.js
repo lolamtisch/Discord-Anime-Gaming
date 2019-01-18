@@ -41,7 +41,10 @@ const metadata = {
   ],
   'match' : generateMatchExcludes().match,
   'exclude' : generateMatchExcludes().exclude,
-  'require ' : 'http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js',
+  'require ' : [
+    'http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js',
+    'https://greasyfork.org/scripts/33416-discord-io/code/discordio.js?version=240880'
+  ],
   'run-at': 'document_start',
 };
 
