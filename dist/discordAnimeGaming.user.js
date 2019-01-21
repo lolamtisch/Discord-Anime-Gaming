@@ -2,7 +2,7 @@
 // @name Discord-Anime-Gaming
 // @namespace https://greasyfork.org/users/92233
 // @description Sets the discord playing state
-// @version 0.22.0
+// @version 0.23.0
 // @author lolamtisch@gmail.com
 // @license GPL-3.0
 // @grant GM_xmlhttpRequest
@@ -1300,7 +1300,7 @@ const Kissanime = {
         return false;
     },
     sync: {
-        getTitle: function (url) { return Kissanime.sync.getIdentifier(url); },
+        getTitle: function (url) { return j.$('#navsubbar a').first().text().replace('Anime', '').replace('information', '').trim(); },
         getIdentifier: function (url) { return utils.urlPart(url, 4); },
         getOverviewUrl: function (url) { return url.split('/').slice(0, 5).join('/'); },
         getEpisode: function (url) {
@@ -1374,7 +1374,7 @@ const Kissmanga = {
         return false;
     },
     sync: {
-        getTitle: function (url) { return utils.urlPart(url, 4); },
+        getTitle: function (url) { return j.$('#navsubbar a').first().text().replace('Manga', '').replace('information', '').trim(); },
         getIdentifier: function (url) { return utils.urlPart(url, 4); },
         getOverviewUrl: function (url) { return url.split('/').slice(0, 5).join('/'); },
         getEpisode: function (url) {
@@ -1460,7 +1460,7 @@ const nineAnime = {
     type: 'anime',
     isSyncPage: function (url) { return true; },
     sync: {
-        getTitle: function (url) { return url.split("/")[4].split("?")[0].split(".")[0]; },
+        getTitle: function (url) { return j.$('h1.title').text(); },
         getIdentifier: function (url) {
             url = url.split("/")[4].split("?")[0];
             if (url.indexOf(".") > -1) {
@@ -1628,7 +1628,7 @@ const Crunchyroll = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(utils, j, api) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Masterani; });
+/* WEBPACK VAR INJECTION */(function(j, utils, api) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Masterani; });
 const Masterani = {
     name: 'Masterani',
     domain: 'https://www.masterani.me',
@@ -1643,7 +1643,7 @@ const Masterani = {
         }
     },
     sync: {
-        getTitle: function (url) { return Masterani.sync.getIdentifier(url).replace(/^\d*-/, ''); },
+        getTitle: function (url) { return j.$('.info h1').text().trim(); },
         getIdentifier: function (url) { return utils.urlPart(url, 5); },
         getOverviewUrl: function (url) { return utils.absoluteLink(j.$('.info a').first().attr('href'), Masterani.domain); },
         getEpisode: function (url) {
@@ -1652,7 +1652,7 @@ const Masterani = {
         nextEpUrl: function (url) { return Masterani.domain + j.$('#watch .anime-info .actions a').last().attr('href'); }
     },
     overview: {
-        getTitle: function (url) { return Masterani.sync.getTitle(url); },
+        getTitle: function (url) { return Masterani.sync.getIdentifier(url).replace(/^\d*-/, ''); },
         getIdentifier: function (url) { return Masterani.sync.getIdentifier(url); },
         uiSelector: function (selector) { selector.prependTo(j.$("#stats").first()); },
         list: {
@@ -1687,7 +1687,7 @@ const Masterani = {
     }
 };
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(2), __webpack_require__(0), __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(2), __webpack_require__(1)))
 
 /***/ }),
 /* 13 */
@@ -1921,7 +1921,7 @@ const Gogoanime = {
         }
     },
     sync: {
-        getTitle: function (url) { return Gogoanime.sync.getIdentifier(url); },
+        getTitle: function (url) { return j.$('.anime-info a').first().text().trim(); },
         getIdentifier: function (url) { return utils.urlPart(url, 3).split('-episode')[0]; },
         getOverviewUrl: function (url) { return url.split('/').slice(0, 3).join('/') + '/category/' + Gogoanime.sync.getIdentifier(url); },
         getEpisode: function (url) { return utils.urlPart(url, 3).split('episode-')[1]; },
@@ -2003,7 +2003,7 @@ const Anime4you = {
         }
     },
     sync: {
-        getTitle: function (url) { return j.$('.titleshow h1').text(); },
+        getTitle: function (url) { return j.$('.titel').text().trim(); },
         getIdentifier: function (url) { return parseInt(utils.urlPart(url, 6)).toString(); },
         getOverviewUrl: function (url) {
             return Anime4you.domain + '/show/1/aid/' + Anime4you.sync.getIdentifier(url);
