@@ -3,30 +3,17 @@ const webpack = require("webpack");
 const wrapper = require('wrapper-webpack-plugin');
 const package = require('../package.json');
 const pageUrls = require('../src/MALSync/src/pages/pageUrls');
+const playerUrls = require('../src/MALSync/src/pages/playerUrls');
 const resourcesJson = require('./resources');
 
-const generateMatchExcludes = () => {
+const generateMatchExcludes = (urls) => {
   var match = [];
   var exclude = [];
-  for (var key in pageUrls) {
-    var el = pageUrls[key];
+  for (var key in urls) {
+    var el = urls[key];
     if(typeof el.match !== "undefined") match = match.concat(el.match);
     if(typeof el.exclude !== "undefined") exclude = exclude.concat(el.exclude);
   }
-  match = match.concat([
-    '*://*.mp4upload.com/*',
-    '*://*.streamango.com/*',
-    '*://*.youtube.googleapis.com/embed/*',
-    '*://*.estream.to/*',
-    '*://*.mycloud.to/*',
-    '*://*.openload.co/*',
-    '*://*.yourupload.com/*',
-    '*://*.mcloud.to/*',
-    '*://*.rapidvideo.com/*',
-    '*://static.crunchyroll.com/vilos/*',
-    '*://*.vidstreaming.io/*',
-    '*://*.oload.tv/*'
-  ]);
   return {match: match, exclude: exclude}
 }
 
@@ -53,7 +40,7 @@ const metadata = {
     'GM_deleteValue',
     'GM_listValues',
   ],
-  'match' : generateMatchExcludes().match,
+  'match' : generateMatchExcludes(pageUrls).match.concat(generateMatchExcludes(playerUrls).match),
   'exclude' : generateMatchExcludes().exclude,
   'require ' : [
     'http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js',

@@ -10,7 +10,7 @@ var css = "font-size: 40px; padding-bottom: 3px; color: white; text-shadow: -1px
 console.log("%cDiscord-Anime-Gaming", css, "Version: "+ api.storage.version());
 
 var interval = 5000;
-main();
+$(document).ready(function(){main();});
 function main(){
   var page = getPage(window.location.href);
   if(page && !(window.location.href.indexOf( 'static.crunchyroll.com' ) > -1)){
