@@ -20,6 +20,7 @@
 // @match *://myanimelist.net/people/*
 // @match *://myanimelist.net/search/*
 // @match *://anilist.co/*
+// @match *://kitsu.io/*
 // @match *://kissanime.ru/Anime/*
 // @match *://kissanime.to/Anime/*
 // @match *://kissmanga.com/Manga/*
@@ -27,9 +28,9 @@
 // @match *://*.9anime.is/watch/*
 // @match *://*.9anime.ru/watch/*
 // @match *://*.9anime.ch/watch/*
+// @match *://*.9anime.nl/watch/*
+// @match *://*.9anime.live/watch/*
 // @match *://*.crunchyroll.com/*
-// @match *://www.masterani.me/anime/info/*
-// @match *://www.masterani.me/anime/watch/*
 // @match *://*.mangadex.org/manga/*
 // @match *://*.mangadex.org/title/*
 // @match *://*.mangadex.org/chapter/*
@@ -50,8 +51,14 @@
 // @match *://app.plex.tv/*
 // @match *://www.netflix.com/*
 // @match *://otakustream.tv/anime/*
+// @match *://otakustream.tv/movie/*
 // @match *://animepahe.com/play/*
 // @match *://animepahe.com/anime/*
+// @match *://animeflv.net/anime/*
+// @match *://animeflv.net/ver/*
+// @match *://jkanime.net/*
+// @match *://vrv.co/*
+// @match *://proxer.me/*
 // @match *://*.openload.co/*
 // @match *://*.streamango.com/*
 // @match *://*.mp4upload.com/*
@@ -59,6 +66,7 @@
 // @match *://*.prettyfast.to/*
 // @match *://*.rapidvideo.com/*
 // @match *://*.static.crunchyroll.com/*
+// @match *://*.static.vrv.co/*
 // @match *://*.vidstreaming.io/*
 // @match *://*.xstreamcdn.com/*
 // @match *://*.oload.tv/*
@@ -76,6 +84,14 @@
 // @match *://*.yourupload.com/*
 // @match *://*.vidlox.me/*
 // @match *://*.kwik.cx/*
+// @match *://*.mega.nz/*
+// @match *://*.animeflv.net/*
+// @match *://*.hqq.tv/*
+// @match *://*.jkanime.net/*
+// @match *://*.ok.ru/*
+// @match *://*.novelplanet.me/*
+// @match *://*.stream.proxer.me/*
+// @match *://verystream.com/*
 // @require  http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js
 // @require  https://greasyfork.org/scripts/33416-discord-io/code/discordio.js?version=240880
 // @run-at document_start
@@ -164,7 +180,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 25);
+/******/ 	return __webpack_require__(__webpack_require__.s = 28);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -294,7 +310,7 @@ var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _argume
 };
 function urlPart(url, part) {
     try {
-        return url.split("/")[part].split("?")[0];
+        return url.split("/")[part].split("?")[0].split("#")[0];
     }
     catch (e) {
         return undefined;
@@ -334,8 +350,8 @@ function planTo(type) {
 }
 function episode(type) {
     if (type == "manga")
-        return 'Chapter';
-    return 'Episode';
+        return api.storage.lang("UI_Chapter");
+    return api.storage.lang("UI_Episode");
 }
 var syncRegex = /(^settings\/.*|^resume\/.*|^continue\/.*|^.*\/Offset$|^updateCheckTime$|^tempVersion$)/;
 var status;
@@ -566,7 +582,7 @@ function epPredictionUI(malid, type = 'anime', callback) {
                 //
                 if (airing) {
                     if (pre.airing) {
-                        UI.text = 'Next episode estimated in ' + pre.diffDays + 'd ' + pre.diffHours + 'h ' + pre.diffMinutes + 'm';
+                        UI.text = api.storage.lang("prediction_Episode", [pre.diffDays + 'd ' + pre.diffHours + 'h ' + pre.diffMinutes + 'm']);
                     }
                     if (episode) {
                         UI.tag = '<span class="mal-sync-ep-pre" title="' + UI.text + '">[<span style="' + UI.colorStyle + ';">' + episode + '</span>]</span>';
@@ -575,7 +591,9 @@ function epPredictionUI(malid, type = 'anime', callback) {
                 }
                 else {
                     if (pre) {
-                        UI.text = '<span class="mal-sync-ep-pre">Airing in ' + ((pre.diffWeeks * 7) + pre.diffDays) + 'd ' + pre.diffHours + 'h ' + pre.diffMinutes + 'm </span>';
+                        UI.text = '<span class="mal-sync-ep-pre">';
+                        UI.text += api.storage.lang("prediction_Airing", [((pre.diffWeeks * 7) + pre.diffDays) + 'd ' + pre.diffHours + 'h ' + pre.diffMinutes + 'm ']);
+                        UI.text += '</span>';
                     }
                 }
                 callback(UI);
@@ -897,7 +915,7 @@ function initflashm() {
 }
 var lazyloaded = false;
 var lazyimages = new Array();
-function lazyload(doc, scrollElement = '.simplebar-scroll-content') {
+function lazyload(doc, scrollElement = '.mdl-layout__content') {
     /* lazyload.js (c) Lorenzo Giuliani
      * MIT License (http://www.opensource.org/licenses/mit-license.html)
      *
@@ -1077,19 +1095,25 @@ var info = function () {
 /* harmony import */ var _Kissmanga_main__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(9);
 /* harmony import */ var _nineAnime_main__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(10);
 /* harmony import */ var _Crunchyroll_main__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(11);
-/* harmony import */ var _Masterani_main__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(12);
-/* harmony import */ var _Mangadex_main__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(13);
-/* harmony import */ var _Mangarock_main__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(14);
-/* harmony import */ var _Gogoanime_main__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(15);
-/* harmony import */ var _Anime4you_main__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(16);
-/* harmony import */ var _Branitube_main__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(17);
-/* harmony import */ var _Turkanime_main__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(18);
-/* harmony import */ var _Twistmoe_main__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(19);
-/* harmony import */ var _Emby_main__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(20);
-/* harmony import */ var _Plex_main__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(21);
-/* harmony import */ var _Netflix_main__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(22);
-/* harmony import */ var _Otakustream_main__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(23);
-/* harmony import */ var _animepahe_main__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(24);
+/* harmony import */ var _Mangadex_main__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(12);
+/* harmony import */ var _Mangarock_main__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(13);
+/* harmony import */ var _Gogoanime_main__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(14);
+/* harmony import */ var _Anime4you_main__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(15);
+/* harmony import */ var _Branitube_main__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(16);
+/* harmony import */ var _Turkanime_main__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(17);
+/* harmony import */ var _Twistmoe_main__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(18);
+/* harmony import */ var _Emby_main__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(19);
+/* harmony import */ var _Plex_main__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(20);
+/* harmony import */ var _Netflix_main__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(21);
+/* harmony import */ var _Otakustream_main__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(22);
+/* harmony import */ var _animepahe_main__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(23);
+/* harmony import */ var _Animeflv_main__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(24);
+/* harmony import */ var _Jkanime_main__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(25);
+/* harmony import */ var _Vrv_main__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(26);
+/* harmony import */ var _Proxer_main__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(27);
+
+
+
 
 
 
@@ -1112,19 +1136,22 @@ const pages = {
     Kissmanga: _Kissmanga_main__WEBPACK_IMPORTED_MODULE_1__[/* Kissmanga */ "a"],
     nineAnime: _nineAnime_main__WEBPACK_IMPORTED_MODULE_2__[/* nineAnime */ "a"],
     Crunchyroll: _Crunchyroll_main__WEBPACK_IMPORTED_MODULE_3__[/* Crunchyroll */ "a"],
-    Masterani: _Masterani_main__WEBPACK_IMPORTED_MODULE_4__[/* Masterani */ "a"],
-    Mangadex: _Mangadex_main__WEBPACK_IMPORTED_MODULE_5__[/* Mangadex */ "a"],
-    Mangarock: _Mangarock_main__WEBPACK_IMPORTED_MODULE_6__[/* Mangarock */ "a"],
-    Gogoanime: _Gogoanime_main__WEBPACK_IMPORTED_MODULE_7__[/* Gogoanime */ "a"],
-    Anime4you: _Anime4you_main__WEBPACK_IMPORTED_MODULE_8__[/* Anime4you */ "a"],
-    Branitube: _Branitube_main__WEBPACK_IMPORTED_MODULE_9__[/* Branitube */ "a"],
-    Turkanime: _Turkanime_main__WEBPACK_IMPORTED_MODULE_10__[/* Turkanime */ "a"],
-    Twistmoe: _Twistmoe_main__WEBPACK_IMPORTED_MODULE_11__[/* Twistmoe */ "a"],
-    Emby: _Emby_main__WEBPACK_IMPORTED_MODULE_12__[/* Emby */ "a"],
-    Plex: _Plex_main__WEBPACK_IMPORTED_MODULE_13__[/* Plex */ "a"],
-    Netflix: _Netflix_main__WEBPACK_IMPORTED_MODULE_14__[/* Netflix */ "a"],
-    Otakustream: _Otakustream_main__WEBPACK_IMPORTED_MODULE_15__[/* Otakustream */ "a"],
-    animepahe: _animepahe_main__WEBPACK_IMPORTED_MODULE_16__[/* animepahe */ "a"],
+    Mangadex: _Mangadex_main__WEBPACK_IMPORTED_MODULE_4__[/* Mangadex */ "a"],
+    Mangarock: _Mangarock_main__WEBPACK_IMPORTED_MODULE_5__[/* Mangarock */ "a"],
+    Gogoanime: _Gogoanime_main__WEBPACK_IMPORTED_MODULE_6__[/* Gogoanime */ "a"],
+    Anime4you: _Anime4you_main__WEBPACK_IMPORTED_MODULE_7__[/* Anime4you */ "a"],
+    Branitube: _Branitube_main__WEBPACK_IMPORTED_MODULE_8__[/* Branitube */ "a"],
+    Turkanime: _Turkanime_main__WEBPACK_IMPORTED_MODULE_9__[/* Turkanime */ "a"],
+    Twistmoe: _Twistmoe_main__WEBPACK_IMPORTED_MODULE_10__[/* Twistmoe */ "a"],
+    animeflv: _Animeflv_main__WEBPACK_IMPORTED_MODULE_16__[/* animeflv */ "a"],
+    Jkanime: _Jkanime_main__WEBPACK_IMPORTED_MODULE_17__[/* Jkanime */ "a"],
+    Emby: _Emby_main__WEBPACK_IMPORTED_MODULE_11__[/* Emby */ "a"],
+    Plex: _Plex_main__WEBPACK_IMPORTED_MODULE_12__[/* Plex */ "a"],
+    Netflix: _Netflix_main__WEBPACK_IMPORTED_MODULE_13__[/* Netflix */ "a"],
+    Otakustream: _Otakustream_main__WEBPACK_IMPORTED_MODULE_14__[/* Otakustream */ "a"],
+    animepahe: _animepahe_main__WEBPACK_IMPORTED_MODULE_15__[/* animepahe */ "a"],
+    Vrv: _Vrv_main__WEBPACK_IMPORTED_MODULE_18__[/* Vrv */ "a"],
+    Proxer: _Proxer_main__WEBPACK_IMPORTED_MODULE_19__[/* Proxer */ "a"],
 };
 const pageSearch = {
     Crunchyroll: {
@@ -1171,6 +1198,18 @@ const pageSearch = {
         domain: 'www.turkanime.tv/',
         searchUrl: (titleEncoded) => { return 'https://www.google.com/search?q=' + titleEncoded + '+site:turkanime.tv/anime/'; },
         googleSearchDomain: 'turkanime.tv/anime/'
+    },
+    animeflv: {
+        name: 'animeflv',
+        type: 'anime',
+        domain: 'animeflv.net',
+        searchUrl: (titleEncoded) => { return 'https://animeflv.net/browse?q=' + titleEncoded; }
+    },
+    Jkanime: {
+        name: 'Jkanime',
+        type: 'anime',
+        domain: 'jkanime.net',
+        searchUrl: (titleEncoded) => { return 'https://jkanime.net/buscar/' + titleEncoded + '/1/'; }
     },
     Mangadex: {
         name: 'Mangadex',
@@ -1254,6 +1293,15 @@ const userscriptLegacy = {
     version() {
         return GM_info.script.version;
     },
+    lang(selector, args) {
+        var message = i18n[selector];
+        if (typeof args !== 'undefined') {
+            for (var argIndex = 0; argIndex < args.length; argIndex++) {
+                message = message.replace("$" + (argIndex + 1), args[argIndex]);
+            }
+        }
+        return message;
+    },
     assetUrl(filename) {
         return 'https://raw.githubusercontent.com/lolamtisch/MALSync/master/assets/assets/' + filename;
     },
@@ -1313,6 +1361,7 @@ var settingsObj = {
     options: {
         autoTrackingModeanime: 'video',
         autoTrackingModemanga: 'instant',
+        forceEn: false,
         userscriptMode: false,
         syncMode: 'MAL',
         delay: 0,
@@ -1321,6 +1370,7 @@ var settingsObj = {
         malContinue: true,
         malResume: true,
         epPredictions: true,
+        theme: 'light',
         posLeft: 'left',
         miniMALonMal: false,
         floatButtonStealth: false,
@@ -1343,8 +1393,14 @@ var settingsObj = {
         Kissmanga: true,
         Mangadex: true,
         Mangarock: true,
+        Netflix: true,
+        Proxeranime: true,
+        Proxermanga: true,
+        autofull: false,
+        introSkip: 85,
         updateCheckNotifications: true,
         'anilistToken': '',
+        'kitsuToken': '',
     },
     init: function () {
         return __awaiter(this, void 0, void 0, function* () {
@@ -1371,6 +1427,14 @@ var settingsObj = {
         else {
             con.error(name + ' is not a defined option');
         }
+    },
+    getAsync: function (name) {
+        return __awaiter(this, void 0, void 0, function* () {
+            var value = yield api.storage.get('settings/' + name);
+            if (typeof value === 'undefined' && typeof this.options[name] !== undefined)
+                return this.options[name];
+            return value;
+        });
     }
 };
 
@@ -1441,12 +1505,12 @@ const Kissanime = {
         }
     },
     init(page) {
-        if (document.title == "Please wait 5 seconds...") {
+        if (document.title == "Just a moment...") {
             con.log("loading");
             page.cdn();
             return;
         }
-        api.storage.addStyle(__webpack_require__(26).toString());
+        api.storage.addStyle(__webpack_require__(29).toString());
         j.$(document).ready(function () { page.handlePage(); });
     }
 };
@@ -1532,12 +1596,12 @@ const Kissmanga = {
         }
     },
     init(page) {
-        if (document.title == "Please wait 5 seconds...") {
+        if (document.title == "Just a moment...") {
             con.log("loading");
             page.cdn();
             return;
         }
-        api.storage.addStyle(__webpack_require__(28).toString());
+        api.storage.addStyle(__webpack_require__(31).toString());
         j.$(document).ready(function () { page.handlePage(); });
     }
 };
@@ -1582,7 +1646,7 @@ const nineAnime = {
         }
     },
     init(page) {
-        api.storage.addStyle(__webpack_require__(30).toString());
+        api.storage.addStyle(__webpack_require__(33).toString());
         utils.waitUntilTrue(function () { return j.$('.servers').length; }, function () {
             con.info('Start check');
             page.handlePage();
@@ -1662,7 +1726,7 @@ const Crunchyroll = {
             page.cdn();
             return;
         }
-        api.storage.addStyle(__webpack_require__(32).toString());
+        api.storage.addStyle(__webpack_require__(35).toString());
         page.setCacheTemp = page.setCache;
         page.setCache = function (url, toDatabase, identifier = null) {
             if (this.page.isSyncPage(this.url)) {
@@ -1750,79 +1814,7 @@ function episodeHelper(url, episodeText) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(j, utils, api) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Masterani; });
-const Masterani = {
-    name: 'Masterani',
-    domain: 'https://www.masterani.me',
-    database: 'Masterani',
-    type: 'anime',
-    isSyncPage: function (url) {
-        if (url.split('/')[4] !== 'watch') {
-            return false;
-        }
-        else {
-            return true;
-        }
-    },
-    sync: {
-        getTitle: function (url) { return j.$('.info h1').text().trim(); },
-        getIdentifier: function (url) { return utils.urlPart(url, 5); },
-        getOverviewUrl: function (url) { return utils.absoluteLink(j.$('.info a').first().attr('href'), Masterani.domain); },
-        getEpisode: function (url) {
-            return parseInt(utils.urlPart(url, 6));
-        },
-        nextEpUrl: function (url) {
-            var nexUrl = Masterani.domain + j.$('#watch .anime-info .actions a').last().attr('href');
-            if (!Masterani.isSyncPage(nexUrl)) {
-                return undefined;
-            }
-            return nexUrl;
-        }
-    },
-    overview: {
-        getTitle: function (url) { return Masterani.sync.getIdentifier(url).replace(/^\d*-/, ''); },
-        getIdentifier: function (url) { return Masterani.sync.getIdentifier(url); },
-        uiSelector: function (selector) { selector.prependTo(j.$("#stats").first()); },
-        list: {
-            offsetHandler: false,
-            elementsSelector: function () { return j.$(".episodes .thumbnail"); },
-            elementUrl: function (selector) { return utils.absoluteLink(selector.find('a').first().attr('href'), Masterani.domain); },
-            elementEp: function (selector) {
-                return Masterani.sync.getEpisode(Masterani.overview.list.elementUrl(selector));
-            },
-            paginationNext: function () {
-                var el = j.$('.pagination .item').last();
-                if (el.hasClass('disabled')) {
-                    return false;
-                }
-                else {
-                    el[0].click();
-                    return true;
-                }
-            }
-        }
-    },
-    init(page) {
-        api.storage.addStyle(__webpack_require__(34).toString());
-        utils.waitUntilTrue(function () { return j.$('#stats,#watch').length; }, function () {
-            page.handlePage();
-            j.$('.ui.toggle.checkbox, .pagination.menu').click(function () {
-                setTimeout(function () {
-                    page.handleList();
-                }, 500);
-            });
-        });
-    }
-};
-
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(2), __webpack_require__(1)))
-
-/***/ }),
-/* 13 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(j, utils, api, con) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Mangadex; });
+/* WEBPACK VAR INJECTION */(function(j, utils, con, api) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Mangadex; });
 const Mangadex = {
     name: 'Mangadex',
     domain: 'https://www.mangadex.org',
@@ -1881,8 +1873,17 @@ const Mangadex = {
         }
     },
     init(page) {
-        api.storage.addStyle(__webpack_require__(36).toString());
+        if (document.title == "Just a moment...") {
+            con.log("loading");
+            page.cdn();
+            return;
+        }
+        api.storage.addStyle(__webpack_require__(37).toString());
         if (j.$('.card-header').length) {
+            if (/chapter\/\d+\/comments/i.test(window.location.href)) {
+                con.info('Comments');
+                return;
+            }
             j.$(document).ready(function () { page.handlePage(); });
         }
         else {
@@ -1937,10 +1938,10 @@ function EpisodePartToEpisode(string) {
 }
 ;
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(2), __webpack_require__(1), __webpack_require__(4)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(2), __webpack_require__(4), __webpack_require__(1)))
 
 /***/ }),
-/* 14 */
+/* 13 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1974,7 +1975,7 @@ const Mangarock = {
         getTitle: function () { return j.$('h1').first().text().trim(); },
         getIdentifier: function (url) { return utils.urlPart(url, 4).replace(/mrs-serie-/i, ''); },
         uiSelector: function (selector) {
-            selector.insertBefore($("h2:contains('Chapters')").first().parent().parent().parent());
+            selector.insertBefore($("#chapters-list").first());
         },
         list: {
             offsetHandler: false,
@@ -1984,7 +1985,7 @@ const Mangarock = {
         }
     },
     init(page) {
-        api.storage.addStyle(__webpack_require__(38).toString());
+        api.storage.addStyle(__webpack_require__(39).toString());
         start();
         utils.urlChangeDetect(function () {
             page.url = window.location.href;
@@ -2025,6 +2026,8 @@ function EpisodePartToEpisode(string) {
     if (!(isNaN(parseInt(string)))) {
         return string;
     }
+    //https://mangarock.com/manga/mrs-serie-124208
+    string = string.replace(/(campaign|battle)/i, 'Chapter');
     var temp = [];
     temp = string.match(/Chapter\ \d+/i);
     con.log(temp);
@@ -2035,13 +2038,21 @@ function EpisodePartToEpisode(string) {
             return temp[0];
         }
     }
+    else {
+        var tempString = string.replace(/vol(ume)?.?\d+/i, '');
+        tempString = tempString.replace(/:.+/i, '');
+        temp = tempString.match(/\d+/i);
+        if (temp !== null && temp.length === 1) {
+            return temp[0];
+        }
+    }
     return '';
 }
 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(2), __webpack_require__(0), __webpack_require__(4), __webpack_require__(1)))
 
 /***/ }),
-/* 15 */
+/* 14 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2096,7 +2107,7 @@ const Gogoanime = {
         }
     },
     init(page) {
-        api.storage.addStyle(__webpack_require__(40).toString());
+        api.storage.addStyle(__webpack_require__(41).toString());
         if (Gogoanime.isSyncPage(page.url)) {
             j.$(document).ready(function () {
                 start();
@@ -2123,7 +2134,7 @@ const Gogoanime = {
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(2), __webpack_require__(0), __webpack_require__(1), __webpack_require__(4)))
 
 /***/ }),
-/* 16 */
+/* 15 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2170,7 +2181,7 @@ const Anime4you = {
             page.cdn();
             return;
         }
-        api.storage.addStyle(__webpack_require__(42).toString());
+        api.storage.addStyle(__webpack_require__(43).toString());
         j.$(document).ready(function () {
             page.handlePage();
         });
@@ -2180,7 +2191,7 @@ const Anime4you = {
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(2), __webpack_require__(4), __webpack_require__(1)))
 
 /***/ }),
-/* 17 */
+/* 16 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2220,7 +2231,7 @@ const Branitube = {
         }
     },
     init(page) {
-        api.storage.addStyle(__webpack_require__(44).toString());
+        api.storage.addStyle(__webpack_require__(45).toString());
         j.$(document).ready(function () {
             page.handlePage();
         });
@@ -2230,11 +2241,11 @@ const Branitube = {
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(2), __webpack_require__(1)))
 
 /***/ }),
-/* 18 */
+/* 17 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(j, utils, api, con) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Turkanime; });
+/* WEBPACK VAR INJECTION */(function(j, utils, con, api) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Turkanime; });
 const Turkanime = {
     name: 'Turkanime',
     domain: 'http://www.turkanime.tv',
@@ -2278,7 +2289,12 @@ const Turkanime = {
         }
     },
     init(page) {
-        api.storage.addStyle(__webpack_require__(46).toString());
+        if (document.title == "Just a moment...") {
+            con.log("loading");
+            page.cdn();
+            return;
+        }
+        api.storage.addStyle(__webpack_require__(47).toString());
         j.$(document).ready(function () {
             if (Turkanime.isSyncPage(page.url)) {
                 page.handlePage();
@@ -2303,10 +2319,10 @@ function getEpisode(selector, episodeSelector) {
     }
 }
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(2), __webpack_require__(1), __webpack_require__(4)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(2), __webpack_require__(4), __webpack_require__(1)))
 
 /***/ }),
-/* 19 */
+/* 18 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2343,7 +2359,7 @@ const Twistmoe = {
         }
     },
     init(page) {
-        api.storage.addStyle(__webpack_require__(48).toString());
+        api.storage.addStyle(__webpack_require__(49).toString());
         j.$(document).ready(function () {
             start();
             utils.urlChangeDetect(function () {
@@ -2366,7 +2382,7 @@ const Twistmoe = {
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(2), __webpack_require__(1), __webpack_require__(4)))
 
 /***/ }),
-/* 20 */
+/* 19 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2401,40 +2417,48 @@ function setBase(key) {
     });
 }
 function checkApi(page) {
-    var videoEl = $('video');
-    if (videoEl.length) {
-        $('html').addClass('miniMAL-hide');
-        var url = videoEl.attr('src');
-        con.log(url);
-        var apiBase = url.split('/').splice(0, 4).join('/');
-        var itemId = utils.urlPart(url, 5);
-        var apiKey = utils.urlParam(url, 'api_key');
-        con.log('api', apiBase);
-        var reqUrl = apiBase + '/Items?ids=' + itemId + '&api_key=' + apiKey;
-        con.log('Emby Api', reqUrl);
-        setApiKey(apiKey);
-        setBase(apiBase);
-        api.request.xhr('GET', reqUrl).then((response) => {
-            var data = JSON.parse(response.responseText);
-            item = data.Items[0];
-            reqUrl = apiBase + '/Genres?Ids=' + item.SeriesId + '&api_key=' + apiKey;
-            con.log(data);
-            return api.request.xhr('GET', reqUrl);
-        }).then((response) => {
-            var genres = JSON.parse(response.responseText);
-            con.log('genres', genres);
-            for (var i = 0; i < genres.Items.length; i++) {
-                var genre = genres.Items[i];
-                if (genre.Name === 'Anime') {
-                    con.info('Anime detected');
-                    page.url = window.location.origin + '/#!/itemdetails.html?id=' + itemId;
-                    page.handlePage(page.url);
-                    $('html').removeClass('miniMAL-hide');
-                    break;
-                }
+    return __awaiter(this, void 0, void 0, function* () {
+        var videoEl = $('video');
+        if (videoEl.length) {
+            $('html').addClass('miniMAL-hide');
+            var url = videoEl.attr('src');
+            con.log(url);
+            //@ts-ignore
+            if (/blob\:/i.test(url)) {
+                var apiBase = yield getBase();
+                var itemId = yield returnPlayingItemId();
+                var apiKey = yield getApiKey();
             }
-        });
-    }
+            else {
+                var apiBase = url.split('/').splice(0, 4).join('/');
+                var itemId = utils.urlPart(url, 5);
+                var apiKey = yield getApiKey();
+                setBase(apiBase);
+            }
+            var reqUrl = apiBase + '/Items?ids=' + itemId + '&api_key=' + apiKey;
+            con.log('reqUrl', reqUrl, 'base', apiBase, 'apiKey', apiKey);
+            api.request.xhr('GET', reqUrl).then((response) => {
+                var data = JSON.parse(response.responseText);
+                item = data.Items[0];
+                reqUrl = apiBase + '/Genres?Ids=' + item.SeriesId + '&api_key=' + apiKey;
+                con.log(data);
+                return api.request.xhr('GET', reqUrl);
+            }).then((response) => {
+                var genres = JSON.parse(response.responseText);
+                con.log('genres', genres);
+                for (var i = 0; i < genres.Items.length; i++) {
+                    var genre = genres.Items[i];
+                    if (genre.Name === 'Anime') {
+                        con.info('Anime detected');
+                        page.url = window.location.origin + '/#!/itemdetails.html?id=' + itemId;
+                        page.handlePage(page.url);
+                        $('html').removeClass('miniMAL-hide');
+                        break;
+                    }
+                }
+            });
+        }
+    });
 }
 function urlChange(page) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -2471,6 +2495,92 @@ function urlChange(page) {
                 }
             });
         }
+    });
+}
+function returnPlayingItemId() {
+    return __awaiter(this, void 0, void 0, function* () {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => { resolve(); }, 10000);
+        }).then(() => {
+            return apiCall('/Sessions').then((response) => {
+                con.error(response);
+                var data = JSON.parse(response.responseText);
+                con.log(data);
+                for (var i = 0; i < data.length; i++) {
+                    var sess = data[i];
+                    if (typeof sess.NowPlayingItem !== 'undefined') {
+                        con.log(sess.NowPlayingItem);
+                        return sess.NowPlayingItem.Id;
+                    }
+                }
+            });
+        });
+    });
+}
+function waitForBase() {
+    return __awaiter(this, void 0, void 0, function* () {
+        return new Promise((resolve, reject) => {
+            utils.waitUntilTrue(function () {
+                return j.$('*[data-url]').length;
+            }, function () {
+                var base = j.$('*[data-url]').first().attr('data-url').split('/').splice(0, 4).join('/');
+                con.log('Base Found', base);
+                resolve(base);
+            });
+        });
+    });
+}
+function testApi() {
+    return __awaiter(this, void 0, void 0, function* () {
+        return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
+            var base = yield getBase();
+            if (typeof base === 'undefined' || base === '') {
+                con.info('No base');
+                base = yield waitForBase();
+            }
+            setBase(base);
+            apiCall('/System/Info', null, base).then((response) => {
+                if (response.status !== 200) {
+                    con.error('Not Authenticated');
+                    setBase('');
+                    reject();
+                    return false;
+                }
+                resolve();
+                return true;
+            });
+        }));
+    });
+}
+function askForApiKey() {
+    return __awaiter(this, void 0, void 0, function* () {
+        return new Promise((resolve, reject) => {
+            var msg = utils.flashm(`<p>${api.storage.lang('Emby_Authenticate')}</p>
+      <p><input id="MS-ApiKey" type="text" placeholder="Please enter the Api Key here" style="width: 100%;"></p>
+      <div style="display: flex; justify-content: space-around;">
+        <button class="Yes" style="background-color: transparent; border: none; color: rgb(255,64,129);margin-top: 10px; cursor:pointer;">OK</button>
+        <button class="Cancel" style="background-color: transparent; border: none; color: rgb(255,64,129);margin-top: 10px; cursor:pointer;">CANCEL</button>
+      </div>
+      `, { position: 'bottom', permanent: true, type: 'getApi' });
+            msg.find('.Yes').click(function (evt) {
+                var api = j.$('#MS-ApiKey').val();
+                con.info('api', api);
+                setApiKey(api);
+                j.$(evt.target).parentsUntil('.flash').remove();
+                testApi()
+                    .then(() => {
+                    resolve(true);
+                }).catch(() => __awaiter(this, void 0, void 0, function* () {
+                    utils.flashm('Could not Authenticate');
+                    yield askForApiKey();
+                    resolve(true);
+                }));
+            });
+            msg.find('.Cancel').click(function (evt) {
+                j.$(evt.target).parentsUntil('.flash').remove();
+                reject(false);
+            });
+        });
     });
 }
 //Helper
@@ -2519,39 +2629,47 @@ const Emby = {
         uiSelector: function (selector) { selector.appendTo(j.$(".page:not(.hide) .detailSection").first()); },
     },
     init(page) {
-        api.storage.addStyle(__webpack_require__(50).toString());
-        utils.changeDetect(() => {
-            page.UILoaded = false;
-            $('#flashinfo-div, #flash-div-bottom, #flash-div-top').remove();
-            checkApi(page);
-        }, () => {
-            var src = $('video').first().attr('src');
-            if (typeof src === 'undefined')
-                return 'NaN';
-            return src;
-        });
-        utils.urlChangeDetect(function () {
-            if (!(window.location.href.indexOf('video') !== -1)) {
-                $('#flashinfo-div, #flash-div-bottom, #flash-div-top, #malp').remove();
+        api.storage.addStyle(__webpack_require__(51).toString());
+        testApi()
+            .catch(() => {
+            con.info('Not Authenticated');
+            return askForApiKey();
+        })
+            .then(() => {
+            con.info('Authenticated');
+            utils.changeDetect(() => {
                 page.UILoaded = false;
-                urlChange(page);
-            }
-        });
-        j.$(document).ready(function () {
-            utils.waitUntilTrue(function () {
-                return j.$('.page').length;
-            }, function () {
-                urlChange(page);
+                $('#flashinfo-div, #flash-div-bottom, #flash-div-top').remove();
+                checkApi(page);
+            }, () => {
+                var src = $('video').first().attr('src');
+                if (typeof src === 'undefined')
+                    return 'NaN';
+                return src;
             });
-        });
-        document.addEventListener("fullscreenchange", function () {
-            //@ts-ignore
-            if ((window.fullScreen) || (window.innerWidth == screen.width && window.innerHeight == screen.height)) {
-                $('html').addClass('miniMAL-Fullscreen');
-            }
-            else {
-                $('html').removeClass('miniMAL-Fullscreen');
-            }
+            utils.urlChangeDetect(function () {
+                if (!(window.location.href.indexOf('video') !== -1) && !(window.location.href.indexOf('#dlg') !== -1)) {
+                    $('#flashinfo-div, #flash-div-bottom, #flash-div-top, #malp').remove();
+                    page.UILoaded = false;
+                    urlChange(page);
+                }
+            });
+            j.$(document).ready(function () {
+                utils.waitUntilTrue(function () {
+                    return j.$('.page').length;
+                }, function () {
+                    urlChange(page);
+                });
+            });
+            document.addEventListener("fullscreenchange", function () {
+                //@ts-ignore
+                if ((window.fullScreen) || (window.innerWidth == screen.width && window.innerHeight == screen.height)) {
+                    $('html').addClass('miniMAL-Fullscreen');
+                }
+                else {
+                    $('html').removeClass('miniMAL-Fullscreen');
+                }
+            });
         });
     }
 };
@@ -2559,7 +2677,7 @@ const Emby = {
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(1), __webpack_require__(4), __webpack_require__(2), __webpack_require__(0)))
 
 /***/ }),
-/* 21 */
+/* 20 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2693,7 +2811,7 @@ const Plex = {
         uiSelector: function (selector) { selector.insertAfter(j.$('[data-qa-id="preplayMainTitle"]').first()); },
     },
     init(page) {
-        api.storage.addStyle(__webpack_require__(52).toString());
+        api.storage.addStyle(__webpack_require__(53).toString());
         utils.changeDetect(() => {
             var href = $('[download]').attr('href');
             var apiBase = href.split('/').splice(0, 3).join('/');
@@ -2744,12 +2862,13 @@ const Plex = {
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(1), __webpack_require__(2), __webpack_require__(4), __webpack_require__(0)))
 
 /***/ }),
-/* 22 */
+/* 21 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(utils, api, con, j) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Netflix; });
 var ident = undefined;
+var ses = undefined;
 var genres = [
     '2797624',
     '7424',
@@ -2789,20 +2908,30 @@ function getSeries(page) {
             con.info('No Anime');
             return;
         }
-        ident = utils.urlPart(response.finalUrl, 4);
+        ses = getSeason();
+        ident = utils.urlPart(response.finalUrl, 4) + ses;
         page.handlePage();
         $('html').removeClass('miniMAL-hide');
     });
+    function getSeason() {
+        var sesText = j.$('.ellipsize-text span').first().text().trim();
+        var temp = sesText.match(/^S\d+/);
+        if (temp !== null) {
+            return '?s=' + temp[0].replace('S', '');
+        }
+        throw 'No Season found';
+    }
 }
 const Netflix = {
     name: 'Netflix',
     domain: 'https://www.netflix.com',
+    database: 'Netflix',
     type: 'anime',
     isSyncPage: function (url) {
         return true;
     },
     sync: {
-        getTitle: function (url) { return j.$('.ellipsize-text h4').text().trim(); },
+        getTitle: function (url) { return j.$('.ellipsize-text h4').text().trim() + ' Season ' + ses.replace('?s=', ''); },
         getIdentifier: function (url) { return ident; },
         getOverviewUrl: function (url) {
             return Netflix.domain + '/title/' + Netflix.sync.getIdentifier(url);
@@ -2817,7 +2946,7 @@ const Netflix = {
         },
     },
     init(page) {
-        api.storage.addStyle(__webpack_require__(54).toString());
+        api.storage.addStyle(__webpack_require__(55).toString());
         j.$(document).ready(function () {
             ready();
         });
@@ -2841,7 +2970,7 @@ const Netflix = {
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(2), __webpack_require__(1), __webpack_require__(4), __webpack_require__(0)))
 
 /***/ }),
-/* 23 */
+/* 22 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2851,6 +2980,8 @@ const Otakustream = {
     domain: 'https://otakustream.tv',
     type: 'anime',
     isSyncPage: function (url) {
+        if (url.split('/')[3] === 'movie')
+            return true;
         if (typeof url.split('/')[5] === 'undefined' || url.split('/')[5] == '') {
             return false;
         }
@@ -2859,7 +2990,11 @@ const Otakustream = {
         }
     },
     sync: {
-        getTitle: function (url) { return j.$('#breadcrumbs a').last().text().trim(); },
+        getTitle: function (url) {
+            if (url.split('/')[3] === 'movie')
+                return Otakustream.overview.getTitle(url);
+            return j.$('#breadcrumbs a').last().text().trim();
+        },
         getIdentifier: function (url) { return utils.urlPart(url, 4).toLowerCase(); },
         getOverviewUrl: function (url) { return url.split('/').slice(0, 5).join('/'); },
         getEpisode: function (url) {
@@ -2888,7 +3023,7 @@ const Otakustream = {
         }
     },
     init(page) {
-        api.storage.addStyle(__webpack_require__(56).toString());
+        api.storage.addStyle(__webpack_require__(57).toString());
         j.$(document).ready(function () {
             page.handlePage();
         });
@@ -2898,7 +3033,7 @@ const Otakustream = {
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(2), __webpack_require__(1)))
 
 /***/ }),
-/* 24 */
+/* 23 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2941,7 +3076,7 @@ const animepahe = {
         }
     },
     init(page) {
-        api.storage.addStyle(__webpack_require__(58).toString());
+        api.storage.addStyle(__webpack_require__(59).toString());
         if (!animepahe.isSyncPage(page.url)) {
             utils.waitUntilTrue(function () { return animepahe.overview.list.elementsSelector(); }, function () {
                 page.handlePage();
@@ -2958,7 +3093,494 @@ const animepahe = {
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(2), __webpack_require__(1)))
 
 /***/ }),
+/* 24 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(j, utils, api, con) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return animeflv; });
+const animeflv = {
+    name: 'animeflv',
+    domain: 'https://animeflv.net',
+    type: 'anime',
+    isSyncPage: function (url) {
+        if (j.$('h2.SubTitle').length) {
+            return true;
+        }
+        return false;
+    },
+    sync: {
+        getTitle: function (url) { return j.$('h1.Title').text().split(' Episodio')[0].trim(); },
+        getIdentifier: function (url) { return utils.urlPart(animeflv.domain + j.$(".fa-th-list").attr('href'), 4) + '/' + utils.urlPart(animeflv.domain + j.$(".fa-th-list").attr('href'), 5); },
+        getOverviewUrl: function (url) { return animeflv.domain + j.$(".fa-th-list").attr('href'); },
+        getEpisode: function (url) { return parseInt(j.$('h2.SubTitle').text().replace('Episodio ', '').trim()); },
+        nextEpUrl: function (url) { return animeflv.domain + j.$(".fa-chevron-right").attr('href'); },
+        uiSelector: function (selector) { selector.insertAfter(j.$(".CapOptns")); },
+    },
+    overview: {
+        getTitle: function (url) { return j.$('h2.Title').text(); },
+        getIdentifier: function (url) { return utils.urlPart(url, 4) + '/' + utils.urlPart(url, 5); },
+        uiSelector: function (selector) { selector.insertAfter(j.$(".Description")); },
+        list: {
+            offsetHandler: false,
+            elementsSelector: function () {
+                var url = window.location.href;
+                document.body.insertAdjacentHTML('afterbegin', '<div id="MALSync" class="MALSync" style="display: none;"><ul id="MALSyncUl" class="MALSyncUl"></ul></div>');
+                var idMALSync = document.getElementById('MALSyncUl');
+                var patron = /<script>\s\s   var([^]*?)<\/script>/g;
+                var html = document.body.innerHTML;
+                var scriptEps = patron.exec(html);
+                if (scriptEps != null) {
+                    // @ts-ignore
+                    scriptEps = scriptEps[1] || null;
+                    if (scriptEps != null) {
+                        // @ts-ignore
+                        var patron2 = /\[([^\[\]]{0,10},{0,10})\]/g;
+                        // @ts-ignore
+                        var eps = scriptEps.toString().match(patron2);
+                        if (eps != null) {
+                            // @ts-ignore
+                            eps.forEach(element => {
+                                if (idMALSync != null) {
+                                    var Url = animeflv.domain + '/ver/' + element.split(',')[1].replace(']', '') + '/' + utils.urlPart(url, 5) + '-' + element.split(',')[0].replace('[', '');
+                                    var Episodio = element.split(',')[0].replace('[', '');
+                                    idMALSync.innerHTML += '<li><a href="' + Url + '" epi="' + Episodio + '"></a> </li>';
+                                }
+                            });
+                        }
+                    }
+                }
+                return j.$(".MALSync a");
+            },
+            elementUrl: function (selector) { return utils.absoluteLink(selector.attr('href'), animeflv.domain); },
+            elementEp: function (selector) { return selector.attr('epi'); },
+            handleListHook: function (epi, epilist) {
+                epi++;
+                if ((epilist.length - 1) >= epi) {
+                    var cover = j.$('.AnimeCover img').attr('src');
+                    var name = j.$('.Container h2').text();
+                    var epiAct = '<li class="fa-play-circle Next"><a href="' + epilist[epi][0].toString() + '"><figure><img src="' + cover + '" alt=""></figure><h3 class="Title">' + name + '</h3><p>Episodio ' + epi + '</p><span style="position: absolute; top: 0; bottom: 0; margin: auto; right: 20px; line-height: 30px; font-size: 16px; font-weight: 700; height: 30px;">Siguiente Episodio</span></a></li>';
+                    j.$('.Main .ListCaps').prepend(epiAct);
+                }
+            },
+        }
+    },
+    init(page) {
+        api.storage.addStyle(__webpack_require__(61).toString());
+        if (document.title == "Just a moment...") {
+            con.log("loading");
+            page.cdn();
+            return;
+        }
+        j.$(document).ready(function () { page.handlePage(); });
+    }
+};
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(2), __webpack_require__(1), __webpack_require__(4)))
+
+/***/ }),
 /* 25 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(utils, j, api) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Jkanime; });
+/*By kaiserdj*/
+var check = 0;
+const Jkanime = {
+    name: 'Jkanime',
+    domain: 'https://jkanime.net/',
+    type: 'anime',
+    isSyncPage: function (url) {
+        if (isNaN(parseInt(utils.urlPart(url, 4))) == true) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    },
+    sync: {
+        getTitle: function (url) { return j.$('.video-header h1').text().split(" - ")[0]; },
+        getIdentifier: function (url) { return utils.urlPart(url, 3); },
+        getOverviewUrl: function (url) { return j.$('.vnav-list').attr('href'); },
+        getEpisode: function (url) { return j.$('.video-header h1').text().split(" - ")[1]; },
+        nextEpUrl: function (url) {
+            var nextUrl = j.$('.vnav-right').attr('href');
+            if (nextUrl == '#')
+                return undefined;
+            return nextUrl;
+        },
+        uiSelector: function (selector) { selector.insertAfter(j.$(".server-box")); },
+    },
+    overview: {
+        getTitle: function (url) { return j.$('.sinopsis-box h2').text(); },
+        getIdentifier: function (url) { return utils.urlPart(url, 3); },
+        uiSelector: function (selector) { selector.insertAfter(j.$(".sinopsis-links")); },
+        list: {
+            offsetHandler: false,
+            elementsSelector: function () {
+                document.body.insertAdjacentHTML('afterbegin', '<div id="MALSync" class="MALSync" style="display: none;"><ul id="MALSyncUl" class="MALSyncUl"></ul></div>');
+                var idMALSync = document.getElementById('MALSyncUl');
+                var lastEps = j.$('.navigation a').last().text().split('-')[1].trim();
+                for (var i = 1; i <= lastEps; i++) {
+                    if (idMALSync != null) {
+                        idMALSync.innerHTML += '<li><a href="' + document.URL + i + '" epi="' + i + '"></a> </li>';
+                    }
+                }
+                return j.$('.MALSync a');
+            },
+            elementUrl: function (selector) { return utils.absoluteLink(selector.attr('href'), Jkanime.domain); },
+            elementEp: function (selector) { return selector.attr('epi'); },
+            handleListHook: function (epi, epilist) {
+                epi++;
+                if (epilist.length >= epi) {
+                    if (check == 0) {
+                        var buttons = j.$('.navigation a');
+                        for (var i = 0; i < buttons.length; i++) {
+                            if (buttons[i].text.split('-')[0].split() <= epi && buttons[i].text.split('-')[1].split() >= epi) {
+                                buttons[i].click();
+                            }
+                        }
+                        check = 1;
+                    }
+                    setTimeout(function () {
+                        j.$('#episodes-content .cap-post').each(function (i, obj) {
+                            if (obj.innerText.split(' ')[1] == epi) {
+                                j.$('#episodes-content .cap-post').eq(i).addClass('mal-sync-active');
+                                if (check == 0) {
+                                    j.$('#episodes-content .cap-post:eq(' + i + ')').find('i').first().remove();
+                                }
+                            }
+                        });
+                    }, 500);
+                }
+            },
+        }
+    },
+    init(page) {
+        api.storage.addStyle(__webpack_require__(63).toString());
+        j.$(document).ready(function () { page.handlePage(); });
+        j.$('.navigation a').click(function () {
+            if (check == 1) {
+                page.handleList();
+            }
+        });
+    }
+};
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(2), __webpack_require__(0), __webpack_require__(1)))
+
+/***/ }),
+/* 26 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(api, con, utils, j) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Vrv; });
+var json = undefined;
+var ident = undefined;
+var seasonInterval = undefined;
+function getSeries(page, overview = '') {
+    json = undefined;
+    ident = undefined;
+    api.request.xhr('GET', page.url).then((response) => {
+        con.log(response);
+        json = JSON.parse('{' + response.responseText.split('__INITIAL_STATE__ = {')[1].split('};')[0] + '}');
+        con.log(json);
+        if (overview.length) {
+            json.seriesPage.seasons.forEach(function (element) {
+                if (overview.indexOf(element.json.title) !== -1) {
+                    con.log('Season Found', element);
+                    ident = element;
+                }
+            });
+        }
+        else {
+            if (json.seriesPage.seasons.length) {
+                con.log('Season', json.seriesPage.seasons[0]);
+                ident = json.seriesPage.seasons[0];
+            }
+        }
+        page.handlePage();
+    });
+}
+const Vrv = {
+    name: 'Vrv',
+    domain: 'https://vrv.co',
+    type: 'anime',
+    isSyncPage: function (url) {
+        if (utils.urlPart(window.location.href, 3) == 'series')
+            return false;
+        return true;
+    },
+    sync: {
+        getTitle: function (url) { return json.watch.mediaResource.json.series_title + ' - ' + json.watch.mediaResource.json.season_title.replace(json.watch.mediaResource.json.series_title, ''); },
+        getIdentifier: function (url) { return json.watch.mediaResource.json.season_id; },
+        getOverviewUrl: function (url) { return Vrv.domain + '/series/' + json.watch.mediaResource.json.series_id + '?season=' + Vrv.sync.getIdentifier(url); },
+        getEpisode: function (url) { return json.watch.mediaResource.json.episode_number; },
+        nextEpUrl: function (url) {
+            if (typeof json.watch.mediaResource.json.next_episode_id === 'undefined')
+                return '';
+            return Vrv.domain + '/watch/' + json.watch.mediaResource.json.next_episode_id;
+        },
+    },
+    overview: {
+        getTitle: function (url) { return json.seriesPage.series.json.title + ' - ' + ident.json.title.replace(json.seriesPage.series.json.title, ''); },
+        getIdentifier: function (url) { return ident.json.id; },
+        uiSelector: function (selector) {
+            selector.insertAfter($('.erc-series-info .series-title').first());
+        },
+        list: {
+            offsetHandler: true,
+            elementsSelector: function () { return j.$('.erc-series-media-list-element'); },
+            elementUrl: function (selector) { return utils.absoluteLink(selector.find("a").first().attr('href'), Vrv.domain); },
+            elementEp: function (selector) {
+                var epInfo = selector.find('.episode-title').text().trim();
+                var temp = epInfo.match(/^E\d+/i);
+                if (temp !== null) {
+                    return temp[0].replace('E', '');
+                }
+                return '';
+            },
+            getTotal: function () {
+                throw 'Not supported';
+                return 0;
+            }
+        }
+    },
+    init(page) {
+        api.storage.addStyle(__webpack_require__(65).toString());
+        j.$(document).ready(function () {
+            ready();
+        });
+        utils.urlChangeDetect(function () {
+            page.url = window.location.href;
+            ready();
+        });
+        function ready() {
+            clearInterval(seasonInterval);
+            $('#flashinfo-div, #flash-div-bottom, #flash-div-top, #malp').remove();
+            page.UILoaded = false;
+            if (utils.urlPart(window.location.href, 3) == 'watch') {
+                getSeries(page);
+            }
+            if (utils.urlPart(window.location.href, 3) == 'series') {
+                utils.waitUntilTrue(function () {
+                    return j.$('.erc-series-info .series-title').first().length;
+                }, function () {
+                    if (!j.$('.erc-series-media-list-element').length || typeof j.$('.erc-series-media-list-element a').first().attr('href') !== 'undefined') {
+                        getSeries(page, $('.controls-select-trigger .season-info').text().trim());
+                    }
+                    seasonInterval = utils.changeDetect(function () {
+                        $('#flashinfo-div, #flash-div-bottom, #flash-div-top, #malp').remove();
+                        page.UILoaded = false;
+                        getSeries(page, $('.controls-select-trigger .season-info').text().trim());
+                    }, function () {
+                        return j.$('.erc-series-media-list-element a').first().attr('href');
+                    });
+                });
+            }
+        }
+    }
+};
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(1), __webpack_require__(4), __webpack_require__(2), __webpack_require__(0)))
+
+/***/ }),
+/* 27 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(j, utils, con, api) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Proxer; });
+const Proxer = {
+    name: "Proxer",
+    domain: "https://proxer.me",
+    database: "Proxer",
+    type: "anime",
+    isSyncPage: function (url) {
+        if (url.split("/")[3] === "watch" || url.split("/")[3] === "read") {
+            return true;
+        }
+        else {
+            return false;
+        }
+    },
+    sync: {
+        getTitle: function (url) {
+            if (url.indexOf("watch") != -1) {
+                return j
+                    .$(".wName")
+                    .text()
+                    .trim();
+            }
+            else {
+                if (url.indexOf("read") != -1) {
+                    return j.$("div#breadcrumb a:first").text();
+                }
+            }
+        },
+        getIdentifier: function (url) {
+            return url.split("/")[4];
+        },
+        getOverviewUrl: function (url) {
+            return ("https://proxer.me/info/" + Proxer.sync.getIdentifier(url) + "/list");
+        },
+        getEpisode: function (url) {
+            if (url.indexOf("watch") != -1) {
+                return getEpisodeFallback('episode ' + $('.wEp').last().text().trim(), url.split("/")[5]);
+            }
+            else {
+                return getEpisodeFallback($('#breadcrumb > a').last().text().trim(), url.split("/")[5]);
+            }
+        },
+        nextEpUrl: function (url) {
+            return (Proxer.domain +
+                $(".no_details a")
+                    .last()
+                    .attr("href"));
+        }
+    },
+    overview: {
+        getTitle: function (url) { return j.$('#pageMetaAjax').text().split(' - ')[0]; },
+        getIdentifier: function (url) { return Proxer.sync.getIdentifier(url); },
+        uiSelector: function (selector) { selector.insertAfter(j.$(".hreview-aggregate > span").first()); },
+        list: {
+            offsetHandler: false,
+            elementsSelector: function () { return j.$('span[id^="listTitle"]').parent().parent(); },
+            elementUrl: function (selector) { return utils.absoluteLink(selector.find('a[href^="/watch"],a[href^="/read"],a[href^="/chapter"]').first().attr('href'), Proxer.domain); },
+            elementEp: function (selector) {
+                return getEpisodeFallback(selector.find('span[id^="listTitle"]').first().text().trim(), Proxer.overview.list.elementUrl(selector).split("/")[5]);
+            },
+            paginationNext: function (updateCheck) {
+                con.error('sadsad', updateCheck);
+                if (updateCheck) {
+                    var el = j.$('.menu').last();
+                    if (typeof el[0] == 'undefined' || el.hasClass('active')) {
+                        return false;
+                    }
+                    else {
+                        el[0].click();
+                        return true;
+                    }
+                }
+                else {
+                    var el = j.$('.menu.active').first().next();
+                    if (typeof el[0] == 'undefined') {
+                        return false;
+                    }
+                    else {
+                        el[0].click();
+                        return true;
+                    }
+                }
+            },
+            getTotal: function () {
+                var el = $('img[src="/images/misc/manga.png"], img[src="/images/misc/play.png"]').last().parent().parent().parent().parent();
+                if (el.length) {
+                    return Proxer.overview.list.elementEp(el);
+                }
+                return undefined;
+            }
+        }
+    },
+    init(page) {
+        api.storage.addStyle(__webpack_require__(67).toString());
+        if (page.url.split("/")[3] === "watch" || page.url.split("/")[3] === "read") {
+            if (page.url.split("/")[3] === "watch") {
+                Proxer.type = "anime";
+                Proxer.database = "Proxeranime";
+            }
+            else if (page.url.split("/")[3] === "read") {
+                Proxer.type = "manga";
+                Proxer.database = "Proxermanga";
+            }
+            j.$(document).ready(function () {
+                page.handlePage();
+            });
+        }
+        ajaxHandle(page);
+        utils.urlChangeDetect(function () {
+            page.url = window.location.href;
+            page.UILoaded = false;
+            $('#flashinfo-div, #flash-div-bottom, #flash-div-top').remove();
+            ajaxHandle(page);
+        });
+    }
+};
+var current = 0;
+function ajaxHandle(page) {
+    if (utils.urlPart(page.url, 3) !== 'info')
+        return;
+    var detailPart = utils.urlPart(page.url, 5);
+    con.info('page', detailPart);
+    if (detailPart == 'list') {
+        utils.waitUntilTrue(function () {
+            return j.$("#contentList").length;
+        }, function () {
+            if (j.$('#simple-navi a[href*="manga"]').length) {
+                Proxer.type = "manga";
+                Proxer.database = "Proxermanga";
+            }
+            else {
+                Proxer.type = "anime";
+                Proxer.database = "Proxeranime";
+            }
+            var tempCurrent = parseInt(Proxer.overview.getIdentifier(page.url));
+            if (tempCurrent !== current) {
+                current = tempCurrent;
+                page.handlePage();
+            }
+            else {
+                try {
+                    page.handleList();
+                }
+                catch (e) {
+                    con.error(e);
+                    page.handlePage();
+                }
+            }
+        });
+    }
+    if (detailPart == 'details' || typeof detailPart == 'undefined') {
+        utils.waitUntilTrue(function () {
+            return j.$(".hreview-aggregate").length;
+        }, function () {
+            current = parseInt(Proxer.overview.getIdentifier(page.url));
+            if (j.$('#simple-navi a[href*="manga"]').length) {
+                Proxer.type = "manga";
+                Proxer.database = "Proxermanga";
+            }
+            else {
+                Proxer.type = "anime";
+                Proxer.database = "Proxeranime";
+            }
+            page.handlePage();
+        });
+    }
+}
+function getEpisodeFallback(string, fallback) {
+    var exclude = string.match(/(special|extra)/gi);
+    if (exclude !== null) {
+        return '';
+    }
+    var temp = string.match(/(kapitel |ep. |chapter |episode )\d+/gi);
+    if (temp !== null) {
+        return temp[0].match(/\d+/)[0];
+    }
+    return fallback;
+}
+/*
+Chapter 10
+Ep. 10
+Kapitel 10
+Episode 10
+*/
+/* Exclude
+Special 1
+Extra Story
+*/
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(2), __webpack_require__(4), __webpack_require__(1)))
+
+/***/ }),
+/* 28 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3121,11 +3743,11 @@ function getTimeleft() {
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(1), __webpack_require__(4), __webpack_require__(0), __webpack_require__(2)))
 
 /***/ }),
-/* 26 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(27);
+        var result = __webpack_require__(30);
 
         if (typeof result === "string") {
             module.exports = result;
@@ -3135,7 +3757,7 @@ function getTimeleft() {
     
 
 /***/ }),
-/* 27 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(3)(false);
@@ -3149,11 +3771,11 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
 
 
 /***/ }),
-/* 28 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(29);
+        var result = __webpack_require__(32);
 
         if (typeof result === "string") {
             module.exports = result;
@@ -3163,7 +3785,7 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
     
 
 /***/ }),
-/* 29 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(3)(false);
@@ -3177,11 +3799,11 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
 
 
 /***/ }),
-/* 30 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(31);
+        var result = __webpack_require__(34);
 
         if (typeof result === "string") {
             module.exports = result;
@@ -3191,7 +3813,7 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
     
 
 /***/ }),
-/* 31 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(3)(false);
@@ -3205,11 +3827,11 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
 
 
 /***/ }),
-/* 32 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(33);
+        var result = __webpack_require__(36);
 
         if (typeof result === "string") {
             module.exports = result;
@@ -3219,7 +3841,7 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
     
 
 /***/ }),
-/* 33 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(3)(false);
@@ -3233,49 +3855,21 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
 
 
 /***/ }),
-/* 34 */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-        var result = __webpack_require__(35);
-
-        if (typeof result === "string") {
-            module.exports = result;
-        } else {
-            module.exports = result.toString();
-        }
-    
-
-/***/ }),
-/* 35 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(3)(false);
-// imports
-
-
-// module
-exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: white;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: white;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
-/* 36 */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-        var result = __webpack_require__(37);
-
-        if (typeof result === "string") {
-            module.exports = result;
-        } else {
-            module.exports = result.toString();
-        }
-    
-
-/***/ }),
 /* 37 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+        var result = __webpack_require__(38);
+
+        if (typeof result === "string") {
+            module.exports = result;
+        } else {
+            module.exports = result.toString();
+        }
+    
+
+/***/ }),
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(3)(false);
@@ -3289,11 +3883,11 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
 
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(39);
+        var result = __webpack_require__(40);
 
         if (typeof result === "string") {
             module.exports = result;
@@ -3303,7 +3897,7 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
     
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(3)(false);
@@ -3317,11 +3911,11 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
 
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(41);
+        var result = __webpack_require__(42);
 
         if (typeof result === "string") {
             module.exports = result;
@@ -3331,7 +3925,7 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
     
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(3)(false);
@@ -3345,11 +3939,11 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
 
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(43);
+        var result = __webpack_require__(44);
 
         if (typeof result === "string") {
             module.exports = result;
@@ -3359,7 +3953,7 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
     
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(3)(false);
@@ -3373,11 +3967,11 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
 
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(45);
+        var result = __webpack_require__(46);
 
         if (typeof result === "string") {
             module.exports = result;
@@ -3387,7 +3981,7 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
     
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(3)(false);
@@ -3401,11 +3995,11 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
 
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(47);
+        var result = __webpack_require__(48);
 
         if (typeof result === "string") {
             module.exports = result;
@@ -3415,7 +4009,7 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
     
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(3)(false);
@@ -3429,11 +4023,11 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
 
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(49);
+        var result = __webpack_require__(50);
 
         if (typeof result === "string") {
             module.exports = result;
@@ -3443,7 +4037,7 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
     
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(3)(false);
@@ -3457,11 +4051,11 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
 
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(51);
+        var result = __webpack_require__(52);
 
         if (typeof result === "string") {
             module.exports = result;
@@ -3471,7 +4065,7 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
     
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(3)(false);
@@ -3485,11 +4079,11 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
 
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(53);
+        var result = __webpack_require__(54);
 
         if (typeof result === "string") {
             module.exports = result;
@@ -3499,7 +4093,7 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
     
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(3)(false);
@@ -3513,11 +4107,11 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
 
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(55);
+        var result = __webpack_require__(56);
 
         if (typeof result === "string") {
             module.exports = result;
@@ -3527,7 +4121,7 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
     
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(3)(false);
@@ -3541,11 +4135,11 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
 
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(57);
+        var result = __webpack_require__(58);
 
         if (typeof result === "string") {
             module.exports = result;
@@ -3555,7 +4149,7 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
     
 
 /***/ }),
-/* 57 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(3)(false);
@@ -3569,11 +4163,11 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
 
 
 /***/ }),
-/* 58 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(59);
+        var result = __webpack_require__(60);
 
         if (typeof result === "string") {
             module.exports = result;
@@ -3583,7 +4177,7 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
     
 
 /***/ }),
-/* 59 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(3)(false);
@@ -3592,6 +4186,118 @@ exports = module.exports = __webpack_require__(3)(false);
 
 // module
 exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: black;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: black;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\nsection.main .content-wrapper .theatre .theatre-info {\n  margin-bottom: 1rem;\n}\n#flashinfo-div {\n  z-index: 99999 !important;\n}\n#malp,\n#malTotal,\n#AddMalDiv,\n#AddMal {\n  color: #999 !important;\n}\n#malStatus,\n#malUserRating,\n#malEpisodes {\n  background: transparent !important;\n  color: #d5015b !important;\n}\n#malStatus option,\n#malUserRating option,\n#malEpisodes option {\n  background: black !important;\n  color: #d5015b !important;\n}\n#malRating {\n  color: #d5015b !important;\n}\n.mal-sync-active .episode-label-wrap {\n  background-color: #002966;\n  background-color: #002966ba;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 61 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+        var result = __webpack_require__(62);
+
+        if (typeof result === "string") {
+            module.exports = result;
+        } else {
+            module.exports = result.toString();
+        }
+    
+
+/***/ }),
+/* 62 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)(false);
+// imports
+
+
+// module
+exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: #694ba1;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: #694ba1;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n#MalData select option {\n  background-color: white;\n}\nbody.dark #MalData select option {\n  background-color: #1c1b26 !important;\n}\n#malp {\n  margin: 0;\n}\n#malp .info {\n  display: block;\n}\n#malp #malEpisodes {\n  display: inline-block;\n  border: 0;\n  padding: 0;\n  margin-bottom: 4px;\n}\n#malp select {\n  margin-left: -3px !important;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 63 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+        var result = __webpack_require__(64);
+
+        if (typeof result === "string") {
+            module.exports = result;
+        } else {
+            module.exports = result.toString();
+        }
+    
+
+/***/ }),
+/* 64 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)(false);
+// imports
+
+
+// module
+exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: white;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: white;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n.mal-sync-active a {\n  background-color: #72abff !important;\n}\n#flashinfo-div {\n  z-index: 100 !important;\n}\n#malp #malVolumes,\n#malp #malEpisodes {\n  float: none;\n  display: inline-block;\n  border-radius: 0;\n}\n#MalData {\n  display: initial !important;\n}\n.cap-header:visited {\n  color: #fff !important;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 65 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+        var result = __webpack_require__(66);
+
+        if (typeof result === "string") {
+            module.exports = result;
+        } else {
+            module.exports = result.toString();
+        }
+    
+
+/***/ }),
+/* 66 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)(false);
+// imports
+
+
+// module
+exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: white;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: white;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n#malp * {\n  color: white;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 67 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+        var result = __webpack_require__(68);
+
+        if (typeof result === "string") {
+            module.exports = result;
+        } else {
+            module.exports = result.toString();
+        }
+    
+
+/***/ }),
+/* 68 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)(false);
+// imports
+
+
+// module
+exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: inherit;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: inherit;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n.mal-sync-active {\n  border: 2px solid #002966 !important;\n}\n#malp {\n  margin: 10px;\n  max-width: 1000px;\n}\n#malp select option {\n  color: white;\n}\n", ""]);
 
 // exports
 
