@@ -2,7 +2,7 @@
   "name": "DiscordAnimeGaming",
   "productName": "Discord-Anime-Gaming",
   "author": "lolamtisch@gmail.com",
-  "version": "0.24.0",
+  "version": "0.25.0",
   "description": "Sets the discord playing state",
   "devDependencies": {
     "@types/jquery": "^3.3.6",
