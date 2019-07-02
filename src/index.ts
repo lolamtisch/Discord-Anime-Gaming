@@ -13,11 +13,11 @@ var interval = 5000;
 $(document).ready(function(){main();});
 function main(){
   var page = getPage(window.location.href);
-  if(page && !(window.location.href.indexOf( 'static.crunchyroll.com' ) > -1)){
-    con.log('Page found', page.name);
+  if(page && !(window.location.href.indexOf( 'static.crunchyroll.com' ) > -1) && !(window.location.href.indexOf( 'stream.proxer.me' ) > -1)){
+    con.log('Page found', page.name, window.location.href);
     handlePage(page);
   }else{
-    con.log('Video Iframe');
+    con.log('Video Iframe', window.location.href);
     setInterval(function(){
         var timeLeft = getTimeleft();
         con.log('[IFRAME]', timeLeft);
