@@ -2,7 +2,7 @@
 // @name Discord-Anime-Gaming
 // @namespace https://greasyfork.org/users/92233
 // @description Sets the discord playing state
-// @version 0.26.0
+// @version 0.27.0
 // @author lolamtisch@gmail.com
 // @license GPL-3.0
 // @grant GM_xmlhttpRequest
@@ -67,7 +67,7 @@
 // @match *://kawaiifu.com/dub/*
 // @match *://kawaiifu.com/tv-series/*
 // @match *://4anime.to/*
-// @match *://www.dreamanimes.com.br/online/*
+// @match *://www.dreamanimes.com.br/*
 // @match *://*.animeultima.eu/a/*
 // @match *://www.aniflix.tv/stream/*
 // @match *://www.aniflix.tv/anime/*
@@ -75,7 +75,13 @@
 // @match *://animedaisuki.moe/anime/*
 // @match *://www.animefreak.tv/watch/*
 // @match *://www.anime-planet.com/anime/*
+// @match *://*.kickassanime.io/anime/*
+// @match *://www.riie.net/*
+// @match *://animekisa.tv/*
+// @match *://*.wakanim.tv/*
+// @match *://animeindo.moe/*
 // @match *://*.openload.co/*
+// @match *://*.openload.pw/*
 // @match *://*.streamango.com/*
 // @match *://*.mp4upload.com/*
 // @match *://*.mcloud.to/*
@@ -96,6 +102,7 @@
 // @match *://*.cloudvideo.tv/*
 // @match *://*.fembed.net/*
 // @match *://*.fembed.com/*
+// @match *://*.animeproxy.info/*
 // @match *://*.youpload.co/*
 // @match *://*.yourupload.com/*
 // @match *://*.vidlox.me/*
@@ -115,6 +122,8 @@
 // @match *://www.ani-stream.com/*
 // @match *://flex.aniflex.org/public/dist/*
 // @match *://animedaisuki.moe/embed/*
+// @match *://wakanim.tv/*/*/*/embeddedplayer/*
+// @match *://superitu.com/embed/*
 // @require  http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js
 // @require  https://greasyfork.org/scripts/33416-discord-io/code/discordio.js?version=240880
 // @run-at document_start
@@ -203,7 +212,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 40);
+/******/ 	return __webpack_require__(__webpack_require__.s = 45);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -367,6 +376,26 @@ function toComment(sourceMap) {
 
 /***/ }),
 /* 3 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "log", function() { return log; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "error", function() { return error; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "info", function() { return info; });
+var log = function () {
+    return Function.prototype.bind.call(console.log, console, "%cMAL-Sync", "background-color: #2e51a2; color: white; padding: 2px 10px; border-radius: 3px;");
+}();
+var error = function () {
+    return Function.prototype.bind.call(console.error, console, "%cMAL-Sync", "background-color: #8f0000; color: white; padding: 2px 10px; border-radius: 3px;");
+}();
+var info = function () {
+    return Function.prototype.bind.call(console.info, console, "%cMAL-Sync", "background-color: wheat; color: black; padding: 2px 10px; border-radius: 3px;");
+}();
+
+
+/***/ }),
+/* 4 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -601,13 +630,23 @@ function getMalToKissArray(type, id) {
                         var stream = page[streamKey];
                         var streamUrl = 'https://kissanimelist.firebaseio.com/Data2/' + stream + '/' + encodeURIComponent(streamKey) + '.json';
                         var cache = yield api.storage.get('MalToKiss/' + stream + '/' + encodeURIComponent(streamKey), null);
-                        if (typeof (cache) != "undefined") {
+                        if (typeof (cache) !== "undefined" && cache !== null && cache.constructor === Object && Object.keys(cache).length !== 0) {
                             var streamJson = cache;
                         }
                         else {
                             var streamRespose = yield api.request.xhr('GET', streamUrl);
                             var streamJson = j.$.parseJSON(streamRespose.responseText);
                             api.storage.set('MalToKiss/' + stream + '/' + encodeURIComponent(streamKey), streamJson);
+                        }
+                        if (!streamJson) {
+                            con.error('[K2M] ' + pageKey + '/' + streamKey + ' not found');
+                            delete json[pageKey][streamKey];
+                            continue;
+                        }
+                        if (!(id in streamJson['Mal'])) {
+                            con.error('[K2M] Wrong mal id', streamJson);
+                            delete json[pageKey][streamKey];
+                            continue;
                         }
                         if (pageKey == 'Crunchyroll') {
                             streamJson['url'] = streamJson['url'] + '?season=' + streamKey;
@@ -1085,27 +1124,7 @@ function elementInViewport(el, horizontalOffset = 0) {
         && (rect.top - horizontalOffset) <= (window.innerHeight || document.documentElement.clientHeight));
 }
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(1), __webpack_require__(4), __webpack_require__(3)))
-
-/***/ }),
-/* 4 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "log", function() { return log; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "error", function() { return error; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "info", function() { return info; });
-var log = function () {
-    return Function.prototype.bind.call(console.log, console, "%cMAL-Sync", "background-color: #2e51a2; color: white; padding: 2px 10px; border-radius: 3px;");
-}();
-var error = function () {
-    return Function.prototype.bind.call(console.error, console, "%cMAL-Sync", "background-color: #8f0000; color: white; padding: 2px 10px; border-radius: 3px;");
-}();
-var info = function () {
-    return Function.prototype.bind.call(console.info, console, "%cMAL-Sync", "background-color: wheat; color: black; padding: 2px 10px; border-radius: 3px;");
-}();
-
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(1), __webpack_require__(3), __webpack_require__(4)))
 
 /***/ }),
 /* 5 */
@@ -1145,6 +1164,16 @@ var info = function () {
 /* harmony import */ var _AnimeDaisuki_main__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(37);
 /* harmony import */ var _Animefreak_main__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(38);
 /* harmony import */ var _AnimePlanet_main__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(39);
+/* harmony import */ var _KickAssAnime_main__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(40);
+/* harmony import */ var _RiiE_main__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(41);
+/* harmony import */ var _AnimeKisa_main__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(42);
+/* harmony import */ var _Wakanim_main__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(43);
+/* harmony import */ var _AnimeIndo_main__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(44);
+
+
+
+
+
 
 
 
@@ -1208,6 +1237,11 @@ const pages = {
     AnimeDaisuki: _AnimeDaisuki_main__WEBPACK_IMPORTED_MODULE_28__[/* AnimeDaisuki */ "a"],
     Animefreak: _Animefreak_main__WEBPACK_IMPORTED_MODULE_29__[/* Animefreak */ "a"],
     AnimePlanet: _AnimePlanet_main__WEBPACK_IMPORTED_MODULE_30__[/* AnimePlanet */ "a"],
+    KickAssAnime: _KickAssAnime_main__WEBPACK_IMPORTED_MODULE_31__[/* KickAssAnime */ "a"],
+    RiiE: _RiiE_main__WEBPACK_IMPORTED_MODULE_32__[/* RiiE */ "a"],
+    AnimeKisa: _AnimeKisa_main__WEBPACK_IMPORTED_MODULE_33__[/* AnimeKisa */ "a"],
+    Wakanim: _Wakanim_main__WEBPACK_IMPORTED_MODULE_34__[/* Wakanim */ "a"],
+    AnimeIndo: _AnimeIndo_main__WEBPACK_IMPORTED_MODULE_35__[/* AnimeIndo */ "a"],
 };
 const pageSearch = {
     Crunchyroll: {
@@ -1239,8 +1273,7 @@ const pageSearch = {
         name: 'Kissanime',
         type: 'anime',
         domain: 'kissanime.ru',
-        searchUrl: (titleEncoded) => { return ''; },
-        completeSearchTag: (title, linkContent) => { return '<form class="mal_links" target="_blank" action="https://kissanime.ru/Search/Anime" style="display: inline;" id="kissanimeSearch" method="post" _lpchecked="1"><a href="#" class="submitKissanimeSearch" onclick="document.getElementById(\'kissanimeSearch\').submit(); return false;">' + linkContent + '</a><input type="hidden" id="keyword" name="keyword" value="' + title + '"/></form>'; }
+        searchUrl: (titleEncoded) => { return 'https://kissanime.ru/Search/Anime?keyword=' + titleEncoded; },
     },
     Gogoanime: {
         name: 'Gogoanime',
@@ -1283,8 +1316,7 @@ const pageSearch = {
         name: 'Kissmanga',
         type: 'manga',
         domain: 'kissmanga.com',
-        searchUrl: (titleEncoded) => { return ''; },
-        completeSearchTag: (title, linkContent) => { return '<form class="mal_links" target="_blank" action="https://kissmanga.com/Search/Manga" style="display: inline;" id="kissanimeSearch" method="post" _lpchecked="1"><a href="#" class="submitKissanimeSearch" onclick="document.getElementById(\'kissanimeSearch\').submit(); return false;">' + linkContent + '</a><input type="hidden" id="keyword" name="keyword" value="' + title + '"/></form>'; }
+        searchUrl: (titleEncoded) => { return 'https://kissmanga.com/Search/Manga?keyword=' + titleEncoded; },
     },
     Novelplanet: {
         name: 'Novelplanet',
@@ -1304,6 +1336,18 @@ const pageSearch = {
         domain: 'anilist.co',
         searchUrl: (titleEncoded) => { return 'https://anilist.co/search/manga?sort=SEARCH_MATCH&search=' + titleEncoded; }
     },
+    Proxeranime: {
+        name: 'Proxer',
+        type: 'anime',
+        domain: 'proxer.me',
+        searchUrl: (titleEncoded) => { return 'https://proxer.me/search?s=search&name=' + titleEncoded + '&typ=all-anime&tags=&notags=#top'; }
+    },
+    Proxermanga: {
+        name: 'Proxer',
+        type: 'manga',
+        domain: 'proxer.me',
+        searchUrl: (titleEncoded) => { return 'https://proxer.me/search?s=search&name=' + titleEncoded + '&typ=all-manga&tags=&notags=#top'; }
+    },
 };
 
 
@@ -1312,7 +1356,7 @@ const pageSearch = {
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(85);
+        var result = __webpack_require__(90);
 
         if (typeof result === "string") {
             module.exports = result;
@@ -1530,7 +1574,7 @@ var settingsObj = {
     }
 };
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(1), __webpack_require__(4)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(1), __webpack_require__(3)))
 
 /***/ }),
 /* 9 */
@@ -1602,12 +1646,12 @@ const Kissanime = {
             page.cdn();
             return;
         }
-        api.storage.addStyle(__webpack_require__(41).toString());
+        api.storage.addStyle(__webpack_require__(46).toString());
         j.$(document).ready(function () { page.handlePage(); });
     }
 };
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(3), __webpack_require__(0), __webpack_require__(4), __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(4), __webpack_require__(0), __webpack_require__(3), __webpack_require__(1)))
 
 /***/ }),
 /* 10 */
@@ -1693,12 +1737,12 @@ const Kissmanga = {
             page.cdn();
             return;
         }
-        api.storage.addStyle(__webpack_require__(43).toString());
+        api.storage.addStyle(__webpack_require__(48).toString());
         j.$(document).ready(function () { page.handlePage(); });
     }
 };
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(3), __webpack_require__(0), __webpack_require__(4), __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(4), __webpack_require__(0), __webpack_require__(3), __webpack_require__(1)))
 
 /***/ }),
 /* 11 */
@@ -1738,7 +1782,7 @@ const nineAnime = {
         }
     },
     init(page) {
-        api.storage.addStyle(__webpack_require__(45).toString());
+        api.storage.addStyle(__webpack_require__(50).toString());
         utils.waitUntilTrue(function () { return j.$('.servers').length; }, function () {
             con.info('Start check');
             page.handlePage();
@@ -1750,7 +1794,7 @@ const nineAnime = {
     }
 };
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(3), __webpack_require__(1), __webpack_require__(4)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(4), __webpack_require__(1), __webpack_require__(3)))
 
 /***/ }),
 /* 12 */
@@ -1818,7 +1862,7 @@ const Crunchyroll = {
             page.cdn();
             return;
         }
-        api.storage.addStyle(__webpack_require__(47).toString());
+        api.storage.addStyle(__webpack_require__(52).toString());
         page.setCacheTemp = page.setCache;
         page.setCache = function (url, toDatabase, identifier = null) {
             if (this.page.isSyncPage(this.url)) {
@@ -1899,7 +1943,7 @@ function episodeHelper(url, episodeText) {
     return episodePart;
 }
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(3), __webpack_require__(4), __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(4), __webpack_require__(3), __webpack_require__(1)))
 
 /***/ }),
 /* 13 */
@@ -1970,7 +2014,7 @@ const Mangadex = {
             page.cdn();
             return;
         }
-        api.storage.addStyle(__webpack_require__(49).toString());
+        api.storage.addStyle(__webpack_require__(54).toString());
         if (j.$('.card-header').length) {
             if (/chapter\/\d+\/comments/i.test(window.location.href)) {
                 con.info('Comments');
@@ -2030,7 +2074,7 @@ function EpisodePartToEpisode(string) {
 }
 ;
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(3), __webpack_require__(4), __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(4), __webpack_require__(3), __webpack_require__(1)))
 
 /***/ }),
 /* 14 */
@@ -2077,7 +2121,7 @@ const Mangarock = {
         }
     },
     init(page) {
-        api.storage.addStyle(__webpack_require__(51).toString());
+        api.storage.addStyle(__webpack_require__(56).toString());
         start();
         utils.urlChangeDetect(function () {
             page.url = window.location.href;
@@ -2141,7 +2185,7 @@ function EpisodePartToEpisode(string) {
     return '';
 }
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(3), __webpack_require__(0), __webpack_require__(4), __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(4), __webpack_require__(0), __webpack_require__(3), __webpack_require__(1)))
 
 /***/ }),
 /* 15 */
@@ -2199,7 +2243,7 @@ const Gogoanime = {
         }
     },
     init(page) {
-        api.storage.addStyle(__webpack_require__(53).toString());
+        api.storage.addStyle(__webpack_require__(58).toString());
         if (Gogoanime.isSyncPage(page.url)) {
             j.$(document).ready(function () {
                 start();
@@ -2223,7 +2267,7 @@ const Gogoanime = {
     }
 };
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(3), __webpack_require__(0), __webpack_require__(1), __webpack_require__(4)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(4), __webpack_require__(0), __webpack_require__(1), __webpack_require__(3)))
 
 /***/ }),
 /* 16 */
@@ -2273,14 +2317,14 @@ const Anime4you = {
             page.cdn();
             return;
         }
-        api.storage.addStyle(__webpack_require__(55).toString());
+        api.storage.addStyle(__webpack_require__(60).toString());
         j.$(document).ready(function () {
             page.handlePage();
         });
     }
 };
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(3), __webpack_require__(4), __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(4), __webpack_require__(3), __webpack_require__(1)))
 
 /***/ }),
 /* 17 */
@@ -2323,14 +2367,14 @@ const Branitube = {
         }
     },
     init(page) {
-        api.storage.addStyle(__webpack_require__(57).toString());
+        api.storage.addStyle(__webpack_require__(62).toString());
         j.$(document).ready(function () {
             page.handlePage();
         });
     }
 };
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(3), __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(4), __webpack_require__(1)))
 
 /***/ }),
 /* 18 */
@@ -2386,7 +2430,7 @@ const Turkanime = {
             page.cdn();
             return;
         }
-        api.storage.addStyle(__webpack_require__(59).toString());
+        api.storage.addStyle(__webpack_require__(64).toString());
         j.$(document).ready(function () {
             if (Turkanime.isSyncPage(page.url)) {
                 page.handlePage();
@@ -2411,7 +2455,7 @@ function getEpisode(selector, episodeSelector) {
     }
 }
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(3), __webpack_require__(4), __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(4), __webpack_require__(3), __webpack_require__(1)))
 
 /***/ }),
 /* 19 */
@@ -2451,7 +2495,7 @@ const Twistmoe = {
         }
     },
     init(page) {
-        api.storage.addStyle(__webpack_require__(61).toString());
+        api.storage.addStyle(__webpack_require__(66).toString());
         j.$(document).ready(function () {
             start();
             utils.urlChangeDetect(function () {
@@ -2471,7 +2515,7 @@ const Twistmoe = {
     }
 };
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(3), __webpack_require__(1), __webpack_require__(4)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(4), __webpack_require__(1), __webpack_require__(3)))
 
 /***/ }),
 /* 20 */
@@ -2721,7 +2765,7 @@ const Emby = {
         uiSelector: function (selector) { selector.appendTo(j.$(".page:not(.hide) .detailSection").first()); },
     },
     init(page) {
-        api.storage.addStyle(__webpack_require__(63).toString());
+        api.storage.addStyle(__webpack_require__(68).toString());
         testApi()
             .catch(() => {
             con.info('Not Authenticated');
@@ -2766,7 +2810,7 @@ const Emby = {
     }
 };
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(1), __webpack_require__(4), __webpack_require__(3), __webpack_require__(0)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(1), __webpack_require__(3), __webpack_require__(4), __webpack_require__(0)))
 
 /***/ }),
 /* 21 */
@@ -2903,7 +2947,7 @@ const Plex = {
         uiSelector: function (selector) { selector.insertAfter(j.$('[data-qa-id="preplayMainTitle"]').first()); },
     },
     init(page) {
-        api.storage.addStyle(__webpack_require__(65).toString());
+        api.storage.addStyle(__webpack_require__(70).toString());
         utils.changeDetect(() => {
             var href = $('[download]').attr('href');
             var apiBase = href.split('/').splice(0, 3).join('/');
@@ -2951,7 +2995,7 @@ const Plex = {
     }
 };
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(1), __webpack_require__(3), __webpack_require__(4), __webpack_require__(0)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(1), __webpack_require__(4), __webpack_require__(3), __webpack_require__(0)))
 
 /***/ }),
 /* 22 */
@@ -3007,9 +3051,13 @@ function getSeries(page) {
     });
     function getSeason() {
         var sesText = j.$('.ellipsize-text span').first().text().trim();
-        var temp = sesText.match(/^S\d+/);
+        var temp = sesText.match(/^(S|St.\ )\d+/);
         if (temp !== null) {
-            return '?s=' + temp[0].replace('S', '');
+            return '?s=' + temp[0].replace(/^\D*/, '').trim();
+        }
+        temp = sesText.match(/\d+/);
+        if (temp !== null) {
+            return '?s=' + temp[0];
         }
         throw 'No Season found';
     }
@@ -3038,7 +3086,7 @@ const Netflix = {
         },
     },
     init(page) {
-        api.storage.addStyle(__webpack_require__(67).toString());
+        api.storage.addStyle(__webpack_require__(72).toString());
         j.$(document).ready(function () {
             ready();
         });
@@ -3059,7 +3107,7 @@ const Netflix = {
     }
 };
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(3), __webpack_require__(1), __webpack_require__(4), __webpack_require__(0)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(4), __webpack_require__(1), __webpack_require__(3), __webpack_require__(0)))
 
 /***/ }),
 /* 23 */
@@ -3115,14 +3163,14 @@ const Otakustream = {
         }
     },
     init(page) {
-        api.storage.addStyle(__webpack_require__(69).toString());
+        api.storage.addStyle(__webpack_require__(74).toString());
         j.$(document).ready(function () {
             page.handlePage();
         });
     }
 };
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(3), __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(4), __webpack_require__(1)))
 
 /***/ }),
 /* 24 */
@@ -3168,7 +3216,7 @@ const animepahe = {
         }
     },
     init(page) {
-        api.storage.addStyle(__webpack_require__(71).toString());
+        api.storage.addStyle(__webpack_require__(76).toString());
         if (!animepahe.isSyncPage(page.url)) {
             utils.waitUntilTrue(function () { return animepahe.overview.list.elementsSelector(); }, function () {
                 page.handlePage();
@@ -3182,7 +3230,7 @@ const animepahe = {
     }
 };
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(3), __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(4), __webpack_require__(1)))
 
 /***/ }),
 /* 25 */
@@ -3257,7 +3305,7 @@ const animeflv = {
         }
     },
     init(page) {
-        api.storage.addStyle(__webpack_require__(73).toString());
+        api.storage.addStyle(__webpack_require__(78).toString());
         if (document.title == "Just a moment...") {
             con.log("loading");
             page.cdn();
@@ -3267,7 +3315,7 @@ const animeflv = {
     }
 };
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(3), __webpack_require__(1), __webpack_require__(4)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(4), __webpack_require__(1), __webpack_require__(3)))
 
 /***/ }),
 /* 26 */
@@ -3348,7 +3396,7 @@ const Jkanime = {
         }
     },
     init(page) {
-        api.storage.addStyle(__webpack_require__(75).toString());
+        api.storage.addStyle(__webpack_require__(80).toString());
         j.$(document).ready(function () { page.handlePage(); });
         j.$('.navigation a').click(function () {
             if (check == 1) {
@@ -3358,7 +3406,7 @@ const Jkanime = {
     }
 };
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(3), __webpack_require__(0), __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(4), __webpack_require__(0), __webpack_require__(1)))
 
 /***/ }),
 /* 27 */
@@ -3438,7 +3486,7 @@ const Vrv = {
         }
     },
     init(page) {
-        api.storage.addStyle(__webpack_require__(77).toString());
+        api.storage.addStyle(__webpack_require__(82).toString());
         j.$(document).ready(function () {
             ready();
         });
@@ -3473,7 +3521,7 @@ const Vrv = {
     }
 };
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(1), __webpack_require__(4), __webpack_require__(3), __webpack_require__(0)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(1), __webpack_require__(3), __webpack_require__(4), __webpack_require__(0)))
 
 /***/ }),
 /* 28 */
@@ -3573,7 +3621,7 @@ const Proxer = {
         }
     },
     init(page) {
-        api.storage.addStyle(__webpack_require__(79).toString());
+        api.storage.addStyle(__webpack_require__(84).toString());
         if (page.url.split("/")[3] === "watch" || page.url.split("/")[3] === "read") {
             if (page.url.split("/")[3] === "watch") {
                 Proxer.type = "anime";
@@ -3669,7 +3717,7 @@ Special 1
 Extra Story
 */
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(3), __webpack_require__(4), __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(4), __webpack_require__(3), __webpack_require__(1)))
 
 /***/ }),
 /* 29 */
@@ -3712,14 +3760,14 @@ const Animevibe = {
             page.cdn();
             return;
         }
-        api.storage.addStyle(__webpack_require__(81).toString());
+        api.storage.addStyle(__webpack_require__(86).toString());
         j.$(document).ready(function () {
             page.handlePage();
         });
     }
 };
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(3), __webpack_require__(4), __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(4), __webpack_require__(3), __webpack_require__(1)))
 
 /***/ }),
 /* 30 */
@@ -3777,7 +3825,7 @@ const Novelplanet = {
             page.cdn();
             return;
         }
-        api.storage.addStyle(__webpack_require__(83).toString());
+        api.storage.addStyle(__webpack_require__(88).toString());
         j.$(document).ready(function () { page.handlePage(); });
     }
 };
@@ -3805,7 +3853,7 @@ function getEp(episodePart) {
     return episodePart;
 }
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(3), __webpack_require__(0), __webpack_require__(4), __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(4), __webpack_require__(0), __webpack_require__(3), __webpack_require__(1)))
 
 /***/ }),
 /* 31 */
@@ -3939,7 +3987,7 @@ var betaWonderfulSubs = {
     }
 };
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(1), __webpack_require__(3)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(1), __webpack_require__(4)))
 
 /***/ }),
 /* 32 */
@@ -4001,7 +4049,7 @@ const kawaiifu = {
         },
     },
     init(page) {
-        api.storage.addStyle(__webpack_require__(86).toString());
+        api.storage.addStyle(__webpack_require__(91).toString());
         j.$(document).ready(function () {
             page.handlePage();
         });
@@ -4061,7 +4109,7 @@ const fourAnime = {
         },
     },
     init(page) {
-        api.storage.addStyle(__webpack_require__(88).toString());
+        api.storage.addStyle(__webpack_require__(93).toString());
         j.$(document).ready(function () {
             if (j.$(".singletitletop")[0] && j.$(".episodes")[0] || page.url.split("/")[3] == "anime") {
                 page.handlePage();
@@ -4098,15 +4146,40 @@ const Dreamanimes = {
         },
         getEpisode: function (url) { return parseInt(utils.urlPart(url, 7)); },
     },
+    overview: {
+        getTitle: function (url) { return j.$(".truncate").text(); },
+        getIdentifier: function (url) { return url.split("/")[4]; },
+        uiSelector: function (selector) { selector.insertAfter(j.$("#pcontent h3")); },
+    },
     init(page) {
-        api.storage.addStyle(__webpack_require__(90).toString());
+        api.storage.addStyle(__webpack_require__(95).toString());
+        var Interval;
         j.$(document).ready(function () {
-            page.handlePage();
+            start();
+            utils.urlChangeDetect(function () {
+                page.url = window.location.href;
+                page.UILoaded = false;
+                $('#flashinfo-div, #flash-div-bottom, #flash-div-top').remove();
+                start();
+            });
         });
+        function start() {
+            if (utils.urlPart(page.url, 3) == 'online' || utils.urlPart(page.url, 3) == 'anime-info') {
+                if (Dreamanimes.isSyncPage(page.url)) {
+                    page.handlePage();
+                }
+                else {
+                    clearInterval(Interval);
+                    Interval = utils.waitUntilTrue(function () { return Dreamanimes.overview.getTitle(page.url); }, function () {
+                        page.handlePage();
+                    });
+                }
+            }
+        }
     }
 };
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(3), __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(4), __webpack_require__(1)))
 
 /***/ }),
 /* 35 */
@@ -4157,12 +4230,12 @@ const animeultima = {
             page.cdn();
             return;
         }
-        api.storage.addStyle(__webpack_require__(92).toString());
+        api.storage.addStyle(__webpack_require__(97).toString());
         j.$(document).ready(function () { page.handlePage(); });
     }
 };
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(3), __webpack_require__(4), __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(4), __webpack_require__(3), __webpack_require__(1)))
 
 /***/ }),
 /* 36 */
@@ -4220,7 +4293,7 @@ const Aniflix = {
             page.cdn();
             return;
         }
-        api.storage.addStyle(__webpack_require__(94).toString());
+        api.storage.addStyle(__webpack_require__(99).toString());
         j.$(document).ready(function () {
             if (page.url.split("/")[3] === "anime" || page.url.split("/")[3] === "stream")
                 page.handlePage();
@@ -4228,7 +4301,7 @@ const Aniflix = {
     }
 };
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(4), __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(3), __webpack_require__(1)))
 
 /***/ }),
 /* 37 */
@@ -4279,7 +4352,7 @@ const AnimeDaisuki = {
             page.cdn();
             return;
         }
-        api.storage.addStyle(__webpack_require__(96).toString());
+        api.storage.addStyle(__webpack_require__(101).toString());
         j.$(document).ready(function () {
             if (page.url.split("/")[3] === "watch" || page.url.split("/")[3] === "anime") {
                 page.handlePage();
@@ -4288,7 +4361,7 @@ const AnimeDaisuki = {
     }
 };
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(4), __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(3), __webpack_require__(1)))
 
 /***/ }),
 /* 38 */
@@ -4333,7 +4406,7 @@ const Animefreak = {
         },
     },
     init(page) {
-        api.storage.addStyle(__webpack_require__(98).toString());
+        api.storage.addStyle(__webpack_require__(103).toString());
         j.$(document).ready(function () {
             if (page.url.split("/")[3] === "watch") {
                 page.handlePage();
@@ -4400,7 +4473,7 @@ const AnimePlanet = {
             page.cdn();
             return;
         }
-        api.storage.addStyle(__webpack_require__(100).toString());
+        api.storage.addStyle(__webpack_require__(105).toString());
         j.$(document).ready(function () {
             if (page.url.split("/")[3] === "anime") {
                 page.handlePage();
@@ -4409,10 +4482,319 @@ const AnimePlanet = {
     }
 };
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(3), __webpack_require__(4), __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(4), __webpack_require__(3), __webpack_require__(1)))
 
 /***/ }),
 /* 40 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(utils, j, con, api) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return KickAssAnime; });
+const KickAssAnime = {
+    name: "KickAssAnime",
+    domain: "https://www17.kickassanime.io",
+    type: "anime",
+    isSyncPage: function (url) {
+        if (url.split("/")[5] == null) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    },
+    sync: {
+        getTitle: function (url) {
+            return utils.getBaseText($('#animeInfoTab > a'));
+        },
+        getIdentifier: function (url) {
+            return url.split("/")[4];
+        },
+        getOverviewUrl: function (url) {
+            return KickAssAnime.domain + '/anime/' + KickAssAnime.sync.getIdentifier(url);
+        },
+        getEpisode: function (url) {
+            var episodePart = url.split("/")[5];
+            if (episodePart.length) {
+                var temp = episodePart.match(/episode-\d*/g);
+                if (temp !== null) {
+                    return temp[0].replace(/\D+/g, "");
+                }
+            }
+        },
+    },
+    overview: {
+        getTitle: function (url) {
+            return j.$("h1.title").text();
+        },
+        getIdentifier: function (url) {
+            return url.split("/")[4];
+        },
+        uiSelector: function (selector) {
+            selector.insertAfter(j.$("div.anime-info.border.rounded.mb-3").first());
+        },
+    },
+    init(page) {
+        if (document.title == "Just a moment...") {
+            con.log("loading");
+            page.cdn();
+            return;
+        }
+        api.storage.addStyle(__webpack_require__(107).toString());
+        j.$(document).ready(function () {
+            if (page.url.split("/")[3] == "anime") {
+                page.handlePage();
+            }
+        });
+    }
+};
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(4), __webpack_require__(0), __webpack_require__(3), __webpack_require__(1)))
+
+/***/ }),
+/* 41 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(j, con, api) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RiiE; });
+const RiiE = {
+    name: "RiiE",
+    domain: "https://www.riie.net",
+    type: "anime",
+    isSyncPage: function (url) {
+        if (j.$("#lightsVideo")[0]) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    },
+    sync: {
+        getTitle: function (url) { return j.$("#content > div.postarea > div > div.post > div:nth-child(1) > b").text().replace(/episode.*/gmi, "").trim(); },
+        getIdentifier: function (url) {
+            return j.$("#content > div.postarea > div > div.post > div.newzone > div.right > a:nth-child(2)").attr('href').split("/")[4];
+        },
+        getOverviewUrl: function (url) {
+            return j.$("#content > div.postarea > div > div.post > div.newzone > div.right > a:nth-child(2)").attr('href');
+        },
+        getEpisode: function (url) {
+            var episodePart = url.split("/")[3];
+            if (episodePart.length) {
+                var temp = episodePart.match(/-episode-\d*-/g);
+                if (temp !== null) {
+                    return temp[0].replace(/\D+/g, "");
+                }
+            }
+        },
+    },
+    overview: {
+        getTitle: function (url) {
+            return url.split("/")[4].replace(/-/g, " ");
+        },
+        getIdentifier: function (url) {
+            return url.split("/")[4];
+        },
+        uiSelector: function (selector) {
+            selector.insertAfter(j.$("#content > div.naru > div.areaxb").first());
+        },
+    },
+    init(page) {
+        if (document.title == "Just a moment...") {
+            con.log("loading");
+            page.cdn();
+            return;
+        }
+        api.storage.addStyle(__webpack_require__(109).toString());
+        j.$(document).ready(function () {
+            if (page.url.split("/")[3] == "anime" || j.$("#lightsVideo")[0] && j.$("#content > div.postarea > div > div.post > div.newzone > div.right")[0])
+                page.handlePage();
+        });
+    }
+};
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(3), __webpack_require__(1)))
+
+/***/ }),
+/* 42 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(j, con, api) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AnimeKisa; });
+const AnimeKisa = {
+    name: "AnimeKisa",
+    domain: "https://animekisa.tv",
+    type: "anime",
+    isSyncPage: function (url) {
+        if (url.split("/")[3] !== null && j.$("div.c a.infoan2")[0] && j.$("#playerselector option:selected")[0]) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    },
+    sync: {
+        getTitle: function (url) { return j.$("div.c a.infoan2").text().trim(); },
+        getIdentifier: function (url) {
+            return j.$("div.c a.infoan2").attr("href");
+        },
+        getOverviewUrl: function (url) {
+            return AnimeKisa.domain + "/" + j.$("div.c a.infoan2").attr("href");
+        },
+        getEpisode: function (url) {
+            return j.$("#playerselector option:selected").text().replace(/\D+/g, "");
+        }
+    },
+    overview: {
+        getTitle: function (url) {
+            return j.$("#body > div.notmain > div > div.infobox > div.infoboxc > div.infodesbox > h1").text().trim();
+        },
+        getIdentifier: function (url) {
+            return url.split("/")[3];
+        },
+        uiSelector: function (selector) { selector.insertBefore(j.$(".infoepboxmain").first()); },
+    },
+    init(page) {
+        if (document.title == "Just a moment...") {
+            con.log("loading");
+            page.cdn();
+            return;
+        }
+        api.storage.addStyle(__webpack_require__(111).toString());
+        j.$(document).ready(function () {
+            if (page.url.split("/")[3] !== null && j.$("div.c a.infoan2")[0] && j.$("#playerselector option:selected")[0] || page.url.split("/")[3] !== null && j.$("#body > div.notmain > div > div.infobox > div.infoboxc > div.infodesbox > h1")[0] && j.$("#body > div.notmain > div > div.infobox > div.infoepboxmain")[0]) {
+                page.handlePage();
+            }
+        });
+    }
+};
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(3), __webpack_require__(1)))
+
+/***/ }),
+/* 43 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(j, con, api) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Wakanim; });
+const Wakanim = {
+    name: "Wakanim",
+    domain: "https://www.wakanim.tv",
+    type: "anime",
+    isSyncPage: function (url) {
+        if (j.$("body > section.episode > div > div > div.episode_main > div.episode_video > div").length) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    },
+    sync: {
+        getTitle: function (url) { return j.$("body > section.episode > div > div > div.episode_info > h1 > span.episode_title").text(); },
+        getIdentifier: function (url) {
+            return Wakanim.overview.getIdentifier(Wakanim.sync.getOverviewUrl(url));
+        },
+        getOverviewUrl: function (url) { return Wakanim.domain + j.$("body > section.episode > div > div > div.episode_info > div.episode_buttons > a:nth-child(2)").attr('href'); },
+        getEpisode: function (url) {
+            return j.$("body > section.episode > div > div > div.episode_info > h1 > span.episode_subtitle > span:nth-child(1) > span").text();
+        },
+        nextEpUrl: function (url) { return j.$("body > section.episode > div > div > div.episode_main > div.episode_video > div > div.episode-bottom > div.episodeNPEp-wrapperBlock > a.episodeNPEp.episodeNextEp.active").attr('href'); },
+    },
+    overview: {
+        getTitle: function (url) { return j.$("h1.serie_title").text(); },
+        getIdentifier: function (url) {
+            return url.split("/")[7].trim();
+        },
+        uiSelector: function (selector) {
+            selector.insertAfter(j.$("h1.serie_title").first());
+        },
+    },
+    init(page) {
+        if (document.title == "Just a moment...") {
+            con.log("loading");
+            page.cdn();
+            return;
+        }
+        api.storage.addStyle(__webpack_require__(113).toString());
+        j.$(document).ready(function () {
+            if (Wakanim.isSyncPage(page.url)) {
+                if (j.$("#jwplayer-container")[0]) {
+                    page.handlePage();
+                }
+            }
+            else {
+                page.handlePage();
+            }
+        });
+    }
+};
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(3), __webpack_require__(1)))
+
+/***/ }),
+/* 44 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(j, con, api) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AnimeIndo; });
+const AnimeIndo = {
+    name: "AnimeIndo",
+    domain: "http://animeindo.moe",
+    type: "anime",
+    isSyncPage: function (url) {
+        if (url.split("/")[1] !== null && j.$("#sct_content > div > div.preview")[0]) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    },
+    sync: {
+        getTitle: function (url) { return j.$("#sct_content > div > div.infobox > h3").text(); },
+        getIdentifier: function (url) {
+            return j.$("#sct_content > div > div.ep_nav.fr > span.nav.all > a").attr("href").split("/")[4];
+        },
+        getOverviewUrl: function (url) {
+            return j.$("#sct_content > div > div.ep_nav.fr > span.nav.all > a").attr("href");
+        },
+        getEpisode: function (url) {
+            var episodePart = url.split("/")[3];
+            if (episodePart.length) {
+                var temp = episodePart.match(/-episode-\d*/g);
+                if (temp !== null) {
+                    return temp[0].replace(/\D+/g, "");
+                }
+            }
+        },
+    },
+    overview: {
+        getTitle: function (url) {
+            return j.$("#sct_content > div.nodeinfo > h2").first().text().replace(/sinopsis/gi, "").trim();
+        },
+        getIdentifier: function (url) {
+            return url.split("/")[4];
+        },
+        uiSelector: function (selector) {
+            selector.insertAfter(j.$("#sct_content > h1").first());
+        },
+    },
+    init(page) {
+        if (document.title == "Just a moment...") {
+            con.log("loading");
+            page.cdn();
+            return;
+        }
+        api.storage.addStyle(__webpack_require__(115).toString());
+        j.$(document).ready(function () {
+            if (page.url.split("/")[3] === "anime" || page.url.split("/")[3] !== null && j.$("#sct_content > div > div.preview")[0]) {
+                page.handlePage();
+            }
+        });
+    }
+};
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(3), __webpack_require__(1)))
+
+/***/ }),
+/* 45 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4426,12 +4808,12 @@ var interval = 5000;
 $(document).ready(function () { main(); });
 function main() {
     var page = getPage(window.location.href);
-    if (page && !(window.location.href.indexOf('static.crunchyroll.com') > -1)) {
-        con.log('Page found', page.name);
+    if (page && !(window.location.href.indexOf('static.crunchyroll.com') > -1) && !(window.location.href.indexOf('stream.proxer.me') > -1)) {
+        con.log('Page found', page.name, window.location.href);
         handlePage(page);
     }
     else {
-        con.log('Video Iframe');
+        con.log('Video Iframe', window.location.href);
         setInterval(function () {
             var timeLeft = getTimeleft();
             con.log('[IFRAME]', timeLeft);
@@ -4572,14 +4954,14 @@ function getTimeleft() {
     return timeLeft;
 }
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(1), __webpack_require__(4), __webpack_require__(0), __webpack_require__(3)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(1), __webpack_require__(3), __webpack_require__(0), __webpack_require__(4)))
 
 /***/ }),
-/* 41 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(42);
+        var result = __webpack_require__(47);
 
         if (typeof result === "string") {
             module.exports = result;
@@ -4589,7 +4971,7 @@ function getTimeleft() {
     
 
 /***/ }),
-/* 42 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -4603,11 +4985,11 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
 
 
 /***/ }),
-/* 43 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(44);
+        var result = __webpack_require__(49);
 
         if (typeof result === "string") {
             module.exports = result;
@@ -4617,7 +4999,7 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
     
 
 /***/ }),
-/* 44 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -4631,11 +5013,11 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
 
 
 /***/ }),
-/* 45 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(46);
+        var result = __webpack_require__(51);
 
         if (typeof result === "string") {
             module.exports = result;
@@ -4645,7 +5027,7 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
     
 
 /***/ }),
-/* 46 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -4659,11 +5041,11 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
 
 
 /***/ }),
-/* 47 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(48);
+        var result = __webpack_require__(53);
 
         if (typeof result === "string") {
             module.exports = result;
@@ -4673,7 +5055,7 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
     
 
 /***/ }),
-/* 48 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -4687,11 +5069,11 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
 
 
 /***/ }),
-/* 49 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(50);
+        var result = __webpack_require__(55);
 
         if (typeof result === "string") {
             module.exports = result;
@@ -4701,7 +5083,7 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
     
 
 /***/ }),
-/* 50 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -4709,17 +5091,17 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: inherit;\n}\n.mal-sync-active {\n  background-color: #cee1ff;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: inherit;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n#malp {\n  margin: 0;\n}\n#malp span {\n  color: inherit;\n}\n#malp select > * {\n  background-color: white !important;\n}\n@media only screen and (max-width: 1440px) {\n  #malp .MalLogin {\n    width: 100%;\n  }\n}\n.MALSyncDark #MalData select option {\n  background-color: black !important;\n}\n", ""]);
+exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: inherit;\n}\n.mal-sync-active {\n  background-color: #cee1ff;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: inherit;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n#malp {\n  margin: 0;\n}\n#malp span {\n  color: inherit;\n}\n#malp select > * {\n  background-color: white !important;\n}\n@media only screen and (max-width: 1440px) {\n  #malp .MalLogin {\n    width: 100%;\n  }\n}\n.MALSyncDark #MalData select option {\n  background-color: black !important;\n}\n.MALSyncDark .mal-sync-active {\n  background-color: #0e1d35;\n}\n", ""]);
 
 // exports
 
 
 /***/ }),
-/* 51 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(52);
+        var result = __webpack_require__(57);
 
         if (typeof result === "string") {
             module.exports = result;
@@ -4729,7 +5111,7 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
     
 
 /***/ }),
-/* 52 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -4743,11 +5125,11 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
 
 
 /***/ }),
-/* 53 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(54);
+        var result = __webpack_require__(59);
 
         if (typeof result === "string") {
             module.exports = result;
@@ -4757,7 +5139,7 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
     
 
 /***/ }),
-/* 54 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -4771,11 +5153,11 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
 
 
 /***/ }),
-/* 55 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(56);
+        var result = __webpack_require__(61);
 
         if (typeof result === "string") {
             module.exports = result;
@@ -4785,7 +5167,7 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
     
 
 /***/ }),
-/* 56 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -4799,11 +5181,11 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
 
 
 /***/ }),
-/* 57 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(58);
+        var result = __webpack_require__(63);
 
         if (typeof result === "string") {
             module.exports = result;
@@ -4813,7 +5195,7 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
     
 
 /***/ }),
-/* 58 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -4827,11 +5209,11 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
 
 
 /***/ }),
-/* 59 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(60);
+        var result = __webpack_require__(65);
 
         if (typeof result === "string") {
             module.exports = result;
@@ -4841,7 +5223,7 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
     
 
 /***/ }),
-/* 60 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -4855,11 +5237,11 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
 
 
 /***/ }),
-/* 61 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(62);
+        var result = __webpack_require__(67);
 
         if (typeof result === "string") {
             module.exports = result;
@@ -4869,7 +5251,7 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
     
 
 /***/ }),
-/* 62 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -4883,11 +5265,11 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
 
 
 /***/ }),
-/* 63 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(64);
+        var result = __webpack_require__(69);
 
         if (typeof result === "string") {
             module.exports = result;
@@ -4897,7 +5279,7 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
     
 
 /***/ }),
-/* 64 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -4911,11 +5293,11 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
 
 
 /***/ }),
-/* 65 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(66);
+        var result = __webpack_require__(71);
 
         if (typeof result === "string") {
             module.exports = result;
@@ -4925,7 +5307,7 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
     
 
 /***/ }),
-/* 66 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -4939,11 +5321,11 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
 
 
 /***/ }),
-/* 67 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(68);
+        var result = __webpack_require__(73);
 
         if (typeof result === "string") {
             module.exports = result;
@@ -4953,7 +5335,7 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
     
 
 /***/ }),
-/* 68 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -4967,11 +5349,11 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
 
 
 /***/ }),
-/* 69 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(70);
+        var result = __webpack_require__(75);
 
         if (typeof result === "string") {
             module.exports = result;
@@ -4981,7 +5363,7 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
     
 
 /***/ }),
-/* 70 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -4995,11 +5377,11 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
 
 
 /***/ }),
-/* 71 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(72);
+        var result = __webpack_require__(77);
 
         if (typeof result === "string") {
             module.exports = result;
@@ -5009,7 +5391,7 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
     
 
 /***/ }),
-/* 72 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -5023,11 +5405,11 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
 
 
 /***/ }),
-/* 73 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(74);
+        var result = __webpack_require__(79);
 
         if (typeof result === "string") {
             module.exports = result;
@@ -5037,7 +5419,7 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
     
 
 /***/ }),
-/* 74 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -5051,11 +5433,11 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
 
 
 /***/ }),
-/* 75 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(76);
+        var result = __webpack_require__(81);
 
         if (typeof result === "string") {
             module.exports = result;
@@ -5065,7 +5447,7 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
     
 
 /***/ }),
-/* 76 */
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -5079,11 +5461,11 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
 
 
 /***/ }),
-/* 77 */
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(78);
+        var result = __webpack_require__(83);
 
         if (typeof result === "string") {
             module.exports = result;
@@ -5093,7 +5475,7 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
     
 
 /***/ }),
-/* 78 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -5107,88 +5489,18 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
 
 
 /***/ }),
-/* 79 */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-        var result = __webpack_require__(80);
-
-        if (typeof result === "string") {
-            module.exports = result;
-        } else {
-            module.exports = result.toString();
-        }
-    
-
-/***/ }),
-/* 80 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(2)(false);
-// imports
-
-
-// module
-exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: inherit;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: inherit;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n.mal-sync-active {\n  border: 2px solid #002966 !important;\n}\n#malp {\n  margin: 10px;\n  max-width: 1000px;\n}\n#malp select option {\n  color: white;\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
-/* 81 */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-        var result = __webpack_require__(82);
-
-        if (typeof result === "string") {
-            module.exports = result;
-        } else {
-            module.exports = result.toString();
-        }
-    
-
-/***/ }),
-/* 82 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(2)(false);
-// imports
-
-
-// module
-exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: black;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: black;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
-/* 83 */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-        var result = __webpack_require__(84);
-
-        if (typeof result === "string") {
-            module.exports = result;
-        } else {
-            module.exports = result.toString();
-        }
-    
-
-/***/ }),
 /* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(2)(false);
-// imports
 
+        var result = __webpack_require__(85);
 
-// module
-exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: #72cefe;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: #72cefe;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n.mal-sync-active {\n  background-color: #cfe2ff;\n}\n#malp select option {\n  background-color: white;\n  color: black;\n}\n#malp #MalData > * {\n  white-space: nowrap;\n}\n#malp select,\n#malp input,\n#malp a,\n#malp #malTotalVol,\n#malp #malTotalCha {\n  display: inline-block;\n  color: #07c;\n}\n#malp .info {\n  border: none;\n  padding: 0;\n  color: inherit;\n  margin: 0;\n  width: auto;\n  font-weight: 600;\n  color: #696969;\n  font-size: 100%;\n  font-family: roboto, sans-serif;\n  margin-right: 5px;\n}\n", ""]);
-
-// exports
-
+        if (typeof result === "string") {
+            module.exports = result;
+        } else {
+            module.exports = result.toString();
+        }
+    
 
 /***/ }),
 /* 85 */
@@ -5199,7 +5511,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: black;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: black;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n#flashinfo-div,\n#flash-div-bottom {\n  z-index: 2000 !important;\n}\n", ""]);
+exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: inherit;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: inherit;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n.mal-sync-active {\n  border: 2px solid #002966 !important;\n}\n#malp {\n  margin: 10px;\n  max-width: 1000px;\n}\n#malp select option {\n  color: white;\n}\n", ""]);
 
 // exports
 
@@ -5227,7 +5539,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: black;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: black;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n#malp select option {\n  color: black !important;\n  background-color: white !important;\n}\n", ""]);
+exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: black;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: black;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n", ""]);
 
 // exports
 
@@ -5255,7 +5567,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: black;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: black;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n#malp select,\na,\ninput,\nspan {\n  color: #bbb !important;\n}\n#malp select option {\n  color: #bbb !important;\n  background-color: #161616 !important;\n}\n", ""]);
+exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: #72cefe;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: #72cefe;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n.mal-sync-active {\n  background-color: #cfe2ff;\n}\n#malp select option {\n  background-color: white;\n  color: black;\n}\n#malp #MalData > * {\n  white-space: nowrap;\n}\n#malp select,\n#malp input,\n#malp a,\n#malp #malTotalVol,\n#malp #malTotalCha {\n  display: inline-block;\n  color: #07c;\n}\n#malp .info {\n  border: none;\n  padding: 0;\n  color: inherit;\n  margin: 0;\n  width: auto;\n  font-weight: 600;\n  color: #696969;\n  font-size: 100%;\n  font-family: roboto, sans-serif;\n  margin-right: 5px;\n}\n", ""]);
 
 // exports
 
@@ -5264,8 +5576,22 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
 /* 90 */
 /***/ (function(module, exports, __webpack_require__) {
 
+exports = module.exports = __webpack_require__(2)(false);
+// imports
 
-        var result = __webpack_require__(91);
+
+// module
+exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: black;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: black;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n#flashinfo-div,\n#flash-div-bottom {\n  z-index: 2000 !important;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 91 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+        var result = __webpack_require__(92);
 
         if (typeof result === "string") {
             module.exports = result;
@@ -5275,7 +5601,7 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
     
 
 /***/ }),
-/* 91 */
+/* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -5283,17 +5609,17 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: black;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: black;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n", ""]);
+exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: black;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: black;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n#malp select option {\n  color: black !important;\n  background-color: white !important;\n}\n", ""]);
 
 // exports
 
 
 /***/ }),
-/* 92 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(93);
+        var result = __webpack_require__(94);
 
         if (typeof result === "string") {
             module.exports = result;
@@ -5303,7 +5629,63 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
     
 
 /***/ }),
-/* 93 */
+/* 94 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)(false);
+// imports
+
+
+// module
+exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: black;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: black;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n#malp select,\na,\ninput,\nspan {\n  color: #bbb !important;\n}\n#malp select option {\n  color: #bbb !important;\n  background-color: #161616 !important;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 95 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+        var result = __webpack_require__(96);
+
+        if (typeof result === "string") {
+            module.exports = result;
+        } else {
+            module.exports = result.toString();
+        }
+    
+
+/***/ }),
+/* 96 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)(false);
+// imports
+
+
+// module
+exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: white;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: white;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n#malp {\n  font-size: 14px;\n  padding: 10px 0 10px;\n  padding-top: 1rem;\n  padding-bottom: 1rem;\n}\n#malRating,\n#AddMal {\n  text-decoration: underline;\n}\n.info {\n  border-left: 0px;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 97 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+        var result = __webpack_require__(98);
+
+        if (typeof result === "string") {
+            module.exports = result;
+        } else {
+            module.exports = result.toString();
+        }
+    
+
+/***/ }),
+/* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -5317,11 +5699,11 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
 
 
 /***/ }),
-/* 94 */
+/* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(95);
+        var result = __webpack_require__(100);
 
         if (typeof result === "string") {
             module.exports = result;
@@ -5331,7 +5713,7 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
     
 
 /***/ }),
-/* 95 */
+/* 100 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -5345,11 +5727,11 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
 
 
 /***/ }),
-/* 96 */
+/* 101 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(97);
+        var result = __webpack_require__(102);
 
         if (typeof result === "string") {
             module.exports = result;
@@ -5359,7 +5741,7 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
     
 
 /***/ }),
-/* 97 */
+/* 102 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -5373,11 +5755,11 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
 
 
 /***/ }),
-/* 98 */
+/* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(99);
+        var result = __webpack_require__(104);
 
         if (typeof result === "string") {
             module.exports = result;
@@ -5387,7 +5769,7 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
     
 
 /***/ }),
-/* 99 */
+/* 104 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -5401,11 +5783,11 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
 
 
 /***/ }),
-/* 100 */
+/* 105 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(101);
+        var result = __webpack_require__(106);
 
         if (typeof result === "string") {
             module.exports = result;
@@ -5415,7 +5797,7 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
     
 
 /***/ }),
-/* 101 */
+/* 106 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -5424,6 +5806,146 @@ exports = module.exports = __webpack_require__(2)(false);
 
 // module
 exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: black;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: black;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\nhtml #malp select option {\n  color: black !important;\n  background-color: white !important;\n}\ni.my-float.open-info-popup {\n  padding-right: 0px !important;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 107 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+        var result = __webpack_require__(108);
+
+        if (typeof result === "string") {
+            module.exports = result;
+        } else {
+            module.exports = result.toString();
+        }
+    
+
+/***/ }),
+/* 108 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)(false);
+// imports
+
+
+// module
+exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: black;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: black;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 109 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+        var result = __webpack_require__(110);
+
+        if (typeof result === "string") {
+            module.exports = result;
+        } else {
+            module.exports = result.toString();
+        }
+    
+
+/***/ }),
+/* 110 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)(false);
+// imports
+
+
+// module
+exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: black;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: black;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n#malp {\n  margin-top: 10px;\n}\n#malp select option {\n  color: black !important;\n  background-color: white !important;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 111 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+        var result = __webpack_require__(112);
+
+        if (typeof result === "string") {
+            module.exports = result;
+        } else {
+            module.exports = result.toString();
+        }
+    
+
+/***/ }),
+/* 112 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)(false);
+// imports
+
+
+// module
+exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: black;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: black;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n#malp {\n  font-family: arial, helvetica, sans-serif;\n  max-width: 90%;\n  margin-left: 10px;\n  color: white!important;\n}\n#malp a,\n#malp select,\n#malp input,\n#malp span {\n  color: white!important;\n}\n#malp select option {\n  color: white !important;\n  background-color: black !important;\n}\n#MalData > * {\n  white-space: nowrap;\n}\n#malp select,\n#malp input,\n#malp a,\n#malp #malTotalVol,\n#malp #malTotalCha {\n  display: inline-block !important;\n}\n.mal-sync-active .infoept {\n  background-color: #002966;\n}\n.mal-sync-active div {\n  color: white !important;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 113 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+        var result = __webpack_require__(114);
+
+        if (typeof result === "string") {
+            module.exports = result;
+        } else {
+            module.exports = result.toString();
+        }
+    
+
+/***/ }),
+/* 114 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)(false);
+// imports
+
+
+// module
+exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: white;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: white;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n#malp {\n  margin-bottom: 10px;\n}\n#malp a:hover {\n  color: #e3474b;\n}\n#MalData > * {\n  white-space: nowrap;\n}\n#malp select,\n#malp input,\n#malp a,\n#malp #malTotalVol,\n#malp #malTotalCha {\n  display: inline-block !important;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 115 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+        var result = __webpack_require__(116);
+
+        if (typeof result === "string") {
+            module.exports = result;
+        } else {
+            module.exports = result.toString();
+        }
+    
+
+/***/ }),
+/* 116 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)(false);
+// imports
+
+
+// module
+exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: black;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: black;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n#malp select option {\n  color: white !important;\n  background-color: black !important;\n}\n#malp a,\nselect,\ninput,\nspan {\n  color: white !important;\n}\n", ""]);
 
 // exports
 
