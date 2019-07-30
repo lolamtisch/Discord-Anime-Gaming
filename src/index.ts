@@ -13,7 +13,7 @@ var interval = 5000;
 $(document).ready(function(){main();});
 function main(){
   var page = getPage(window.location.href);
-  if(page && !(window.location.href.indexOf( 'static.crunchyroll.com' ) > -1) && !(window.location.href.indexOf( 'stream.proxer.me' ) > -1)){
+  if(page && !inIframe()){
     con.log('Page found', page.name, window.location.href);
     handlePage(page);
   }else{
@@ -27,6 +27,14 @@ function main(){
         }
     }, interval);
   }
+}
+
+function inIframe() {
+    try {
+        return window.self !== window.top;
+    } catch (e) {
+        return true;
+    }
 }
 
 function getPage(url){
