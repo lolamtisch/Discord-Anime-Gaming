@@ -2,8 +2,11 @@ const path = require('path');
 const webpack = require("webpack");
 const wrapper = require('wrapper-webpack-plugin');
 const package = require('../package.json');
-const pageUrls = require('../src/MALSync/src/pages/pageUrls');
-const playerUrls = require('../src/MALSync/src/pages/playerUrls');
+
+const pageUrls = {...require('../src/MALSync/src/pages/pageUrls'), ...require('../src/MALSync/src/pages-adult/pageUrls')};
+
+const playerUrls = {...require('../src/MALSync/src/pages/playerUrls'), ...require('../src/MALSync/src/pages-adult/playerUrls')};
+
 const resourcesJson = require('./resources');
 
 const generateMatchExcludes = (urls) => {

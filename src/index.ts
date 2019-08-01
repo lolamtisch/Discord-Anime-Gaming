@@ -1,4 +1,8 @@
-import {pages} from "./MALSync/src/pages/pages";
+import {pages as part1} from "./../src/MALSync/src/pages/pages";
+import {pages as part2} from "./../src/MALSync/src/pages-adult/pages";
+
+const pages = {...part1, ...part2};
+
 declare var Discord: any;
 declare var GM_deleteValue: any;
 declare var GM_setValue: any;
