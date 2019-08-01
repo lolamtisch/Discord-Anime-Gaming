@@ -2,7 +2,7 @@
 // @name Discord-Anime-Gaming
 // @namespace https://greasyfork.org/users/92233
 // @description Sets the discord playing state
-// @version 0.28.0
+// @version 0.29.0
 // @author lolamtisch@gmail.com
 // @license GPL-3.0
 // @grant GM_xmlhttpRequest
@@ -19,9 +19,9 @@
 // @match *://myanimelist.net/character/*
 // @match *://myanimelist.net/people/*
 // @match *://myanimelist.net/search/*
-// @match *://anilist.co/*
-// @match *://kitsu.io/*
-// @match *://simkl.com/*
+// @match *://anilist.co/404
+// @match *://kitsu.io/404?mal-sync=authentication*
+// @match *://simkl.com/apps/chrome/mal-sync/connected*
 // @match *://kissanime.ru/Anime/*
 // @match *://kissanime.to/Anime/*
 // @match *://kissmanga.com/Manga/*
@@ -85,6 +85,11 @@
 // @match *://www.funimation.com/shows/*
 // @match *://voiranime.com/*
 // @match *://*.dubbedanime.net/*
+// @match *://*.hanime.tv/*
+// @match *://hentaihaven.org/*
+// @match *://hentaigasm.com/*
+// @match *://kisshentai.net/Hentai/*
+// @match *://www.underhentai.net/*
 // @match *://*.openload.co/*
 // @match *://*.openload.pw/*
 // @match *://*.streamango.com/*
@@ -138,6 +143,10 @@
 // @match *://jwpstream.com/jwps/yplayer.php*
 // @match *://www.vaplayer.xyz/v/*
 // @match *://mp4.sh/embed/*
+// @match *://player.hanime.tv/*
+// @match *://stream.lewd.host/embed/*
+// @match *://tiwi.kiwi/*
+// @match *://streamcherry.com/embed/*
 // @require  http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js
 // @require  https://greasyfork.org/scripts/33416-discord-io/code/discordio.js?version=240880
 // @run-at document_start
@@ -226,7 +235,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 49);
+/******/ 	return __webpack_require__(__webpack_require__.s = 55);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -247,7 +256,7 @@ var $ = jQuery;
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./src/MALSync/src/api/storage/userscriptLegacy.ts
-var userscriptLegacy = __webpack_require__(7);
+var userscriptLegacy = __webpack_require__(6);
 
 // CONCATENATED MODULE: ./src/MALSync/src/api/request/requestUserscriptLegacy.ts
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
@@ -290,7 +299,7 @@ const requestUserscriptLegacy = {
 };
 
 // EXTERNAL MODULE: ./src/MALSync/src/api/settings.ts
-var settings = __webpack_require__(8);
+var settings = __webpack_require__(7);
 
 // CONCATENATED MODULE: ./src/MALSync/src/api/userscript.ts
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "storage", function() { return storage; });
@@ -390,6 +399,26 @@ function toComment(sourceMap) {
 
 /***/ }),
 /* 3 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "log", function() { return log; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "error", function() { return error; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "info", function() { return info; });
+var log = function () {
+    return Function.prototype.bind.call(console.log, console, "%cMAL-Sync", "background-color: #2e51a2; color: white; padding: 2px 10px; border-radius: 3px;");
+}();
+var error = function () {
+    return Function.prototype.bind.call(console.error, console, "%cMAL-Sync", "background-color: #8f0000; color: white; padding: 2px 10px; border-radius: 3px;");
+}();
+var info = function () {
+    return Function.prototype.bind.call(console.info, console, "%cMAL-Sync", "background-color: wheat; color: black; padding: 2px 10px; border-radius: 3px;");
+}();
+
+
+/***/ }),
+/* 4 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1118,30 +1147,238 @@ function elementInViewport(el, horizontalOffset = 0) {
         && (rect.top - horizontalOffset) <= (window.innerHeight || document.documentElement.clientHeight));
 }
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(1), __webpack_require__(4), __webpack_require__(3)))
-
-/***/ }),
-/* 4 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "log", function() { return log; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "error", function() { return error; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "info", function() { return info; });
-var log = function () {
-    return Function.prototype.bind.call(console.log, console, "%cMAL-Sync", "background-color: #2e51a2; color: white; padding: 2px 10px; border-radius: 3px;");
-}();
-var error = function () {
-    return Function.prototype.bind.call(console.error, console, "%cMAL-Sync", "background-color: #8f0000; color: white; padding: 2px 10px; border-radius: 3px;");
-}();
-var info = function () {
-    return Function.prototype.bind.call(console.info, console, "%cMAL-Sync", "background-color: wheat; color: black; padding: 2px 10px; border-radius: 3px;");
-}();
-
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(1), __webpack_require__(3), __webpack_require__(4)))
 
 /***/ }),
 /* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+        var result = __webpack_require__(100);
+
+        if (typeof result === "string") {
+            module.exports = result;
+        } else {
+            module.exports = result.toString();
+        }
+    
+
+/***/ }),
+/* 6 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(j) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return userscriptLegacy; });
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+const userscriptLegacy = {
+    set(key, value) {
+        return __awaiter(this, void 0, void 0, function* () {
+            GM_setValue(key, value);
+        });
+    },
+    get(key) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const value = GM_getValue(key);
+            return value;
+        });
+    },
+    remove(key) {
+        return __awaiter(this, void 0, void 0, function* () {
+            GM_deleteValue(key);
+        });
+    },
+    list() {
+        return __awaiter(this, void 0, void 0, function* () {
+            var reverseArray = {};
+            j.$.each(GM_listValues(), function (index, cache) {
+                reverseArray[cache] = index;
+            });
+            return reverseArray;
+        });
+    },
+    addStyle(css) {
+        return __awaiter(this, void 0, void 0, function* () {
+            GM_addStyle(css);
+        });
+    },
+    version() {
+        return GM_info.script.version;
+    },
+    lang(selector, args) {
+        var message = i18n[selector];
+        if (typeof args !== 'undefined') {
+            for (var argIndex = 0; argIndex < args.length; argIndex++) {
+                message = message.replace("$" + (argIndex + 1), args[argIndex]);
+            }
+        }
+        return message;
+    },
+    assetUrl(filename) {
+        return 'https://raw.githubusercontent.com/lolamtisch/MALSync/master/assets/assets/' + filename;
+    },
+    injectCssResource(res, head) {
+        head.append(j.$('<style>')
+            .attr("rel", "stylesheet")
+            .attr("type", "text/css")
+            .html(GM_getResourceText(res)));
+    },
+    injectjsResource(res, head) {
+        var s = document.createElement('script');
+        s.text = GM_getResourceText(res);
+        s.onload = function () {
+            // @ts-ignore
+            this.remove();
+        };
+        head.get(0).appendChild(s);
+    },
+    updateDom(head) {
+        var s = document.createElement('script');
+        s.text = `
+        document.getElementsByTagName('head')[0].onclick = function(e){
+          try{
+            componentHandler.upgradeDom();
+          }catch(e){
+            console.log(e);
+            setTimeout(function(){
+              componentHandler.upgradeDom();
+            },500);
+          }
+        }`;
+        s.onload = function () {
+            // @ts-ignore
+            this.remove();
+        };
+        head.get(0).appendChild(s);
+    },
+    storageOnChanged(cb) {
+    }
+};
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0)))
+
+/***/ }),
+/* 7 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(api, con) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return settingsObj; });
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var settingsObj = {
+    options: {
+        autoTrackingModeanime: 'video',
+        autoTrackingModemanga: 'instant',
+        forceEn: false,
+        userscriptMode: false,
+        syncMode: 'MAL',
+        syncModeSimkl: 'MAL',
+        localSync: true,
+        delay: 0,
+        videoDuration: 85,
+        malTags: true,
+        malContinue: true,
+        malResume: true,
+        epPredictions: true,
+        theme: 'light',
+        minimalWindow: false,
+        posLeft: 'left',
+        miniMALonMal: false,
+        floatButtonStealth: false,
+        floatButtonHide: false,
+        autoCloseMinimal: false,
+        outWay: true,
+        miniMalWidth: '500px',
+        miniMalHeight: '90%',
+        malThumbnail: 100,
+        friendScore: true,
+        SiteSearch: true,
+        '9anime': true,
+        Crunchyroll: true,
+        Gogoanime: true,
+        Kissanime: true,
+        Masterani: true,
+        Animeheaven: true,
+        Twistmoe: true,
+        Anime4you: true,
+        Kissmanga: true,
+        Mangadex: true,
+        Mangarock: true,
+        Netflix: true,
+        Proxeranime: true,
+        Proxermanga: true,
+        Novelplanet: true,
+        autofull: false,
+        autoresume: false,
+        introSkip: 85,
+        updateCheckNotifications: true,
+        'anilistToken': '',
+        'kitsuToken': '',
+        'simklToken': ''
+    },
+    init: function () {
+        return __awaiter(this, void 0, void 0, function* () {
+            return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
+                for (var key in this.options) {
+                    var store = yield api.storage.get('settings/' + key);
+                    if (typeof store != 'undefined') {
+                        this.options[key] = store;
+                    }
+                }
+                con.log('Settings', this.options);
+                resolve(this);
+                api.storage.storageOnChanged((changes, namespace) => {
+                    if (namespace === 'sync') {
+                        for (var key in changes) {
+                            var storageChange = changes[key];
+                            if (/^settings\//i.test(key)) {
+                                this.options[key.replace('settings/', '')] = storageChange.newValue;
+                                con.info('Update ' + key + ' option to ' + storageChange.newValue);
+                            }
+                        }
+                    }
+                });
+            }));
+        });
+    },
+    get: function (name) {
+        return this.options[name];
+    },
+    set: function (name, value) {
+        if (this.options.hasOwnProperty(name)) {
+            this.options[name] = value;
+            return api.storage.set('settings/' + name, value);
+        }
+        else {
+            con.error(name + ' is not a defined option');
+        }
+    },
+    getAsync: function (name) {
+        return __awaiter(this, void 0, void 0, function* () {
+            var value = yield api.storage.get('settings/' + name);
+            if (typeof value === 'undefined' && typeof this.options[name] !== undefined)
+                return this.options[name];
+            return value;
+        });
+    }
+};
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(1), __webpack_require__(3)))
+
+/***/ }),
+/* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1384,234 +1621,6 @@ const pageSearch = {
 
 
 /***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-        var result = __webpack_require__(94);
-
-        if (typeof result === "string") {
-            module.exports = result;
-        } else {
-            module.exports = result.toString();
-        }
-    
-
-/***/ }),
-/* 7 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(j) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return userscriptLegacy; });
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-const userscriptLegacy = {
-    set(key, value) {
-        return __awaiter(this, void 0, void 0, function* () {
-            GM_setValue(key, value);
-        });
-    },
-    get(key) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const value = GM_getValue(key);
-            return value;
-        });
-    },
-    remove(key) {
-        return __awaiter(this, void 0, void 0, function* () {
-            GM_deleteValue(key);
-        });
-    },
-    list() {
-        return __awaiter(this, void 0, void 0, function* () {
-            var reverseArray = {};
-            j.$.each(GM_listValues(), function (index, cache) {
-                reverseArray[cache] = index;
-            });
-            return reverseArray;
-        });
-    },
-    addStyle(css) {
-        return __awaiter(this, void 0, void 0, function* () {
-            GM_addStyle(css);
-        });
-    },
-    version() {
-        return GM_info.script.version;
-    },
-    lang(selector, args) {
-        var message = i18n[selector];
-        if (typeof args !== 'undefined') {
-            for (var argIndex = 0; argIndex < args.length; argIndex++) {
-                message = message.replace("$" + (argIndex + 1), args[argIndex]);
-            }
-        }
-        return message;
-    },
-    assetUrl(filename) {
-        return 'https://raw.githubusercontent.com/lolamtisch/MALSync/master/assets/assets/' + filename;
-    },
-    injectCssResource(res, head) {
-        head.append(j.$('<style>')
-            .attr("rel", "stylesheet")
-            .attr("type", "text/css")
-            .html(GM_getResourceText(res)));
-    },
-    injectjsResource(res, head) {
-        var s = document.createElement('script');
-        s.text = GM_getResourceText(res);
-        s.onload = function () {
-            // @ts-ignore
-            this.remove();
-        };
-        head.get(0).appendChild(s);
-    },
-    updateDom(head) {
-        var s = document.createElement('script');
-        s.text = `
-        document.getElementsByTagName('head')[0].onclick = function(e){
-          try{
-            componentHandler.upgradeDom();
-          }catch(e){
-            console.log(e);
-            setTimeout(function(){
-              componentHandler.upgradeDom();
-            },500);
-          }
-        }`;
-        s.onload = function () {
-            // @ts-ignore
-            this.remove();
-        };
-        head.get(0).appendChild(s);
-    },
-    storageOnChanged(cb) {
-    }
-};
-
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0)))
-
-/***/ }),
-/* 8 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(api, con) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return settingsObj; });
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var settingsObj = {
-    options: {
-        autoTrackingModeanime: 'video',
-        autoTrackingModemanga: 'instant',
-        forceEn: false,
-        userscriptMode: false,
-        syncMode: 'MAL',
-        syncModeSimkl: 'MAL',
-        localSync: true,
-        delay: 0,
-        videoDuration: 85,
-        malTags: true,
-        malContinue: true,
-        malResume: true,
-        epPredictions: true,
-        theme: 'light',
-        minimalWindow: false,
-        posLeft: 'left',
-        miniMALonMal: false,
-        floatButtonStealth: false,
-        floatButtonHide: false,
-        autoCloseMinimal: false,
-        outWay: true,
-        miniMalWidth: '500px',
-        miniMalHeight: '90%',
-        malThumbnail: 100,
-        friendScore: true,
-        SiteSearch: true,
-        '9anime': true,
-        Crunchyroll: true,
-        Gogoanime: true,
-        Kissanime: true,
-        Masterani: true,
-        Animeheaven: true,
-        Twistmoe: true,
-        Anime4you: true,
-        Kissmanga: true,
-        Mangadex: true,
-        Mangarock: true,
-        Netflix: true,
-        Proxeranime: true,
-        Proxermanga: true,
-        Novelplanet: true,
-        autofull: false,
-        autoresume: false,
-        introSkip: 85,
-        updateCheckNotifications: true,
-        'anilistToken': '',
-        'kitsuToken': '',
-        'simklToken': ''
-    },
-    init: function () {
-        return __awaiter(this, void 0, void 0, function* () {
-            return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-                for (var key in this.options) {
-                    var store = yield api.storage.get('settings/' + key);
-                    if (typeof store != 'undefined') {
-                        this.options[key] = store;
-                    }
-                }
-                con.log('Settings', this.options);
-                resolve(this);
-                api.storage.storageOnChanged((changes, namespace) => {
-                    if (namespace === 'sync') {
-                        for (var key in changes) {
-                            var storageChange = changes[key];
-                            if (/^settings\//i.test(key)) {
-                                this.options[key.replace('settings/', '')] = storageChange.newValue;
-                                con.info('Update ' + key + ' option to ' + storageChange.newValue);
-                            }
-                        }
-                    }
-                });
-            }));
-        });
-    },
-    get: function (name) {
-        return this.options[name];
-    },
-    set: function (name, value) {
-        if (this.options.hasOwnProperty(name)) {
-            this.options[name] = value;
-            return api.storage.set('settings/' + name, value);
-        }
-        else {
-            con.error(name + ' is not a defined option');
-        }
-    },
-    getAsync: function (name) {
-        return __awaiter(this, void 0, void 0, function* () {
-            var value = yield api.storage.get('settings/' + name);
-            if (typeof value === 'undefined' && typeof this.options[name] !== undefined)
-                return this.options[name];
-            return value;
-        });
-    }
-};
-
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(1), __webpack_require__(4)))
-
-/***/ }),
 /* 9 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1681,12 +1690,12 @@ const Kissanime = {
             page.cdn();
             return;
         }
-        api.storage.addStyle(__webpack_require__(50).toString());
+        api.storage.addStyle(__webpack_require__(56).toString());
         j.$(document).ready(function () { page.handlePage(); });
     }
 };
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(3), __webpack_require__(0), __webpack_require__(4), __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(4), __webpack_require__(0), __webpack_require__(3), __webpack_require__(1)))
 
 /***/ }),
 /* 10 */
@@ -1772,12 +1781,12 @@ const Kissmanga = {
             page.cdn();
             return;
         }
-        api.storage.addStyle(__webpack_require__(52).toString());
+        api.storage.addStyle(__webpack_require__(58).toString());
         j.$(document).ready(function () { page.handlePage(); });
     }
 };
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(3), __webpack_require__(0), __webpack_require__(4), __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(4), __webpack_require__(0), __webpack_require__(3), __webpack_require__(1)))
 
 /***/ }),
 /* 11 */
@@ -1817,7 +1826,7 @@ const nineAnime = {
         }
     },
     init(page) {
-        api.storage.addStyle(__webpack_require__(54).toString());
+        api.storage.addStyle(__webpack_require__(60).toString());
         utils.waitUntilTrue(function () { return j.$('.servers').length; }, function () {
             con.info('Start check');
             page.handlePage();
@@ -1829,7 +1838,7 @@ const nineAnime = {
     }
 };
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(3), __webpack_require__(1), __webpack_require__(4)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(4), __webpack_require__(1), __webpack_require__(3)))
 
 /***/ }),
 /* 12 */
@@ -1897,7 +1906,7 @@ const Crunchyroll = {
             page.cdn();
             return;
         }
-        api.storage.addStyle(__webpack_require__(56).toString());
+        api.storage.addStyle(__webpack_require__(62).toString());
         page.setCacheTemp = page.setCache;
         page.setCache = function (url, toDatabase, identifier = null) {
             if (this.page.isSyncPage(this.url)) {
@@ -1978,7 +1987,7 @@ function episodeHelper(url, episodeText) {
     return episodePart;
 }
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(3), __webpack_require__(4), __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(4), __webpack_require__(3), __webpack_require__(1)))
 
 /***/ }),
 /* 13 */
@@ -2049,7 +2058,7 @@ const Mangadex = {
             page.cdn();
             return;
         }
-        api.storage.addStyle(__webpack_require__(58).toString());
+        api.storage.addStyle(__webpack_require__(64).toString());
         if (j.$('.card-header').length) {
             if (/chapter\/\d+\/comments/i.test(window.location.href)) {
                 con.info('Comments');
@@ -2109,7 +2118,7 @@ function EpisodePartToEpisode(string) {
 }
 ;
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(3), __webpack_require__(4), __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(4), __webpack_require__(3), __webpack_require__(1)))
 
 /***/ }),
 /* 14 */
@@ -2156,7 +2165,7 @@ const Mangarock = {
         }
     },
     init(page) {
-        api.storage.addStyle(__webpack_require__(60).toString());
+        api.storage.addStyle(__webpack_require__(66).toString());
         start();
         utils.urlChangeDetect(function () {
             page.url = window.location.href;
@@ -2220,7 +2229,7 @@ function EpisodePartToEpisode(string) {
     return '';
 }
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(3), __webpack_require__(0), __webpack_require__(4), __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(4), __webpack_require__(0), __webpack_require__(3), __webpack_require__(1)))
 
 /***/ }),
 /* 15 */
@@ -2278,7 +2287,7 @@ const Gogoanime = {
         }
     },
     init(page) {
-        api.storage.addStyle(__webpack_require__(62).toString());
+        api.storage.addStyle(__webpack_require__(68).toString());
         if (Gogoanime.isSyncPage(page.url)) {
             j.$(document).ready(function () {
                 start();
@@ -2302,7 +2311,7 @@ const Gogoanime = {
     }
 };
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(3), __webpack_require__(0), __webpack_require__(1), __webpack_require__(4)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(4), __webpack_require__(0), __webpack_require__(1), __webpack_require__(3)))
 
 /***/ }),
 /* 16 */
@@ -2352,14 +2361,14 @@ const Anime4you = {
             page.cdn();
             return;
         }
-        api.storage.addStyle(__webpack_require__(64).toString());
+        api.storage.addStyle(__webpack_require__(70).toString());
         j.$(document).ready(function () {
             page.handlePage();
         });
     }
 };
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(3), __webpack_require__(4), __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(4), __webpack_require__(3), __webpack_require__(1)))
 
 /***/ }),
 /* 17 */
@@ -2402,7 +2411,7 @@ const Branitube = {
         }
     },
     init(page) {
-        api.storage.addStyle(__webpack_require__(66).toString());
+        api.storage.addStyle(__webpack_require__(72).toString());
         j.$(document).ready(function () {
             page.handlePage();
         });
@@ -2416,7 +2425,7 @@ function toEp(string) {
     return 1;
 }
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(3), __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(4), __webpack_require__(1)))
 
 /***/ }),
 /* 18 */
@@ -2472,7 +2481,7 @@ const Turkanime = {
             page.cdn();
             return;
         }
-        api.storage.addStyle(__webpack_require__(68).toString());
+        api.storage.addStyle(__webpack_require__(74).toString());
         j.$(document).ready(function () {
             if (Turkanime.isSyncPage(page.url)) {
                 page.handlePage();
@@ -2497,7 +2506,7 @@ function getEpisode(selector, episodeSelector) {
     }
 }
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(3), __webpack_require__(4), __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(4), __webpack_require__(3), __webpack_require__(1)))
 
 /***/ }),
 /* 19 */
@@ -2537,7 +2546,7 @@ const Twistmoe = {
         }
     },
     init(page) {
-        api.storage.addStyle(__webpack_require__(70).toString());
+        api.storage.addStyle(__webpack_require__(76).toString());
         j.$(document).ready(function () {
             start();
             utils.urlChangeDetect(function () {
@@ -2557,7 +2566,7 @@ const Twistmoe = {
     }
 };
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(3), __webpack_require__(1), __webpack_require__(4)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(4), __webpack_require__(1), __webpack_require__(3)))
 
 /***/ }),
 /* 20 */
@@ -2807,7 +2816,7 @@ const Emby = {
         uiSelector: function (selector) { selector.appendTo(j.$(".page:not(.hide) .detailSection").first()); },
     },
     init(page) {
-        api.storage.addStyle(__webpack_require__(72).toString());
+        api.storage.addStyle(__webpack_require__(78).toString());
         testApi()
             .catch(() => {
             con.info('Not Authenticated');
@@ -2852,7 +2861,7 @@ const Emby = {
     }
 };
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(1), __webpack_require__(4), __webpack_require__(3), __webpack_require__(0)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(1), __webpack_require__(3), __webpack_require__(4), __webpack_require__(0)))
 
 /***/ }),
 /* 21 */
@@ -2989,7 +2998,7 @@ const Plex = {
         uiSelector: function (selector) { selector.insertAfter(j.$('[data-qa-id="preplayMainTitle"]').first()); },
     },
     init(page) {
-        api.storage.addStyle(__webpack_require__(74).toString());
+        api.storage.addStyle(__webpack_require__(80).toString());
         utils.changeDetect(() => {
             var href = $('[download]').attr('href');
             var apiBase = href.split('/').splice(0, 3).join('/');
@@ -3037,7 +3046,7 @@ const Plex = {
     }
 };
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(1), __webpack_require__(3), __webpack_require__(4), __webpack_require__(0)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(1), __webpack_require__(4), __webpack_require__(3), __webpack_require__(0)))
 
 /***/ }),
 /* 22 */
@@ -3128,7 +3137,7 @@ const Netflix = {
         },
     },
     init(page) {
-        api.storage.addStyle(__webpack_require__(76).toString());
+        api.storage.addStyle(__webpack_require__(82).toString());
         j.$(document).ready(function () {
             ready();
         });
@@ -3149,7 +3158,7 @@ const Netflix = {
     }
 };
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(3), __webpack_require__(1), __webpack_require__(4), __webpack_require__(0)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(4), __webpack_require__(1), __webpack_require__(3), __webpack_require__(0)))
 
 /***/ }),
 /* 23 */
@@ -3205,14 +3214,14 @@ const Otakustream = {
         }
     },
     init(page) {
-        api.storage.addStyle(__webpack_require__(78).toString());
+        api.storage.addStyle(__webpack_require__(84).toString());
         j.$(document).ready(function () {
             page.handlePage();
         });
     }
 };
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(3), __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(4), __webpack_require__(1)))
 
 /***/ }),
 /* 24 */
@@ -3258,7 +3267,7 @@ const animepahe = {
         }
     },
     init(page) {
-        api.storage.addStyle(__webpack_require__(80).toString());
+        api.storage.addStyle(__webpack_require__(86).toString());
         if (!animepahe.isSyncPage(page.url)) {
             utils.waitUntilTrue(function () { return animepahe.overview.list.elementsSelector(); }, function () {
                 page.handlePage();
@@ -3272,7 +3281,7 @@ const animepahe = {
     }
 };
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(3), __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(4), __webpack_require__(1)))
 
 /***/ }),
 /* 25 */
@@ -3347,7 +3356,7 @@ const animeflv = {
         }
     },
     init(page) {
-        api.storage.addStyle(__webpack_require__(82).toString());
+        api.storage.addStyle(__webpack_require__(88).toString());
         if (document.title == "Just a moment..." || document.title == "Verifica que no eres un bot | AnimeFLV") {
             con.log("loading");
             page.cdn();
@@ -3357,7 +3366,7 @@ const animeflv = {
     }
 };
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(3), __webpack_require__(1), __webpack_require__(4)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(4), __webpack_require__(1), __webpack_require__(3)))
 
 /***/ }),
 /* 26 */
@@ -3438,7 +3447,7 @@ const Jkanime = {
         }
     },
     init(page) {
-        api.storage.addStyle(__webpack_require__(84).toString());
+        api.storage.addStyle(__webpack_require__(90).toString());
         j.$(document).ready(function () { page.handlePage(); });
         j.$('.navigation a').click(function () {
             if (check == 1) {
@@ -3448,7 +3457,7 @@ const Jkanime = {
     }
 };
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(3), __webpack_require__(0), __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(4), __webpack_require__(0), __webpack_require__(1)))
 
 /***/ }),
 /* 27 */
@@ -3528,7 +3537,7 @@ const Vrv = {
         }
     },
     init(page) {
-        api.storage.addStyle(__webpack_require__(86).toString());
+        api.storage.addStyle(__webpack_require__(92).toString());
         j.$(document).ready(function () {
             ready();
         });
@@ -3563,7 +3572,7 @@ const Vrv = {
     }
 };
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(1), __webpack_require__(4), __webpack_require__(3), __webpack_require__(0)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(1), __webpack_require__(3), __webpack_require__(4), __webpack_require__(0)))
 
 /***/ }),
 /* 28 */
@@ -3663,7 +3672,7 @@ const Proxer = {
         }
     },
     init(page) {
-        api.storage.addStyle(__webpack_require__(88).toString());
+        api.storage.addStyle(__webpack_require__(94).toString());
         if (page.url.split("/")[3] === "watch" || page.url.split("/")[3] === "read") {
             if (page.url.split("/")[3] === "watch") {
                 Proxer.type = "anime";
@@ -3759,7 +3768,7 @@ Special 1
 Extra Story
 */
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(3), __webpack_require__(4), __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(4), __webpack_require__(3), __webpack_require__(1)))
 
 /***/ }),
 /* 29 */
@@ -3802,14 +3811,14 @@ const Animevibe = {
             page.cdn();
             return;
         }
-        api.storage.addStyle(__webpack_require__(90).toString());
+        api.storage.addStyle(__webpack_require__(96).toString());
         j.$(document).ready(function () {
             page.handlePage();
         });
     }
 };
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(3), __webpack_require__(4), __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(4), __webpack_require__(3), __webpack_require__(1)))
 
 /***/ }),
 /* 30 */
@@ -3867,7 +3876,7 @@ const Novelplanet = {
             page.cdn();
             return;
         }
-        api.storage.addStyle(__webpack_require__(92).toString());
+        api.storage.addStyle(__webpack_require__(98).toString());
         j.$(document).ready(function () { page.handlePage(); });
     }
 };
@@ -3895,7 +3904,7 @@ function getEp(episodePart) {
     return episodePart;
 }
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(3), __webpack_require__(0), __webpack_require__(4), __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(4), __webpack_require__(0), __webpack_require__(3), __webpack_require__(1)))
 
 /***/ }),
 /* 31 */
@@ -3939,7 +3948,7 @@ const WonderfulSubs = {
         }
     },
     init(page) {
-        api.storage.addStyle(__webpack_require__(6).toString());
+        api.storage.addStyle(__webpack_require__(5).toString());
         page.url = window.location.href;
         if (page.url.split("/")[2] === "beta.wonderfulsubs.com") {
             WonderfulSubs.isSyncPage = betaWonderfulSubs.isSyncPage;
@@ -4005,7 +4014,7 @@ var betaWonderfulSubs = {
         }
     },
     init(page) {
-        api.storage.addStyle(__webpack_require__(6).toString());
+        api.storage.addStyle(__webpack_require__(5).toString());
         page.url = window.location.href;
         if (page.url.split("/")[3] === "watch") {
             utils.waitUntilTrue(function () {
@@ -4029,7 +4038,7 @@ var betaWonderfulSubs = {
     }
 };
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(1), __webpack_require__(3)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(1), __webpack_require__(4)))
 
 /***/ }),
 /* 32 */
@@ -4095,14 +4104,14 @@ const kawaiifu = {
         },
     },
     init(page) {
-        api.storage.addStyle(__webpack_require__(95).toString());
+        api.storage.addStyle(__webpack_require__(101).toString());
         j.$(document).ready(function () {
             page.handlePage();
         });
     }
 };
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(3), __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(4), __webpack_require__(1)))
 
 /***/ }),
 /* 33 */
@@ -4161,7 +4170,7 @@ const fourAnime = {
         },
     },
     init(page) {
-        api.storage.addStyle(__webpack_require__(97).toString());
+        api.storage.addStyle(__webpack_require__(103).toString());
         j.$(document).ready(function () {
             if (j.$(".singletitletop")[0] && j.$(".episodes")[0] || page.url.split("/")[3] == "anime") {
                 page.handlePage();
@@ -4170,7 +4179,7 @@ const fourAnime = {
     }
 };
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(3), __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(4), __webpack_require__(1)))
 
 /***/ }),
 /* 34 */
@@ -4204,7 +4213,7 @@ const Dreamanimes = {
         uiSelector: function (selector) { selector.insertAfter(j.$("#pcontent h3")); },
     },
     init(page) {
-        api.storage.addStyle(__webpack_require__(99).toString());
+        api.storage.addStyle(__webpack_require__(105).toString());
         var Interval;
         j.$(document).ready(function () {
             start();
@@ -4231,7 +4240,7 @@ const Dreamanimes = {
     }
 };
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(3), __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(4), __webpack_require__(1)))
 
 /***/ }),
 /* 35 */
@@ -4288,12 +4297,12 @@ const animeultima = {
             page.cdn();
             return;
         }
-        api.storage.addStyle(__webpack_require__(101).toString());
+        api.storage.addStyle(__webpack_require__(107).toString());
         j.$(document).ready(function () { page.handlePage(); });
     }
 };
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(3), __webpack_require__(4), __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(4), __webpack_require__(3), __webpack_require__(1)))
 
 /***/ }),
 /* 36 */
@@ -4359,7 +4368,7 @@ const Aniflix = {
             page.cdn();
             return;
         }
-        api.storage.addStyle(__webpack_require__(103).toString());
+        api.storage.addStyle(__webpack_require__(109).toString());
         page.url = window.location.href;
         ready();
         utils.urlChangeDetect(function () {
@@ -4406,7 +4415,7 @@ const Aniflix = {
     }
 };
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(4), __webpack_require__(1), __webpack_require__(3)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(3), __webpack_require__(1), __webpack_require__(4)))
 
 /***/ }),
 /* 37 */
@@ -4463,7 +4472,7 @@ const AnimeDaisuki = {
             page.cdn();
             return;
         }
-        api.storage.addStyle(__webpack_require__(105).toString());
+        api.storage.addStyle(__webpack_require__(111).toString());
         j.$(document).ready(function () {
             if (page.url.split("/")[3] === "watch" || page.url.split("/")[3] === "anime") {
                 page.handlePage();
@@ -4472,7 +4481,7 @@ const AnimeDaisuki = {
     }
 };
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(4), __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(3), __webpack_require__(1)))
 
 /***/ }),
 /* 38 */
@@ -4523,7 +4532,7 @@ const Animefreak = {
         },
     },
     init(page) {
-        api.storage.addStyle(__webpack_require__(107).toString());
+        api.storage.addStyle(__webpack_require__(113).toString());
         j.$(document).ready(function () {
             if (page.url.split("/")[3] === "watch") {
                 page.handlePage();
@@ -4532,7 +4541,7 @@ const Animefreak = {
     }
 };
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(3), __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(4), __webpack_require__(1)))
 
 /***/ }),
 /* 39 */
@@ -4590,7 +4599,7 @@ const AnimePlanet = {
             page.cdn();
             return;
         }
-        api.storage.addStyle(__webpack_require__(109).toString());
+        api.storage.addStyle(__webpack_require__(115).toString());
         j.$(document).ready(function () {
             if (page.url.split("/")[3] === "anime") {
                 page.handlePage();
@@ -4599,7 +4608,7 @@ const AnimePlanet = {
     }
 };
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(3), __webpack_require__(4), __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(4), __webpack_require__(3), __webpack_require__(1)))
 
 /***/ }),
 /* 40 */
@@ -4656,7 +4665,7 @@ const KickAssAnime = {
             page.cdn();
             return;
         }
-        api.storage.addStyle(__webpack_require__(111).toString());
+        api.storage.addStyle(__webpack_require__(117).toString());
         j.$(document).ready(function () {
             if (page.url.split("/")[3] == "anime") {
                 page.handlePage();
@@ -4665,7 +4674,7 @@ const KickAssAnime = {
     }
 };
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(3), __webpack_require__(0), __webpack_require__(4), __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(4), __webpack_require__(0), __webpack_require__(3), __webpack_require__(1)))
 
 /***/ }),
 /* 41 */
@@ -4726,7 +4735,7 @@ const RiiE = {
             page.cdn();
             return;
         }
-        api.storage.addStyle(__webpack_require__(113).toString());
+        api.storage.addStyle(__webpack_require__(119).toString());
         j.$(document).ready(function () {
             if (page.url.split("/")[3] == "anime" || j.$("#lightsVideo")[0] && j.$("#content > div.postarea > div > div.post > div.newzone > div.right")[0])
                 page.handlePage();
@@ -4734,7 +4743,7 @@ const RiiE = {
     }
 };
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(3), __webpack_require__(4), __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(4), __webpack_require__(3), __webpack_require__(1)))
 
 /***/ }),
 /* 42 */
@@ -4788,7 +4797,7 @@ const AnimeKisa = {
             page.cdn();
             return;
         }
-        api.storage.addStyle(__webpack_require__(115).toString());
+        api.storage.addStyle(__webpack_require__(121).toString());
         j.$(document).ready(function () {
             if (page.url.split("/")[3] !== null && j.$("div.c a.infoan2")[0] && j.$("#playerselector option:selected")[0] || page.url.split("/")[3] !== null && j.$("#body > div.notmain > div > div.infobox > div.infoboxc > div.infodesbox > h1")[0] && j.$("#body > div.notmain > div > div.infobox > div.infoepboxmain")[0]) {
                 page.handlePage();
@@ -4797,7 +4806,7 @@ const AnimeKisa = {
     }
 };
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(3), __webpack_require__(4), __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(4), __webpack_require__(3), __webpack_require__(1)))
 
 /***/ }),
 /* 43 */
@@ -4843,7 +4852,7 @@ const Wakanim = {
             page.cdn();
             return;
         }
-        api.storage.addStyle(__webpack_require__(117).toString());
+        api.storage.addStyle(__webpack_require__(123).toString());
         j.$(document).ready(function () {
             if (Wakanim.isSyncPage(page.url)) {
                 if (j.$("#jwplayer-container")[0]) {
@@ -4857,7 +4866,7 @@ const Wakanim = {
     }
 };
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(4), __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(3), __webpack_require__(1)))
 
 /***/ }),
 /* 44 */
@@ -4918,7 +4927,7 @@ const AnimeIndo = {
             page.cdn();
             return;
         }
-        api.storage.addStyle(__webpack_require__(119).toString());
+        api.storage.addStyle(__webpack_require__(125).toString());
         j.$(document).ready(function () {
             if (page.url.split("/")[3] === "anime" || page.url.split("/")[3] !== null && j.$("#sct_content > div > div.preview")[0]) {
                 page.handlePage();
@@ -4927,7 +4936,7 @@ const AnimeIndo = {
     }
 };
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(3), __webpack_require__(4), __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(4), __webpack_require__(3), __webpack_require__(1)))
 
 /***/ }),
 /* 45 */
@@ -4974,7 +4983,7 @@ const Shinden = {
             page.cdn();
             return;
         }
-        api.storage.addStyle(__webpack_require__(121).toString());
+        api.storage.addStyle(__webpack_require__(127).toString());
         j.$(document).ready(function () {
             if (page.url.split("/")[3] === "series" || page.url.split("/")[3] === "episode") {
                 page.handlePage();
@@ -4983,7 +4992,7 @@ const Shinden = {
     }
 };
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(4), __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(3), __webpack_require__(1)))
 
 /***/ }),
 /* 46 */
@@ -5034,7 +5043,7 @@ const Funimation = {
             page.cdn();
             return;
         }
-        api.storage.addStyle(__webpack_require__(123).toString());
+        api.storage.addStyle(__webpack_require__(129).toString());
         j.$(document).ready(function () {
             if (page.url.split("/")[3] === "shows" && (j.$("h1.show-headline.video-title")[0] || j.$("h1.heroTitle")[0])) {
                 page.handlePage();
@@ -5043,7 +5052,7 @@ const Funimation = {
     }
 };
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(3), __webpack_require__(4), __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(4), __webpack_require__(3), __webpack_require__(1)))
 
 /***/ }),
 /* 47 */
@@ -5082,7 +5091,7 @@ const Voiranime = {
             page.cdn();
             return;
         }
-        api.storage.addStyle(__webpack_require__(125).toString());
+        api.storage.addStyle(__webpack_require__(131).toString());
         j.$(document).ready(function () {
             if ($('.video-series-wrap').length || $('.category-anime-serie').length) {
                 page.handlePage();
@@ -5091,7 +5100,7 @@ const Voiranime = {
     }
 };
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(3), __webpack_require__(0), __webpack_require__(4), __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(4), __webpack_require__(0), __webpack_require__(3), __webpack_require__(1)))
 
 /***/ }),
 /* 48 */
@@ -5149,7 +5158,7 @@ const DubbedAnime = {
             page.cdn();
             return;
         }
-        api.storage.addStyle(__webpack_require__(127).toString());
+        api.storage.addStyle(__webpack_require__(133).toString());
         j.$(document).ready(function () {
             if (page.url.split("/")[3] === "episode" || page.url.split("/")[3] === "anime") {
                 page.handlePage();
@@ -5158,16 +5167,383 @@ const DubbedAnime = {
     }
 };
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(4), __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(3), __webpack_require__(1)))
 
 /***/ }),
 /* 49 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-__webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function(api, con, j, utils) {/* harmony import */ var _MALSync_src_pages_pages__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return pages; });
+/* unused harmony export pageSearch */
+/* harmony import */ var _hanime_main__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(50);
+/* harmony import */ var _HentaiHaven_main__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(51);
+/* harmony import */ var _Hentaigasm_main__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(52);
+/* harmony import */ var _KissHentai_main__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(53);
+/* harmony import */ var _UnderHentai_main__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(54);
 
+
+
+
+
+const pages = {
+    hanime: _hanime_main__WEBPACK_IMPORTED_MODULE_0__[/* hanime */ "a"],
+    HentaiHaven: _HentaiHaven_main__WEBPACK_IMPORTED_MODULE_1__[/* HentaiHaven */ "a"],
+    Hentaigasm: _Hentaigasm_main__WEBPACK_IMPORTED_MODULE_2__[/* Hentaigasm */ "a"],
+    KissHentai: _KissHentai_main__WEBPACK_IMPORTED_MODULE_3__[/* KissHentai */ "a"],
+    UnderHentai: _UnderHentai_main__WEBPACK_IMPORTED_MODULE_4__[/* UnderHentai */ "a"],
+};
+const pageSearch = {};
+
+
+/***/ }),
+/* 50 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(j, con, api, utils) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return hanime; });
+const hanime = {
+    name: "hanime",
+    domain: "https://hanime.tv",
+    type: "anime",
+    isSyncPage: function (url) {
+        if (url.split("/")[3] === "hentai-videos") {
+            return true;
+        }
+        else {
+            return false;
+        }
+    },
+    sync: {
+        getTitle: function (url) {
+            return j.$("h1.tv-title").text().replace(/ ([^a-z]*)$/gmi, "").trim();
+        },
+        getIdentifier: function (url) {
+            return url.split("/")[4].replace(/-([^a-z]*)$/gmi, "").trim();
+        },
+        getOverviewUrl: function (url) {
+            var overviewPart = url.split("/")[4];
+            var temp = overviewPart.match(/-([^a-z]*)$/gmi);
+            if (temp !== null) {
+                return hanime.domain + "/hentai-videos/" + hanime.sync.getIdentifier(url) + "-1";
+            }
+            else {
+                return hanime.domain + "/hentai-videos/" + hanime.sync.getIdentifier(url);
+            }
+        },
+        getEpisode: function (url) {
+            var episodePart = url.split("/")[4];
+            if (episodePart.length) {
+                var temp = episodePart.match(/-([^a-z]*)$/gmi);
+                if (temp !== null) {
+                    return temp[0].replace(/\D+/g, "");
+                }
+                else {
+                    return 1;
+                }
+            }
+        },
+    },
+    init(page) {
+        if (document.title == "Just a moment...") {
+            con.log("loading");
+            page.cdn();
+            return;
+        }
+        api.storage.addStyle(__webpack_require__(135).toString());
+        j.$(document).ready(function () {
+            if (page.url.split("/")[3] === "hentai-videos") {
+                utils.waitUntilTrue(function () {
+                    return j.$("h1.tv-title").text();
+                }, function () {
+                    page.handlePage();
+                });
+            }
+        });
+        utils.urlChangeDetect(function () {
+            page.url = window.location.href;
+            page.UILoaded = false;
+            $("#flashinfo-div, #flash-div-bottom, #flash-div-top").remove();
+            if (page.url.split("/")[3] === "hentai-videos") {
+                utils.waitUntilTrue(function () {
+                    return j.$("h1.tv-title").text();
+                }, function () {
+                    page.handlePage();
+                });
+            }
+        });
+    }
+};
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(3), __webpack_require__(1), __webpack_require__(4)))
+
+/***/ }),
+/* 51 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(j, con, api) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HentaiHaven; });
+const HentaiHaven = {
+    name: "HentaiHaven",
+    domain: "https://hentaihaven.org",
+    type: "anime",
+    isSyncPage: function (url) {
+        if (url.split("/")[3] !== null && j.$("h1.entry-title")[0] && j.$("div.hentaiha-post-tabs")[0]) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    },
+    sync: {
+        getTitle: function (url) { return j.$("div > header > div > a").text(); },
+        getIdentifier: function (url) {
+            return j.$("div > header > div > a").attr("href").split("/")[4];
+        },
+        getOverviewUrl: function (url) {
+            return j.$("div > header > div > a").attr("href");
+        },
+        getEpisode: function (url) {
+            var episodePart = url.split("/")[3];
+            if (episodePart.length) {
+                var temp = episodePart.match(/-episode-\d+/gmi);
+                if (temp !== null) {
+                    return temp[0].replace(/\D+/g, "");
+                }
+                else {
+                    return 1;
+                }
+            }
+        },
+    },
+    overview: {
+        getTitle: function (url) {
+            return j.$("h1.archive-title").text();
+        },
+        getIdentifier: function (url) {
+            return url.split("/")[4];
+        },
+        uiSelector: function (selector) {
+            selector.insertAfter(j.$("div.archive-meta.category-meta").first());
+        },
+    },
+    init(page) {
+        if (document.title == "Just a moment...") {
+            con.log("loading");
+            page.cdn();
+            return;
+        }
+        api.storage.addStyle(__webpack_require__(137).toString());
+        j.$(document).ready(function () {
+            if ((page.url.split("/")[3] !== null && j.$("h1.entry-title")[0] && j.$("div.hentaiha-post-tabs")[0]) || (page.url.split("/")[3] === "series")) {
+                page.handlePage();
+            }
+        });
+    }
+};
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(3), __webpack_require__(1)))
+
+/***/ }),
+/* 52 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(j, con, api) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Hentaigasm; });
+const Hentaigasm = {
+    name: "Hentaigasm",
+    domain: "http://hentaigasm.com",
+    type: "anime",
+    isSyncPage: function (url) {
+        if (url.split("/")[3] !== null && j.$("#extras > h4:nth-child(2) > a")[0] && j.$("div.entry-content.rich-content")[0]) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    },
+    sync: {
+        getTitle: function (url) { return j.$("h1#title").text().replace(/\d+ (subbed|raw)/gmi, "").trim(); },
+        getIdentifier: function (url) {
+            return url.split("/")[3].replace(/-\d-(subbed|raw)/gmi, "").trim();
+        },
+        getOverviewUrl: function (url) {
+            return j.$("#extras > h4:nth-child(2) > a").attr("href");
+        },
+        getEpisode: function (url) {
+            var episodePart = url.split("/")[3];
+            if (episodePart.length) {
+                var temp = episodePart.match(/-\d+-(subbed|raw)/gmi);
+                if (temp !== null) {
+                    return temp[0].replace(/\D+/g, "");
+                }
+                else {
+                    return 1;
+                }
+            }
+        },
+    },
+    overview: {
+        getTitle: function (url) {
+            return j.$("#content > div.loop-header > h1 > em").text();
+        },
+        getIdentifier: function (url) {
+            return url.split("/")[4];
+        },
+        uiSelector: function (selector) {
+            selector.insertAfter(j.$("div.loop-actions").first());
+        },
+    },
+    init(page) {
+        if (document.title == "Just a moment...") {
+            con.log("loading");
+            page.cdn();
+            return;
+        }
+        api.storage.addStyle(__webpack_require__(139).toString());
+        j.$(document).ready(function () {
+            if ((page.url.split("/")[3] !== null && j.$("#extras > h4:nth-child(2) > a")[0] && j.$("div.entry-content.rich-content")[0]) || page.url.split("/")[3] === "category")
+                page.handlePage();
+        });
+    }
+};
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(3), __webpack_require__(1)))
+
+/***/ }),
+/* 53 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(j, con, api) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return KissHentai; });
+const KissHentai = {
+    name: "KissHentai",
+    domain: "http://kisshentai.net",
+    type: "anime",
+    isSyncPage: function (url) {
+        if (url.split("/")[3] === "Hentai" && j.$('div#videoKissHentai')[0]) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    },
+    sync: {
+        getTitle: function (url) { return j.$('#navsubbar a').first().text().replace('Hentai', '').replace('information', '').trim(); },
+        getIdentifier: function (url) {
+            return url.split("/")[4];
+        },
+        getOverviewUrl: function (url) {
+            return KissHentai.domain + j.$('#navsubbar a').first().attr("href");
+        },
+        getEpisode: function (url) {
+            var episodePart = url.split("/")[5];
+            if (episodePart.length) {
+                var temp = episodePart.match(/Episode-\d+/gmi);
+                if (temp !== null) {
+                    return temp[0].replace(/\D+/g, "");
+                }
+            }
+        },
+    },
+    overview: {
+        getTitle: function () { return j.$('.bigChar').first().text(); },
+        getIdentifier: function (url) { return url.split("/")[4]; },
+        uiSelector: function (selector) { selector.insertAfter(j.$(".bigChar").first()); },
+    },
+    init(page) {
+        if (document.title == "Just a moment...") {
+            con.log("loading");
+            page.cdn();
+            return;
+        }
+        api.storage.addStyle(__webpack_require__(141).toString());
+        j.$(document).ready(function () {
+            if (page.url.split("/")[3] === "Hentai") {
+                page.handlePage();
+            }
+        });
+    }
+};
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(3), __webpack_require__(1)))
+
+/***/ }),
+/* 54 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(j, con, api) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UnderHentai; });
+const UnderHentai = {
+    name: "UnderHentai",
+    domain: "https://www.underhentai.net",
+    type: "anime",
+    isSyncPage: function (url) {
+        if (url.split("/")[3] === "watch") {
+            return true;
+        }
+        else {
+            return false;
+        }
+    },
+    sync: {
+        getTitle: function (url) { return j.$("div.content-box.content-head.sidebar-light").first().text().trim().replace(/- episode.*\d+/gmi, "").trim(); },
+        getIdentifier: function (url) {
+            return UnderHentai.sync.getTitle(url).toLowerCase().replace(/[^A-Z0-9 ]/gmi, "").replace(/\s+/gm, "-").trim().replace(" ", "-");
+        },
+        getOverviewUrl: function (url) {
+            return UnderHentai.domain + "/" + UnderHentai.sync.getIdentifier(url);
+        },
+        getEpisode: function (url) {
+            var episodePart = j.$("div.content-box.content-head.sidebar-light").first().text().trim();
+            if (episodePart.length) {
+                var temp = episodePart.match(/- episode.*\d+/gmi);
+                if (temp !== null) {
+                    return temp[0].replace(/\D+/g, "");
+                }
+                else {
+                    return 1;
+                }
+            }
+        },
+    },
+    overview: {
+        getTitle: function (url) {
+            return j.$("h1.content-box.content-head.sidebar-light").first().text().trim();
+        },
+        getIdentifier: function (url) {
+            return url.split("/")[3];
+        },
+        uiSelector: function (selector) { selector.insertBefore(j.$("div.content-table").first()); },
+    },
+    init(page) {
+        if (document.title == "Just a moment...") {
+            con.log("loading");
+            page.cdn();
+            return;
+        }
+        api.storage.addStyle(__webpack_require__(143).toString());
+        j.$(document).ready(function () {
+            if (page.url.split("/")[3] === "watch" || (page.url.split("/")[3] !== null && j.$("div.content-table > table > thead > tr > th.c1").text() === "Episode")) {
+                page.handlePage();
+            }
+        });
+    }
+};
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(3), __webpack_require__(1)))
+
+/***/ }),
+/* 55 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* WEBPACK VAR INJECTION */(function(api, con, j, utils) {/* harmony import */ var _src_MALSync_src_pages_pages__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8);
+/* harmony import */ var _src_MALSync_src_pages_adult_pages__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(49);
+
+
+const pages = Object.assign({}, _src_MALSync_src_pages_pages__WEBPACK_IMPORTED_MODULE_0__[/* pages */ "a"], _src_MALSync_src_pages_adult_pages__WEBPACK_IMPORTED_MODULE_1__[/* pages */ "a"]);
 api.storage.addStyle = function () { };
 var css = "font-size: 40px; padding-bottom: 3px; color: white; text-shadow: -1px -1px #2e51a2, 1px -1px #2e51a2, -1px 1px #2e51a2, 1px 1px #2e51a2, 2px 2px #2e51a2, 3px 3px #2e51a2;";
 console.log("%cDiscord-Anime-Gaming", css, "Version: " + api.storage.version());
@@ -5200,8 +5576,8 @@ function inIframe() {
     }
 }
 function getPage(url) {
-    for (var key in _MALSync_src_pages_pages__WEBPACK_IMPORTED_MODULE_0__[/* pages */ "a"]) {
-        var page = _MALSync_src_pages_pages__WEBPACK_IMPORTED_MODULE_0__[/* pages */ "a"][key];
+    for (var key in pages) {
+        var page = pages[key];
         if (j.$.isArray(page.domain)) {
             for (var k in page.domain) {
                 var singleDomain = page.domain[k];
@@ -5329,91 +5705,7 @@ function getTimeleft() {
     return timeLeft;
 }
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(1), __webpack_require__(4), __webpack_require__(0), __webpack_require__(3)))
-
-/***/ }),
-/* 50 */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-        var result = __webpack_require__(51);
-
-        if (typeof result === "string") {
-            module.exports = result;
-        } else {
-            module.exports = result.toString();
-        }
-    
-
-/***/ }),
-/* 51 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(2)(false);
-// imports
-
-
-// module
-exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: #d5f406;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: #d5f406;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n#footer {\n  z-index: 2;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  height: auto !important;\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
-/* 52 */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-        var result = __webpack_require__(53);
-
-        if (typeof result === "string") {
-            module.exports = result;
-        } else {
-            module.exports = result.toString();
-        }
-    
-
-/***/ }),
-/* 53 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(2)(false);
-// imports
-
-
-// module
-exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: #72cefe;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: #72cefe;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n#footer {\n  z-index: 2;\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
-/* 54 */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-        var result = __webpack_require__(55);
-
-        if (typeof result === "string") {
-            module.exports = result;
-        } else {
-            module.exports = result.toString();
-        }
-    
-
-/***/ }),
-/* 55 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(2)(false);
-// imports
-
-
-// module
-exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: #694ba1;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: #694ba1;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n#MalData select option {\n  background-color: white;\n}\nbody.dark #MalData select option {\n  background-color: #1c1b26 !important;\n}\n#malp {\n  margin: 0;\n}\n", ""]);
-
-// exports
-
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(1), __webpack_require__(3), __webpack_require__(0), __webpack_require__(4)))
 
 /***/ }),
 /* 56 */
@@ -5438,7 +5730,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: white;\n}\n.mal-sync-active {\n  background-color: #b2d1ff !important;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: white;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n#malp {\n  background-color: #555;\n  padding: 10px 7px 5px 7px;\n}\n#malp span {\n  color: white;\n}\n#malp select > * {\n  background-color: #555 !important;\n}\n", ""]);
+exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: #d5f406;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: #d5f406;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n#footer {\n  z-index: 2;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  height: auto !important;\n}\n", ""]);
 
 // exports
 
@@ -5466,7 +5758,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: inherit;\n}\n.mal-sync-active {\n  background-color: #cee1ff;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: inherit;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n#malp {\n  margin: 0;\n}\n#malp span {\n  color: inherit;\n}\n#malp select > * {\n  background-color: white !important;\n}\n@media only screen and (max-width: 1440px) {\n  #malp .MalLogin {\n    width: 100%;\n  }\n}\n.MALSyncDark #MalData select option {\n  background-color: black !important;\n}\n.MALSyncDark .mal-sync-active {\n  background-color: #0e1d35;\n}\n", ""]);
+exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: #72cefe;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: #72cefe;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n#footer {\n  z-index: 2;\n}\n", ""]);
 
 // exports
 
@@ -5494,7 +5786,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: black;\n}\n.mal-sync-active {\n  background-color: #cee1ff !important;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: black;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n#malp {\n  background-color: #fff;\n  padding: 20px;\n  border-radius: 2px;\n  -webkit-box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.2), 0 3px 4px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.14);\n  box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.2), 0 3px 4px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.14);\n  margin-bottom: 20px;\n  position: relative;\n}\n#malp span {\n  color: black;\n}\n#malp select > * {\n  background-color: white !important;\n}\n@media only screen and (max-width: 1320px) {\n  #malp .MalLogin {\n    width: 100%;\n  }\n}\n", ""]);
+exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: #694ba1;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: #694ba1;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n#MalData select option {\n  background-color: white;\n}\nbody.dark #MalData select option {\n  background-color: #1c1b26 !important;\n}\n#malp {\n  margin: 0;\n}\n", ""]);
 
 // exports
 
@@ -5522,7 +5814,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: #ffc119;\n}\n.mal-sync-active {\n  background-color: #002966 !important;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: #ffc119;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n#malp * {\n  font-size: 13px;\n}\n", ""]);
+exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: white;\n}\n.mal-sync-active {\n  background-color: #b2d1ff !important;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: white;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n#malp {\n  background-color: #555;\n  padding: 10px 7px 5px 7px;\n}\n#malp span {\n  color: white;\n}\n#malp select > * {\n  background-color: #555 !important;\n}\n", ""]);
 
 // exports
 
@@ -5550,7 +5842,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: white;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: white;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n.mal-sync-active a {\n  background-color: #72abff !important;\n}\n#flashinfo-div {\n  z-index: 100 !important;\n}\n#malp #malVolumes,\n#malp #malEpisodes {\n  float: none;\n  display: inline-block;\n  border-radius: 0;\n}\n", ""]);
+exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: inherit;\n}\n.mal-sync-active {\n  background-color: #cee1ff;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: inherit;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n#malp {\n  margin: 0;\n}\n#malp span {\n  color: inherit;\n}\n#malp select > * {\n  background-color: white !important;\n}\n@media only screen and (max-width: 1440px) {\n  #malp .MalLogin {\n    width: 100%;\n  }\n}\n.MALSyncDark #MalData select option {\n  background-color: black !important;\n}\n.MALSyncDark .mal-sync-active {\n  background-color: #0e1d35;\n}\n", ""]);
 
 // exports
 
@@ -5578,7 +5870,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: white;\n}\n.mal-sync-active {\n  background-color: #bbbbbb;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: white;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n#malp {\n  color: white;\n}\n#flash-div-top button,\n#flash-div-bottom button,\n#flashinfo-div button {\n  background: none;\n  box-shadow: none;\n  -moz-box-shadow: none;\n  -webkit-box-shadow: none;\n}\n#flash-div-top .undoButton,\n#flash-div-bottom .undoButton,\n#flashinfo-div .undoButton {\n  margin-left: auto;\n  margin-right: auto;\n}\n", ""]);
+exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: black;\n}\n.mal-sync-active {\n  background-color: #cee1ff !important;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: black;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n#malp {\n  background-color: #fff;\n  padding: 20px;\n  border-radius: 2px;\n  -webkit-box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.2), 0 3px 4px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.14);\n  box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.2), 0 3px 4px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.14);\n  margin-bottom: 20px;\n  position: relative;\n}\n#malp span {\n  color: black;\n}\n#malp select > * {\n  background-color: white !important;\n}\n@media only screen and (max-width: 1320px) {\n  #malp .MalLogin {\n    width: 100%;\n  }\n}\n", ""]);
 
 // exports
 
@@ -5606,7 +5898,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: black;\n}\n.mal-sync-active {\n  background-color: #0066ff;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: black;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n", ""]);
+exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: #ffc119;\n}\n.mal-sync-active {\n  background-color: #002966 !important;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: #ffc119;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n#malp * {\n  font-size: 13px;\n}\n", ""]);
 
 // exports
 
@@ -5634,7 +5926,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: white;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: white;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n#malp {\n  margin-top: 1rem;\n  border-top: 0 solid hsla(0, 0%, 100%, 0.05);\n  border-width: 1px 0;\n  font-size: 14px;\n  padding: 10px 5px 0;\n  padding-top: 1rem;\n}\n#malp select {\n  display: inline-block;\n  width: auto;\n}\n#malp input {\n  display: inline-block;\n}\n.my-float.open-info-popup {\n  height: 100%;\n  width: 100%;\n  margin: 0 !important;\n}\n", ""]);
+exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: white;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: white;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n.mal-sync-active a {\n  background-color: #72abff !important;\n}\n#flashinfo-div {\n  z-index: 100 !important;\n}\n#malp #malVolumes,\n#malp #malEpisodes {\n  float: none;\n  display: inline-block;\n  border-radius: 0;\n}\n", ""]);
 
 // exports
 
@@ -5662,7 +5954,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: inherit;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: inherit;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n.miniMAL-Fullscreen .open-info-popup.floatbutton,\n.miniMAL-hide .open-info-popup.floatbutton,\n.miniMAL-Fullscreen #flashinfo-div,\n.miniMAL-hide #flashinfo-div,\n.miniMAL-Fullscreen #flash-div-bottom,\n.miniMAL-hide #flash-div-bottom,\n.miniMAL-Fullscreen #flash-div-top,\n.miniMAL-hide #flash-div-top {\n  display: none !important;\n}\n#malp {\n  max-width: 700px;\n}\n", ""]);
+exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: white;\n}\n.mal-sync-active {\n  background-color: #bbbbbb;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: white;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n#malp {\n  color: white;\n}\n#flash-div-top button,\n#flash-div-bottom button,\n#flashinfo-div button {\n  background: none;\n  box-shadow: none;\n  -moz-box-shadow: none;\n  -webkit-box-shadow: none;\n}\n#flash-div-top .undoButton,\n#flash-div-bottom .undoButton,\n#flashinfo-div .undoButton {\n  margin-left: auto;\n  margin-right: auto;\n}\n", ""]);
 
 // exports
 
@@ -5690,7 +5982,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: inherit;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: inherit;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n.miniMAL-Fullscreen .open-info-popup.floatbutton,\n.miniMAL-hide .open-info-popup.floatbutton,\n.miniMAL-Fullscreen #flashinfo-div,\n.miniMAL-hide #flashinfo-div,\n.miniMAL-Fullscreen #flash-div-bottom,\n.miniMAL-hide #flash-div-bottom,\n.miniMAL-Fullscreen #flash-div-top,\n.miniMAL-hide #flash-div-top {\n  display: none !important;\n}\n#malp {\n  max-width: 700px;\n  margin: 0;\n}\n.noApiKey [data-qa-id=\"moreButton\"] {\n  background-color: red;\n}\n", ""]);
+exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: black;\n}\n.mal-sync-active {\n  background-color: #0066ff;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: black;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n", ""]);
 
 // exports
 
@@ -5718,7 +6010,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: white;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: white;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n.miniMAL-Fullscreen .open-info-popup.floatbutton,\n.miniMAL-hide .open-info-popup.floatbutton,\n.miniMAL-Fullscreen #flashinfo-div,\n.miniMAL-hide #flashinfo-div,\n.miniMAL-Fullscreen #flash-div-bottom,\n.miniMAL-hide #flash-div-bottom,\n.miniMAL-Fullscreen #flash-div-top,\n.miniMAL-hide #flash-div-top {\n  display: none !important;\n}\n", ""]);
+exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: white;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: white;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n#malp {\n  margin-top: 1rem;\n  border-top: 0 solid hsla(0, 0%, 100%, 0.05);\n  border-width: 1px 0;\n  font-size: 14px;\n  padding: 10px 5px 0;\n  padding-top: 1rem;\n}\n#malp select {\n  display: inline-block;\n  width: auto;\n}\n#malp input {\n  display: inline-block;\n}\n.my-float.open-info-popup {\n  height: 100%;\n  width: 100%;\n  margin: 0 !important;\n}\n", ""]);
 
 // exports
 
@@ -5746,7 +6038,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: inherit;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: inherit;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n.mal-sync-active a {\n  background-color: #72abff !important;\n}\n#MalData select option {\n  background-color: white;\n}\nbody.darkmode #MalData select option {\n  background-color: #3b3e45 !important;\n}\n", ""]);
+exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: inherit;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: inherit;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n.miniMAL-Fullscreen .open-info-popup.floatbutton,\n.miniMAL-hide .open-info-popup.floatbutton,\n.miniMAL-Fullscreen #flashinfo-div,\n.miniMAL-hide #flashinfo-div,\n.miniMAL-Fullscreen #flash-div-bottom,\n.miniMAL-hide #flash-div-bottom,\n.miniMAL-Fullscreen #flash-div-top,\n.miniMAL-hide #flash-div-top {\n  display: none !important;\n}\n#malp {\n  max-width: 700px;\n}\n", ""]);
 
 // exports
 
@@ -5774,7 +6066,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: black;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: black;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\nsection.main .content-wrapper .theatre .theatre-info {\n  margin-bottom: 1rem;\n}\n#flashinfo-div {\n  z-index: 99999 !important;\n}\n#malp,\n#malTotal,\n#AddMalDiv,\n#AddMal {\n  color: #999 !important;\n}\n#malStatus,\n#malUserRating,\n#malEpisodes {\n  background: transparent !important;\n  color: #d5015b !important;\n}\n#malStatus option,\n#malUserRating option,\n#malEpisodes option {\n  background: black !important;\n  color: #d5015b !important;\n}\n#malRating {\n  color: #d5015b !important;\n}\n.mal-sync-active .episode-label-wrap {\n  background-color: #002966;\n  background-color: #002966ba;\n}\n", ""]);
+exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: inherit;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: inherit;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n.miniMAL-Fullscreen .open-info-popup.floatbutton,\n.miniMAL-hide .open-info-popup.floatbutton,\n.miniMAL-Fullscreen #flashinfo-div,\n.miniMAL-hide #flashinfo-div,\n.miniMAL-Fullscreen #flash-div-bottom,\n.miniMAL-hide #flash-div-bottom,\n.miniMAL-Fullscreen #flash-div-top,\n.miniMAL-hide #flash-div-top {\n  display: none !important;\n}\n#malp {\n  max-width: 700px;\n  margin: 0;\n}\n.noApiKey [data-qa-id=\"moreButton\"] {\n  background-color: red;\n}\n", ""]);
 
 // exports
 
@@ -5802,7 +6094,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: #694ba1;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: #694ba1;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n#MalData select option {\n  background-color: white;\n}\nbody.dark #MalData select option {\n  background-color: #1c1b26 !important;\n}\n#malp {\n  margin: 0;\n}\n#malp .info {\n  display: block;\n}\n#malp #malEpisodes {\n  display: inline-block;\n  border: 0;\n  padding: 0;\n  margin-bottom: 4px;\n}\n#malp select {\n  margin-left: -3px !important;\n}\n", ""]);
+exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: white;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: white;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n.miniMAL-Fullscreen .open-info-popup.floatbutton,\n.miniMAL-hide .open-info-popup.floatbutton,\n.miniMAL-Fullscreen #flashinfo-div,\n.miniMAL-hide #flashinfo-div,\n.miniMAL-Fullscreen #flash-div-bottom,\n.miniMAL-hide #flash-div-bottom,\n.miniMAL-Fullscreen #flash-div-top,\n.miniMAL-hide #flash-div-top {\n  display: none !important;\n}\n", ""]);
 
 // exports
 
@@ -5830,7 +6122,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: white;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: white;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n.mal-sync-active a {\n  background-color: #72abff !important;\n}\n#flashinfo-div {\n  z-index: 100 !important;\n}\n#malp #malVolumes,\n#malp #malEpisodes {\n  float: none;\n  display: inline-block;\n  border-radius: 0;\n}\n#MalData {\n  display: initial !important;\n}\n.cap-header:visited {\n  color: #fff !important;\n}\n", ""]);
+exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: inherit;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: inherit;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n.mal-sync-active a {\n  background-color: #72abff !important;\n}\n#MalData select option {\n  background-color: white;\n}\nbody.darkmode #MalData select option {\n  background-color: #3b3e45 !important;\n}\n", ""]);
 
 // exports
 
@@ -5858,7 +6150,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: white;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: white;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n#malp * {\n  color: white;\n}\n", ""]);
+exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: black;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: black;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\nsection.main .content-wrapper .theatre .theatre-info {\n  margin-bottom: 1rem;\n}\n#flashinfo-div {\n  z-index: 99999 !important;\n}\n#malp,\n#malTotal,\n#AddMalDiv,\n#AddMal {\n  color: #999 !important;\n}\n#malStatus,\n#malUserRating,\n#malEpisodes {\n  background: transparent !important;\n  color: #d5015b !important;\n}\n#malStatus option,\n#malUserRating option,\n#malEpisodes option {\n  background: black !important;\n  color: #d5015b !important;\n}\n#malRating {\n  color: #d5015b !important;\n}\n.mal-sync-active .episode-label-wrap {\n  background-color: #002966;\n  background-color: #002966ba;\n}\n", ""]);
 
 // exports
 
@@ -5886,7 +6178,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: inherit;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: inherit;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n.mal-sync-active {\n  border: 2px solid #002966 !important;\n}\n#malp {\n  margin: 10px;\n  max-width: 1000px;\n}\n#malp select option {\n  color: white;\n}\n", ""]);
+exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: #694ba1;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: #694ba1;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n#MalData select option {\n  background-color: white;\n}\nbody.dark #MalData select option {\n  background-color: #1c1b26 !important;\n}\n#malp {\n  margin: 0;\n}\n#malp .info {\n  display: block;\n}\n#malp #malEpisodes {\n  display: inline-block;\n  border: 0;\n  padding: 0;\n  margin-bottom: 4px;\n}\n#malp select {\n  margin-left: -3px !important;\n}\n", ""]);
 
 // exports
 
@@ -5914,7 +6206,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: black;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: black;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n", ""]);
+exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: white;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: white;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n.mal-sync-active a {\n  background-color: #72abff !important;\n}\n#flashinfo-div {\n  z-index: 100 !important;\n}\n#malp #malVolumes,\n#malp #malEpisodes {\n  float: none;\n  display: inline-block;\n  border-radius: 0;\n}\n#MalData {\n  display: initial !important;\n}\n.cap-header:visited {\n  color: #fff !important;\n}\n", ""]);
 
 // exports
 
@@ -5942,7 +6234,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: #72cefe;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: #72cefe;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n.mal-sync-active {\n  background-color: #cfe2ff;\n}\n#malp select option {\n  background-color: white;\n  color: black;\n}\n#malp #MalData > * {\n  white-space: nowrap;\n}\n#malp select,\n#malp input,\n#malp a,\n#malp #malTotalVol,\n#malp #malTotalCha {\n  display: inline-block;\n  color: #07c;\n}\n#malp .info {\n  border: none;\n  padding: 0;\n  color: inherit;\n  margin: 0;\n  width: auto;\n  font-weight: 600;\n  color: #696969;\n  font-size: 100%;\n  font-family: roboto, sans-serif;\n  margin-right: 5px;\n}\n", ""]);
+exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: white;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: white;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n#malp * {\n  color: white;\n}\n", ""]);
 
 // exports
 
@@ -5951,50 +6243,64 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
 /* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(2)(false);
-// imports
 
+        var result = __webpack_require__(95);
 
-// module
-exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: black;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: black;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n#flashinfo-div,\n#flash-div-bottom {\n  z-index: 2000 !important;\n}\n", ""]);
-
-// exports
-
+        if (typeof result === "string") {
+            module.exports = result;
+        } else {
+            module.exports = result.toString();
+        }
+    
 
 /***/ }),
 /* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
+exports = module.exports = __webpack_require__(2)(false);
+// imports
 
-        var result = __webpack_require__(96);
 
-        if (typeof result === "string") {
-            module.exports = result;
-        } else {
-            module.exports = result.toString();
-        }
-    
+// module
+exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: inherit;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: inherit;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n.mal-sync-active {\n  border: 2px solid #002966 !important;\n}\n#malp {\n  margin: 10px;\n  max-width: 1000px;\n}\n#malp select option {\n  color: white;\n}\n", ""]);
+
+// exports
+
 
 /***/ }),
 /* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(2)(false);
-// imports
 
+        var result = __webpack_require__(97);
 
-// module
-exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: black;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: black;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n#malp select option {\n  color: black !important;\n  background-color: white !important;\n}\n", ""]);
-
-// exports
-
+        if (typeof result === "string") {
+            module.exports = result;
+        } else {
+            module.exports = result.toString();
+        }
+    
 
 /***/ }),
 /* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
+exports = module.exports = __webpack_require__(2)(false);
+// imports
 
-        var result = __webpack_require__(98);
+
+// module
+exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: black;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: black;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 98 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+        var result = __webpack_require__(99);
 
         if (typeof result === "string") {
             module.exports = result;
@@ -6004,7 +6310,7 @@ exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,
     
 
 /***/ }),
-/* 98 */
+/* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -6012,24 +6318,10 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: black;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: black;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n#malp select,\na,\ninput,\nspan {\n  color: #bbb !important;\n}\n#malp select option {\n  color: #bbb !important;\n  background-color: #161616 !important;\n}\n", ""]);
+exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: #72cefe;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: #72cefe;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n.mal-sync-active {\n  background-color: #cfe2ff;\n}\n#malp select option {\n  background-color: white;\n  color: black;\n}\n#malp #MalData > * {\n  white-space: nowrap;\n}\n#malp select,\n#malp input,\n#malp a,\n#malp #malTotalVol,\n#malp #malTotalCha {\n  display: inline-block;\n  color: #07c;\n}\n#malp .info {\n  border: none;\n  padding: 0;\n  color: inherit;\n  margin: 0;\n  width: auto;\n  font-weight: 600;\n  color: #696969;\n  font-size: 100%;\n  font-family: roboto, sans-serif;\n  margin-right: 5px;\n}\n", ""]);
 
 // exports
 
-
-/***/ }),
-/* 99 */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-        var result = __webpack_require__(100);
-
-        if (typeof result === "string") {
-            module.exports = result;
-        } else {
-            module.exports = result.toString();
-        }
-    
 
 /***/ }),
 /* 100 */
@@ -6040,7 +6332,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: white;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: white;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n#malp {\n  font-size: 14px;\n  padding: 10px 0 10px;\n  padding-top: 1rem;\n  padding-bottom: 1rem;\n}\n#malRating,\n#AddMal {\n  text-decoration: underline;\n}\n.info {\n  border-left: 0px;\n}\n", ""]);
+exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: black;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: black;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n#flashinfo-div,\n#flash-div-bottom {\n  z-index: 2000 !important;\n}\n", ""]);
 
 // exports
 
@@ -6068,7 +6360,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: black;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: black;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\nhtml #malp select option {\n  color: black !important;\n  background-color: white !important;\n}\nhtml.dark #malp select,\nhtml.dark a,\nhtml.dark input,\nhtml.dark span {\n  color: #ccc !important;\n}\nhtml.dark #malp select option {\n  color: #ccc !important;\n  background-color: #111 !important;\n}\n", ""]);
+exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: black;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: black;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n#malp select option {\n  color: black !important;\n  background-color: white !important;\n}\n", ""]);
 
 // exports
 
@@ -6096,7 +6388,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: black;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: black;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\ndiv#app.dark-theme a,\ndiv#app.dark-theme span,\ndiv#app.dark-theme input,\ndiv#app.dark-theme select {\n  color: white !important;\n}\ndiv#app.dark-theme #malp select option {\n  color: white !important;\n  background-color: black !important;\n}\ndiv#app.light-theme select option {\n  color: black !important;\n  background-color: white !important;\n}\n#malp {\n  margin: 20px;\n}\n", ""]);
+exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: black;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: black;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n#malp select,\na,\ninput,\nspan {\n  color: #bbb !important;\n}\n#malp select option {\n  color: #bbb !important;\n  background-color: #161616 !important;\n}\n", ""]);
 
 // exports
 
@@ -6124,7 +6416,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: black;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: black;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n#MalData > * {\n  white-space: nowrap;\n}\n#malp select,\n#malp input,\n#malp a,\n#malp #malTotalVol,\n#malp #malTotalCha {\n  display: inline-block !important;\n}\n#malp select option {\n  color: black !important;\n  background-color: white !important;\n}\n#malp {\n  background-color: #fff;\n  border-radius: 3px;\n  box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.1);\n  padding: 15px 20px 20px;\n}\n", ""]);
+exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: white;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: white;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n#malp {\n  font-size: 14px;\n  padding: 10px 0 10px;\n  padding-top: 1rem;\n  padding-bottom: 1rem;\n}\n#malRating,\n#AddMal {\n  text-decoration: underline;\n}\n.info {\n  border-left: 0px;\n}\n", ""]);
 
 // exports
 
@@ -6152,7 +6444,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: black;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: black;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n#malp a,\nselect,\ninput,\n#malTotal {\n  color: white !important;\n}\n", ""]);
+exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: black;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: black;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\nhtml #malp select option {\n  color: black !important;\n  background-color: white !important;\n}\nhtml.dark #malp select,\nhtml.dark a,\nhtml.dark input,\nhtml.dark span {\n  color: #ccc !important;\n}\nhtml.dark #malp select option {\n  color: #ccc !important;\n  background-color: #111 !important;\n}\n", ""]);
 
 // exports
 
@@ -6180,7 +6472,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: black;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: black;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\nhtml #malp select option {\n  color: black !important;\n  background-color: white !important;\n}\ni.my-float.open-info-popup {\n  padding-right: 0px !important;\n}\n", ""]);
+exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: black;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: black;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\ndiv#app.dark-theme a,\ndiv#app.dark-theme span,\ndiv#app.dark-theme input,\ndiv#app.dark-theme select {\n  color: white !important;\n}\ndiv#app.dark-theme #malp select option {\n  color: white !important;\n  background-color: black !important;\n}\ndiv#app.light-theme select option {\n  color: black !important;\n  background-color: white !important;\n}\n#malp {\n  margin: 20px;\n}\n", ""]);
 
 // exports
 
@@ -6208,7 +6500,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: black;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: black;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n", ""]);
+exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: black;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: black;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n#MalData > * {\n  white-space: nowrap;\n}\n#malp select,\n#malp input,\n#malp a,\n#malp #malTotalVol,\n#malp #malTotalCha {\n  display: inline-block !important;\n}\n#malp select option {\n  color: black !important;\n  background-color: white !important;\n}\n#malp {\n  background-color: #fff;\n  border-radius: 3px;\n  box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.1);\n  padding: 15px 20px 20px;\n}\n", ""]);
 
 // exports
 
@@ -6236,7 +6528,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: black;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: black;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n#malp {\n  margin-top: 10px;\n}\n#malp select option {\n  color: black !important;\n  background-color: white !important;\n}\n", ""]);
+exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: black;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: black;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n#malp a,\nselect,\ninput,\n#malTotal {\n  color: white !important;\n}\n", ""]);
 
 // exports
 
@@ -6264,7 +6556,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: black;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: black;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n#malp {\n  font-family: arial, helvetica, sans-serif;\n  max-width: 90%;\n  margin-left: 10px;\n  color: white!important;\n}\n#malp a,\n#malp select,\n#malp input,\n#malp span {\n  color: white!important;\n}\n#malp select option {\n  color: white !important;\n  background-color: black !important;\n}\n#MalData > * {\n  white-space: nowrap;\n}\n#malp select,\n#malp input,\n#malp a,\n#malp #malTotalVol,\n#malp #malTotalCha {\n  display: inline-block !important;\n}\n.mal-sync-active .infoept {\n  background-color: #002966;\n}\n.mal-sync-active div {\n  color: white !important;\n}\n", ""]);
+exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: black;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: black;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\nhtml #malp select option {\n  color: black !important;\n  background-color: white !important;\n}\ni.my-float.open-info-popup {\n  padding-right: 0px !important;\n}\n", ""]);
 
 // exports
 
@@ -6292,7 +6584,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: white;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: white;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n#malp {\n  margin-bottom: 10px;\n}\n#malp a:hover {\n  color: #e3474b;\n}\n#MalData > * {\n  white-space: nowrap;\n}\n#malp select,\n#malp input,\n#malp a,\n#malp #malTotalVol,\n#malp #malTotalCha {\n  display: inline-block !important;\n}\n", ""]);
+exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: black;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: black;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n", ""]);
 
 // exports
 
@@ -6320,7 +6612,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: black;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: black;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n#malp select option {\n  color: white !important;\n  background-color: black !important;\n}\n#malp a,\nselect,\ninput,\nspan {\n  color: white !important;\n}\n", ""]);
+exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: black;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: black;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n#malp {\n  margin-top: 10px;\n}\n#malp select option {\n  color: black !important;\n  background-color: white !important;\n}\n", ""]);
 
 // exports
 
@@ -6348,7 +6640,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: black;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: black;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n#malp span,\nselect,\ninput,\na {\n  color: white !important;\n}\n#malp select option {\n  color: white !important;\n  background-color: black !important;\n}\n#malp {\n  padding-left: 10px;\n  padding-right: 10px;\n}\n#malp .info {\n  background-color: transparent;\n  border: none;\n}\n", ""]);
+exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: black;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: black;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n#malp {\n  font-family: arial, helvetica, sans-serif;\n  max-width: 90%;\n  margin-left: 10px;\n  color: white!important;\n}\n#malp a,\n#malp select,\n#malp input,\n#malp span {\n  color: white!important;\n}\n#malp select option {\n  color: white !important;\n  background-color: black !important;\n}\n#MalData > * {\n  white-space: nowrap;\n}\n#malp select,\n#malp input,\n#malp a,\n#malp #malTotalVol,\n#malp #malTotalCha {\n  display: inline-block !important;\n}\n.mal-sync-active .infoept {\n  background-color: #002966;\n}\n.mal-sync-active div {\n  color: white !important;\n}\n", ""]);
 
 // exports
 
@@ -6376,7 +6668,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: black;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: black;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n#malp select option {\n  color: black !important;\n  background-color: white !important;\n}\n", ""]);
+exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: white;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: white;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n#malp {\n  margin-bottom: 10px;\n}\n#malp a:hover {\n  color: #e3474b;\n}\n#MalData > * {\n  white-space: nowrap;\n}\n#malp select,\n#malp input,\n#malp a,\n#malp #malTotalVol,\n#malp #malTotalCha {\n  display: inline-block !important;\n}\n", ""]);
 
 // exports
 
@@ -6404,7 +6696,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: black;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: black;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n#flashinfo-div {\n  z-index: 100 !important;\n}\n#malp #malVolumes,\n#malp #malEpisodes,\n#malp span {\n  float: none;\n  display: inline-block;\n  border-radius: 0;\n  margin-top: 0;\n}\n#malp select option {\n  color: black !important;\n  background-color: white !important;\n}\n", ""]);
+exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: black;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: black;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n#malp select option {\n  color: white !important;\n  background-color: black !important;\n}\n#malp a,\nselect,\ninput,\nspan {\n  color: white !important;\n}\n", ""]);
 
 // exports
 
@@ -6432,7 +6724,231 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
+exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: black;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: black;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n#malp span,\nselect,\ninput,\na {\n  color: white !important;\n}\n#malp select option {\n  color: white !important;\n  background-color: black !important;\n}\n#malp {\n  padding-left: 10px;\n  padding-right: 10px;\n}\n#malp .info {\n  background-color: transparent;\n  border: none;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 129 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+        var result = __webpack_require__(130);
+
+        if (typeof result === "string") {
+            module.exports = result;
+        } else {
+            module.exports = result.toString();
+        }
+    
+
+/***/ }),
+/* 130 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)(false);
+// imports
+
+
+// module
 exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: black;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: black;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n#malp select option {\n  color: black !important;\n  background-color: white !important;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 131 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+        var result = __webpack_require__(132);
+
+        if (typeof result === "string") {
+            module.exports = result;
+        } else {
+            module.exports = result.toString();
+        }
+    
+
+/***/ }),
+/* 132 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)(false);
+// imports
+
+
+// module
+exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: black;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: black;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n#flashinfo-div {\n  z-index: 100 !important;\n}\n#malp #malVolumes,\n#malp #malEpisodes,\n#malp span {\n  float: none;\n  display: inline-block;\n  border-radius: 0;\n  margin-top: 0;\n}\n#malp select option {\n  color: black !important;\n  background-color: white !important;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 133 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+        var result = __webpack_require__(134);
+
+        if (typeof result === "string") {
+            module.exports = result;
+        } else {
+            module.exports = result.toString();
+        }
+    
+
+/***/ }),
+/* 134 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)(false);
+// imports
+
+
+// module
+exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: black;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: black;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n#malp select option {\n  color: black !important;\n  background-color: white !important;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 135 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+        var result = __webpack_require__(136);
+
+        if (typeof result === "string") {
+            module.exports = result;
+        } else {
+            module.exports = result.toString();
+        }
+    
+
+/***/ }),
+/* 136 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)(false);
+// imports
+
+
+// module
+exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: black;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: black;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 137 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+        var result = __webpack_require__(138);
+
+        if (typeof result === "string") {
+            module.exports = result;
+        } else {
+            module.exports = result.toString();
+        }
+    
+
+/***/ }),
+/* 138 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)(false);
+// imports
+
+
+// module
+exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: black;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: black;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n#malp select option {\n  color: white !important;\n  background-color: black !important;\n}\n#malp span,\nselect,\ninput,\na {\n  color: white !important;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 139 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+        var result = __webpack_require__(140);
+
+        if (typeof result === "string") {
+            module.exports = result;
+        } else {
+            module.exports = result.toString();
+        }
+    
+
+/***/ }),
+/* 140 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)(false);
+// imports
+
+
+// module
+exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: black;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: black;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n#malp select option {\n  color: black !important;\n  background-color: white !important;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 141 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+        var result = __webpack_require__(142);
+
+        if (typeof result === "string") {
+            module.exports = result;
+        } else {
+            module.exports = result.toString();
+        }
+    
+
+/***/ }),
+/* 142 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)(false);
+// imports
+
+
+// module
+exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: #f62ed3;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: #f62ed3;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 143 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+        var result = __webpack_require__(144);
+
+        if (typeof result === "string") {
+            module.exports = result;
+        } else {
+            module.exports = result.toString();
+        }
+    
+
+/***/ }),
+/* 144 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)(false);
+// imports
+
+
+// module
+exports.push([module.i, "#malStatus,\n#malTotal,\n#malEpisodes,\n#malUserRating,\n#malRating,\n#malVolumes,\n#malTotalVol,\n#malTotalCha,\n#AddMal {\n  color: white;\n}\n.mal-sync-active {\n  background-color: #002966;\n}\n#malp select option {\n  background-color: #111111;\n}\n#malp #malStatus,\n#malp #malUserRating,\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  font-size: inherit;\n  font-family: inherit;\n  background: transparent;\n  border-width: 1px;\n  border-color: grey;\n  text-decoration: none;\n  outline: medium none;\n  border-width: 0px;\n  height: auto;\n  padding: 0;\n  margin: 0;\n  line-height: 1;\n}\n#malp #malEpisodes,\n#malp #malVolumes,\n#malp #malEpisodes {\n  text-align: center;\n  border-bottom-width: 1px;\n}\n#malp #malEpisodes:focus,\n#malp #malVolumes:focus,\n#malp #malEpisodes:focus {\n  border-color: white;\n}\n#malSyncProgress.ms-loading {\n  height: 4px;\n  width: 100%;\n  position: relative;\n  overflow: hidden;\n  background-color: #ddd;\n}\n#malSyncProgress.ms-loading:before {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: -200px;\n  width: 200px;\n  height: 4px;\n  background-color: #2980b9;\n  animation: loading 2s linear infinite;\n}\n@keyframes loading {\n  from {\n    left: -200px;\n    width: 30%;\n  }\n  50% {\n    width: 30%;\n  }\n  70% {\n    width: 70%;\n  }\n  80% {\n    left: 50%;\n  }\n  95% {\n    left: 120%;\n  }\n  to {\n    left: 100%;\n  }\n}\n#malSyncProgress.ms-done .ms-progress {\n  width: 100% !important;\n  background-color: #ff4081 !important;\n  transition: background-color 1s !important;\n}\n", ""]);
 
 // exports
 
